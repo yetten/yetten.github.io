@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="人生如梦,一尊还酹江月">
+<meta name="description" content="1、新建代码库在当前目录新建一个git代码库$ git init 新建一个目录，将其初始化为git代码库$ git init [project-name] 下载一个项目和它的整个代码历史$ git clone [url] #2、配置 显示当前的Git配置$ git config –list  编辑Git配置文件$ git config -e [–global]  设置提交代码时的用户信息$ git">
 <meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git的常用命令">
 <meta property="og:url" content="yetten.github.io/2016/05/23/new-article/index.html">
 <meta property="og:site_name" content="yetten's blog">
-<meta property="og:description" content="人生如梦,一尊还酹江月">
-<meta property="og:updated_time" content="2017-04-23T12:35:22.011Z">
+<meta property="og:description" content="1、新建代码库在当前目录新建一个git代码库$ git init 新建一个目录，将其初始化为git代码库$ git init [project-name] 下载一个项目和它的整个代码历史$ git clone [url] #2、配置 显示当前的Git配置$ git config –list  编辑Git配置文件$ git config -e [–global]  设置提交代码时的用户信息$ git">
+<meta property="og:updated_time" content="2017-08-03T05:24:28.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git的常用命令">
-<meta name="twitter:description" content="人生如梦,一尊还酹江月">
+<meta name="twitter:description" content="1、新建代码库在当前目录新建一个git代码库$ git init 新建一个目录，将其初始化为git代码库$ git init [project-name] 下载一个项目和它的整个代码历史$ git clone [url] #2、配置 显示当前的Git配置$ git config –list  编辑Git配置文件$ git config -e [–global]  设置提交代码时的用户信息$ git">
 
 
 
@@ -356,7 +356,42 @@
       
 
       
-        
+        <h1 id="1、新建代码库"><a href="#1、新建代码库" class="headerlink" title="1、新建代码库"></a>1、新建代码库</h1><p>在当前目录新建一个git代码库<br><br>$ git init</p>
+<p>新建一个目录，将其初始化为git代码库<br><br>$ git init [project-name]</p>
+<p>下载一个项目和它的整个代码历史<br><br>$ git clone [url]</p>
+<p>#2、配置<br> 显示当前的Git配置<br><br>$ git config –list<br></p>
+<p> 编辑Git配置文件<br><br>$ git config -e [–global]<br></p>
+<p> 设置提交代码时的用户信息<br><br>$ git config [–global] user.name “[name]”<br><br>$ git config [–global] user.email “[email address]”</p>
+<p>#3、增加/删除文件</p>
+<p> 添加指定文件到暂存区<br>$ git add [file1] [file2] …</p>
+<p> 添加指定目录到暂存区，包括子目录<br>$ git add [dir]</p>
+<p> 添加当前目录的所有文件到暂存区<br>$ git add .</p>
+<p> 添加每个变化前，都会要求确认<br> 对于同一个文件的多处变化，可以实现分次提交<br>$ git add -p</p>
+<p> 删除工作区文件，并且将这次删除放入暂存区<br>$ git rm [file1] [file2] …</p>
+<p> 停止追踪指定文件，但该文件会保留在工作区<br>$ git rm –cached [file]</p>
+<p> 改名文件，并且将这个改名放入暂存区<br>$ git mv [file-original] [file-renamed]</p>
+<p>#4、代码提交</p>
+<p> 提交暂存区到仓库区<br>$ git commit -m [message]</p>
+<p> 提交暂存区的指定文件到仓库区<br>$ git commit [file1] [file2] … -m [message]</p>
+<p> 提交工作区自上次commit之后的变化，直接到仓库区<br>$ git commit -a</p>
+<p> 提交时显示所有diff信息<br>$ git commit -v</p>
+<p> 使用一次新的commit，替代上一次提交<br> 如果代码没有任何新变化，则用来改写上一次commit的提交信息<br>$ git commit –amend -m [message]</p>
+<p> 重做上一次commit，并包括指定文件的新变化<br>$ git commit –amend [file1] [file2] …</p>
+<p>#5、分支</p>
+<p> 列出所有本地分支<br>$ git branch</p>
+<p> 列出所有远程分支<br>$ git branch -r</p>
+<p> 列出所有本地分支和远程分支<br>$ git branch -a</p>
+<p> 新建一个分支，但依然停留在当前分支<br>$ git branch [branch-name]</p>
+<p> 新建一个分支，并切换到该分支<br>$ git checkout -b [branch]</p>
+<p> 新建一个分支，指向指定commit<br>$ git branch [branch] [commit]</p>
+<p> 新建一个分支，与指定的远程分支建立追踪关系<br>$ git branch –track [branch] [remote-branch]</p>
+<p> 切换到指定分支，并更新工作区<br>$ git checkout [branch-name]</p>
+<p> 切换到上一个分支<br>$ git checkout -<br> 建立追踪关系，在现有分支与指定的远程分支之间<br>$ git branch –set-upstream [branch] [remote-branch]</p>
+<p> 合并指定分支到当前分支<br>$ git merge [branch]</p>
+<p> 选择一个commit，合并进当前分支<br>$ git cherry-pick [commit]</p>
+<p> 删除分支<br>$ git branch -d [branch-name]</p>
+<p> 删除远程分支<br>$ git push origin –delete [branch-name]<br>$ git branch -dr [remote/branch]</p>
+
       
     </div>
 
@@ -437,8 +472,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -500,6 +544,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、新建代码库"><span class="nav-number">1.</span> <span class="nav-text">1、新建代码库</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
