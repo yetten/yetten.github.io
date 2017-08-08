@@ -97,7 +97,7 @@
 <meta property="og:url" content="yetten.github.io/2016/07/29/Ajax/index.html">
 <meta property="og:site_name" content="yetten's blog">
 <meta property="og:description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
-<meta property="og:updated_time" content="2017-08-03T13:16:40.203Z">
+<meta property="og:updated_time" content="2017-08-08T07:19:27.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax的使用">
 <meta name="twitter:description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
@@ -360,7 +360,7 @@
 <h1 id="创建-XMLHttpRequest-对象"><a href="#创建-XMLHttpRequest-对象" class="headerlink" title="创建 XMLHttpRequest 对象"></a>创建 XMLHttpRequest 对象</h1><p>为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject ：<br><br>    var xmlhttp;<br>    if (window.XMLHttpRequest)<br>      {// code for IE7+, Firefox, Chrome, Opera, Safari<br>      xmlhttp=new XMLHttpRequest();<br>      }<br>    else<br>      {// code for IE6, IE5<br>      xmlhttp=new ActiveXObject(“Microsoft.XMLHTTP”);<br>      }</p>
 <h1 id="GET-还是-POST？"><a href="#GET-还是-POST？" class="headerlink" title="GET 还是 POST？"></a>GET 还是 POST？</h1><p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。<br>然而，在以下情况中，请使用 POST 请求：<br>无法使用缓存文件（更新服务器上的文件或数据库）<br>向服务器发送大量数据（POST 没有数据量限制）<br>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</p>
 <h1 id="方法-描述"><a href="#方法-描述" class="headerlink" title="方法    描述"></a>方法    描述</h1><p>open(method,url,async)<br>规定请求的类型、URL 以及是否异步处理请求。<br>method：请求的类型；GET 或 POST<br>url：文件在服务器上的位置<br>async：true（异步）或 false（同步）<br>send(string)<br>将请求发送到服务器。<br>string：仅用于 POST 请求</p>
-<h1 id="当使用-async-true-时-即是异步时"><a href="#当使用-async-true-时-即是异步时" class="headerlink" title="当使用 async=true 时(即是异步时)"></a>当使用 async=true 时(即是异步时)</h1><p>请规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数：<br>xmlhttp.onreadystatechange=function()<br>  {<br>  if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)<br>    {<br>    document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;<br>    }<br>  }<br>xmlhttp.open(“GET”,”test1.txt”,true);<br>xmlhttp.send();</p>
+<h1 id="当使用-async-true-时-即是异步时"><a href="#当使用-async-true-时-即是异步时" class="headerlink" title="当使用 async=true 时(即是异步时)"></a>当使用 async=true 时(即是异步时)</h1><p>请规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数：<br>    xmlhttp.onreadystatechange=function()<br>      {<br>      if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)<br>    {<br>    document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;<br>    }<br>      }<br>    xmlhttp.open(“GET”,”test1.txt”,true);<br>    xmlhttp.send();</p>
 <h1 id="responseText-属性"><a href="#responseText-属性" class="headerlink" title="responseText 属性"></a>responseText 属性</h1><p>如果来自服务器的响应并非 XML，请使用 responseText 属性。<br>responseText 属性返回字符串形式的响应，因此您可以这样使用：<br>document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;  </p>
 
       
@@ -488,7 +488,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -510,7 +510,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
