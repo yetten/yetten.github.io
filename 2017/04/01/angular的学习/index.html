@@ -1,0 +1,1446 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ng," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="angular介绍谷歌推出的一个框架,一个模块化,数据驱动,简化开发流程,更好的管理代码. 基本使用步骤 创建模块  提供了一个一个全局对象angular,调用module()方法 第一个参数：模块名称， 第二个参数：依赖模块名称 var app = angular.module(&amp;apos;app&amp;apos;,[]);  创建控制器  控制器作为连接模型和视图的桥梁存在 第一个参数：控制器的名称">
+<meta name="keywords" content="ng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angular框架的学习">
+<meta property="og:url" content="yetten.github.io/2017/04/01/angular的学习/index.html">
+<meta property="og:site_name" content="yetten's blog">
+<meta property="og:description" content="angular介绍谷歌推出的一个框架,一个模块化,数据驱动,简化开发流程,更好的管理代码. 基本使用步骤 创建模块  提供了一个一个全局对象angular,调用module()方法 第一个参数：模块名称， 第二个参数：依赖模块名称 var app = angular.module(&amp;apos;app&amp;apos;,[]);  创建控制器  控制器作为连接模型和视图的桥梁存在 第一个参数：控制器的名称">
+<meta property="og:image" content="http://carrotming.cn/assets/blogImg/angular-1.gif">
+<meta property="og:updated_time" content="2017-08-08T08:48:55.504Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angular框架的学习">
+<meta name="twitter:description" content="angular介绍谷歌推出的一个框架,一个模块化,数据驱动,简化开发流程,更好的管理代码. 基本使用步骤 创建模块  提供了一个一个全局对象angular,调用module()方法 第一个参数：模块名称， 第二个参数：依赖模块名称 var app = angular.module(&amp;apos;app&amp;apos;,[]);  创建控制器  控制器作为连接模型和视图的桥梁存在 第一个参数：控制器的名称">
+<meta name="twitter:image" content="http://carrotming.cn/assets/blogImg/angular-1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="yetten.github.io/2017/04/01/angular的学习/"/>
+
+
+
+
+
+  <title>angular框架的学习 | yetten's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yetten's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会飞的猪</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/04/01/angular的学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                angular框架的学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-01T17:12:44+08:00">
+                2017-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="angular介绍"><a href="#angular介绍" class="headerlink" title="angular介绍"></a>angular介绍</h2><p><strong>谷歌推出的一个框架,一个模块化,数据驱动,简化开发流程,更好的管理代码.</strong></p>
+<h2 id="基本使用步骤"><a href="#基本使用步骤" class="headerlink" title="基本使用步骤"></a>基本使用步骤</h2><blockquote>
+<p>创建模块</p>
+</blockquote>
+<pre><code>提供了一个一个全局对象angular,调用module()方法
+第一个参数：模块名称，
+第二个参数：依赖模块名称
+var app = angular.module(&apos;app&apos;,[]);
+</code></pre><blockquote>
+<p>创建控制器</p>
+</blockquote>
+<pre><code>控制器作为连接模型和视图的桥梁存在
+第一个参数：控制器的名称，
+第二个参数：依赖的服务
+ app.controller(&apos;lbmControler&apos;,[&apos;$scope&apos;,function ($scope) {
+        创建数据
+//$scope.name=&apos;lbm&apos;   
+}]);
+</code></pre><blockquote>
+<p>绑定模块</p>
+</blockquote>
+<pre><code>只需要绑定一个,一般在body或者html上
+&lt;body ng-app=&quot;app&quot;&gt;
+</code></pre><blockquote>
+<p> 绑定控制器</p>
+</blockquote>
+<pre><code>一个控制器绑定一个元素,绑定了控制器的元素,里面的视图的数据可从模型获得
+&lt;ul ng-controller=&quot;lbmControler&quot;&gt;
+</code></pre><h2 id="内置指令"><a href="#内置指令" class="headerlink" title="内置指令"></a>内置指令</h2><blockquote>
+<p> 作用</p>
+<pre><code>通过扩展一系列的html属性来弥补在构建app时的不足,以ng-做为前缀
+</code></pre><p>常用内置指令</p>
+</blockquote>
+<pre><code>ng-app 指定应用根元素，至少有一个元素指定了此属性。
+ng-controller 指定控制器
+ng-show控制元素是否显示，true显示、false不显示
+ng-hide控制元素是否隐藏，true隐藏、false不隐藏
+ng-if控制元素是否“存在”，true存在、false不存在
+ng-src增强图片路径
+ng-href增强地址
+ng-class控制类名
+ng-include引入模板
+ng-disabled表单禁用
+ng-readonly表单只读
+ng-checked单/复选框表单选中
+ng-selected下拉框表单选中
+例子
+&lt;script&gt;
+内置指令:angular开始为html内置好的一些特定功能的属性标签.
+当解析到ng代码时， 会回头到html当中解析自己的指令。
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;lbmControler&apos;,[&apos;$scope&apos;,function ($scope) {
+在模型上绑定数据
+$scope.isShow = 1;
+$scope.path = &quot;image/03.jpg&quot;;
+$scope.name = &quot;lbm&quot;;
+$scope.active = false;
+$scope.sty = {
+&apos;font-size&apos;: &apos;30px&apos;
+};
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot; ng-controller=&quot;lbmControler&quot;&gt;
+它的做法，其它就是把把样式display:none
+&lt;p ng-show=&quot;isShow&quot;&gt;ng-show 控制标签是否显示&lt;/p&gt;
+ng-hide控制标签是否隐藏 取值为bool （true/false 1/0）
+&lt;p ng-hide=&quot;false&quot;&gt;ng-hide控制标签是否隐藏 取值为bool （true/false 1/0）&lt;/p&gt;
+ng-if控制标签是否存在 取值为bool （true/false 1/0
+&lt;p ng-if=&quot;false&quot;&gt;ng-if控制标签是否存在 取值为bool （true/false 1/0）&lt;/p&gt;
+使用ng-src加载图片
+&lt;img ng-src=&quot;{{path}}&quot; alt=&quot;&quot;&gt;
+使用ng-href跳转
+&lt;a ng-href=&quot;#&quot;&gt;&lt;/a&gt;
+ng-class指令 ，控制是否添加某个类 为true为添加,为false不添加
+&lt;p ng-class=&quot;{red:active,font:true}&quot;&gt;ng-class指令 ，控制是否添加某个类&lt;/p&gt;
+给当前标签手动添加样式
+&lt;p ng-style=&quot;sty&quot;&gt;ng-style 控制样式&lt;/p&gt;
+ng-include 它的本质是发送了一个aJax请求，把请求的结果，放入对应标签里边。,实现模块的复用
+&lt;div ng-include=&quot;&apos;./head.html&apos;&quot;&gt;&lt;/div&gt;
+&lt;div ng-include=&quot;&apos;./body.html&apos;&quot;&gt;&lt;/div&gt;
+&lt;div ng-include=&quot;&apos;./foot.html&apos;&quot;&gt;&lt;/div&gt;
+控制表单是否可用 值为bool类型
+&lt;input type=&quot;text&quot; ng-disabled=&quot;true&quot;&gt;
+控制表单为只读属性
+&lt;input type=&quot;text&quot; value=&quot;ng-readonly&quot; ng-readonly=&quot;true&quot;&gt;
+设置复选框为选中状态
+&lt;input type=&quot;checkbox&quot; ng-checked=&quot;true&quot;&gt;
+ng-switch=“筛选对象&quot;
+ng-switch-when=“筛选对象的值.如果筛选对象的值与该值相同,那么该值所在的标签就显示,否则就隐藏”
+&lt;ul ng-controller=&quot;lbmControler&quot;&gt;
+&lt;li ng-repeat=&quot;value in course&quot; ng-switch=&quot;value&quot;&gt;
+&lt;!--对{{value}} 进行判断，when就是条件。满足条件，就显示出来。否则就隐藏 --&gt;
+&lt;p ng-switch-when=&quot;css&quot;&gt;{{value}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/body&gt;
+</code></pre><blockquote>
+<p>数据单向绑定</p>
+</blockquote>
+<p>作用<br>数据单向绑定：把模型的数据展示到视图当中</p>
+<blockquote>
+<p>绑定方式</p>
+</blockquote>
+<pre><code>1.使用插值语法:{{模型属性}}  加载时，-&gt;会造成闪烁。可以使用ng-cloak来避免闪烁
+2.使用ng-bind:ng-bind=“模型属性” -&gt;不会造成闪烁, 只能绑定一个属性
+3.使用ng-bind-template=“{{模型属性}},{{模型属性}}”-&gt;可以绑定多值, 不会闪烁
+使用{{}} 可以把模型的数据绑定到视图当中
+加载时，会造成闪烁。
+ &lt;li&gt;{{name}}{{age}}&lt;/li&gt;
+ &lt;li ng-cloak&gt;{{name}}{{age}}&lt;/li&gt;
+ 数据绑定 不会造成闪烁 没有办法绑定多个属性
+ &lt;li ng-bind=&quot;name&quot;&gt;&lt;/li&gt;
+ 可以绑定多个数据。 不会造成闪烁
+ &lt;li ng-bind-template=&quot;{{name}}{{age}}&quot;&gt;&lt;/li&gt;
+</code></pre><blockquote>
+<p>数据双向绑定</p>
+</blockquote>
+<pre><code>作用
+视图的数据可以绑定到模型当中,
+模型的数据可以绑定到视图当中.
+想要实现视图的数据绑定到模型当中必须得要借助表单才行
+在表单当中使用ng-model指令.在input标签当中绑定属性.
+</code></pre><p><strong>方式</strong></p>
+<pre><code>视图中的usname和pwd和传送数据到模型里面
+&lt;input type=&quot;text&quot; ng-model=&quot;userName&quot;&gt;
+&lt;input type=&quot;password&quot; ng-model=&quot;pwd&quot;&gt;
+&lt;button ng-click=&quot;login()&quot;&gt;登录&lt;/button&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;lbmControler&apos;,[&apos;$scope&apos;,function ($scope) {
+在模型当定义name属性
+$scope.name = &quot;登录&quot;
+事件的实现
+$scope.login = function () {
+alert($scope.userName+$scope.pwd);
+};
+}]);
+&lt;/script&gt;
+</code></pre><p><strong>事件处理</strong></p>
+<pre><code>事件名字就是原生具有的click,mouseover之类
+使用方法为:ng-事件名称 = “事件响应方法名称( 参数)&quot;
+   参数可以自己指定, 也可以传入事件对象$event
+使用$scope来去实现事件定义的方法
+   $scope.事件名称 = function(参数){
+}
+</code></pre><h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><pre><code>通过全局对象下的directive方法实现
+自定义指令:
+ 第一个参数 指令名称
+ 第二个参数:回调函数
+app.directive(&apos;nav&apos;,[function () {
+return{
+E:元素 A:属性 C:当做类 M:可以注释形式出
+restrict:&apos;EA&apos;,
+template:&apos;&lt;ul&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;/ul&gt;&apos;,
+//templateUrl:&apos;./nav.html&apos;,
+replace:true 是否替换原标签
+}
+}]);
+app.directive(&apos;navHead&apos;,[function () {
+return{
+restrict:&apos;EA&apos;, /*以什么形式出现。*/
+//template:&apos;&lt;ul&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;/ul&gt;&apos;,
+templateUrl:&apos;./nav.html&apos;,
+replace:true /*是否替换原标签*/
+            transculde:true /*是否保留原有数据*/
+}
+}]);
+</code></pre><h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><blockquote>
+<p>内置过滤器</p>
+</blockquote>
+<pre><code>配合管道符使用 |
+1、currency:将数值格式化为货币格式
+2、date:日期格式化，年（y）、月（M）、日（d）、星期（EEEE/EEE）、时（H/h）、分（m）、秒（s）、毫秒（.sss），也可以组合到一起使用。
+3、filter:在给定数组中选择满足条件的一个子集，并返回一个新数组，其条件可以是一个字符串、对象、函数
+4、json:将Javascrip对象转成JSON字符串。
+5、limitTo:取出字符串或数组的前（正数）几位或后（负数）几位
+6、lowercase:将文本转换成小写格式
+7、uppercase:将文本转换成大写格式
+8、number:数字格式化，可控制小位位数
+9、orderBy:对数组进行排序，第2个参数可控制方向
+&lt;p&gt;{{price|currency:'&'}}&lt;/p&gt;
+&lt;p&gt;{{nowDate|date:'yyyy/MM/dd h:m:s'}}&lt;/p&gt;
+&lt;p&gt;{{course|filter:'s'}}&lt;/p&gt;
+&lt;p&gt;{{student|json}}&lt;/p&gt;
+&lt;p&gt;{{student|limitTo:-2}}&lt;/p&gt;
+&lt;p&gt;{{str|uppercase|lowercase}}&lt;/p&gt;
+&lt;p&gt;{{student|orderBy:'age':false}}&lt;/p&gt; true 是降序，false是升序
+&lt;p&gt;{{num|number:2}}&lt;/p&gt; 在num当中不能出现非数字
+</code></pre><blockquote>
+<p>自定义过滤器</p>
+</blockquote>
+<pre><code>通过全局对象下的filter方法来定义
+自定义过滤器
+第一个参数:过滤器的名称
+第二个参数:回调函数
+返回值为一个函数(input 为自动传入的数据,它为管道符前面的内容)
+app.filter(&apos;filterName&apos;,[function () {
+return function (input) {
+console.log(&apos;hello&apos;+ input);
+}
+}]);
+app.filter(&apos;firstUppcase&apos;,[function () {
+return function (input) {
+slice:从指定的位置，截取到末尾
+   return input[0].toUpperCase()+input.slice(1)
+};
+}]);
+&lt;p&gt;{{name|filterName}}&lt;/p&gt;
+&lt;p&gt;{{str|firstUppcase}}&lt;/p&gt;
+</code></pre><p><strong>依赖注入</strong></p>
+<pre><code>AngularJS采用模块化的方式组织代码，将一些通用逻辑封装成一个对象或函数，实现最大程度的复用
+这导致了使用者和被使用者之间存在依赖关系。
+所谓依赖注入是指在运行时自动查找依赖关系
+然后将查找到依赖传递给使用者的一种机制。
+</code></pre><blockquote>
+<p>2种方式</p>
+</blockquote>
+<pre><code>1.行内式注入
+  以数组形式明确声明依赖，数组元素都是包含依赖名称的字符串，数组最后一个元素是依赖注入的目标函数
+  推荐使用行内式注入.
+2.推断式注入
+  没有明确声明依赖，AngularJS会将函数参数名称当成是依赖的名称
+  这种方式会带来一个问题，当代码经过压缩后函数的参数被压缩，这样便会造成依赖无法找到。
+app.controller(&apos;lbmController&apos;,[&apos;$scope&apos;,&apos;$http&apos;,function ($scope,$http) {
+$scope.name = &quot;121&quot;;
+$scope.str = &quot;hello&quot;;
+}]);
+2.推断式注入 根据函数的形参去推断查找服务
+   app.controller(&apos;lbmController&apos;,function ($scope,$http) {
+   $scope.name = &apos;xmg&apos;;
+   });
+</code></pre><h2 id="常见内置服务"><a href="#常见内置服务" class="headerlink" title="常见内置服务"></a>常见内置服务</h2><pre><code>$scope: 用来定义变量,传输数据给视图
+$location: 查看一些类似主机名,端口号,锚点
+$scope.url = $location.url();
+端口号
+$scope.port = $location.port();
+主机名
+$scope.host = $location.host();
+获取的锚点。从第二个锚点开始的值。
+$scope.hash = $location.hash();
+$timeout和$interval: 单次定时器和多次定时器 
+$interval.cancel(timer);关闭定时器
+$filter: 我们不想在视图处理过多业务,使用这个服务
+var currency = $filter(&apos;currency&apos;);
+$scope.price = currency($scope.price);
+$log服务 在控制台打印信息
+  $log.log(&apos;信息&apos;);
+  $log.info(&apos;信息&apos;);
+  $log.warn(&apos;信息&apos;);
+  $log.error(&apos;信息&apos;);
+  $log.debug(&apos;信息&apos;);
+$http服务 用来发送Ajax请求
+    get请求
+ $http({
+   url: &apos;get.php&apos;, 请求地址
+method:&apos;get&apos;, 请求方式
+params:{  get方式传递参数  在传递过程当中 会自动帮你转成 get.php?name=xmg
+  传递时-&gt;name:xmg
+name:&apos;xmg&apos;
+}
+}).success(function (res) {
+alert(res);  成功时回调
+}).error(function(error){
+   失败时回调
+});
+    post请求
+    $http({
+url: &apos;post.php&apos;, 请求地址
+method:&apos;post&apos;,   请求方式
+post必须得要设置请求头
+headers:{
+&apos;Content-Type&apos;:&apos;application/x-www-form-urlencoded&apos;
+},
+
+data:&apos;name=xmg&amp;age=123&apos;  
+}).success(function (res) {
+alert(res);
+}).error(function (res) {
+});
+    跨域请求
+     $http({
+  url:&apos;http://api.douban.com/book/subjects&apos;,
+  method:&apos;jsonp&apos;,
+  params:{
+  &apos;q&apos;: $scope.msg,
+  &apos;alt&apos;:&apos;xd&apos;,
+  callback:&apos;JSON_CALLBACK&apos;,
+  &apos;max-results&apos;:10,
+  &apos;start-index&apos;:10
+ }
+ }).success(function (res) {
+</code></pre><h2 id="自定义服务"><a href="#自定义服务" class="headerlink" title="自定义服务"></a>自定义服务</h2><blockquote>
+<p>factory</p>
+<pre><code>app.factory(&apos;show&apos;,function () {
+return function () {  直接以方法来调用。
+  alert(&quot;hello&quot;);
+};
+function show1() {
+alert(&quot;show1&quot;);
+逻辑
+}
+function show2() {
+alert(&quot;show2&quot;);
+}
+return {
+show1:show1,
+show2:show2
+}
+});
+</code></pre><p>service服务</p>
+</blockquote>
+<pre><code>app.service(&apos;showTime&apos;,[&apos;$filter&apos;,function ($filter) {
+   里面所有的功能要使用this来定义
+this.cur_date = function () {
+var cur_date = new Date();
+var date =  $filter(&apos;date&apos;);
+return date(cur_date,&apos;yyyy-MM-dd h:m:s&apos;);
+};
+this.sayHello = function () {
+alert(&quot;hello world&quot;);
+}
+}]);
+</code></pre><blockquote>
+<p>value服务</p>
+</blockquote>
+<pre><code>value 表现形式上是一个服务
+本质上可看做是一个常量。
+app.value(&apos;version&apos;,&apos;1.0’);
+app.value(&apos;key&apos;,&apos;xmg&apos;);
+</code></pre><h2 id="配置块"><a href="#配置块" class="headerlink" title="配置块"></a>配置块</h2><pre><code>通过config方法实现对模块的配置，AngularJS中的服务大部分都对应一个“provider”，
+用来执行与对应服务相同的功能或对其进行配置,相对应的“provider”分别是$logProvider、$httpProvider、$locationPorvider。
+//开启和禁用 调用config方法
+app.config([&apos;$logProvider&apos;,function ($logProvider) {
+$logProvider.debugEnabled(false);
+}]);
+//配置过滤内置功能 调用register方法
+app.config([&apos;$filterProvider&apos;,function ($filterProvider) {
+$filterProvider.register(&apos;firstUpp&apos;,function () {
+可以在配置过程当中,给过滤器添加过滤功能
+return function (input) {
+   return input[0].toUpperCase() + input.slice(1);
+}
+})
+}]);
+</code></pre><h2 id="运行块"><a href="#运行块" class="headerlink" title="运行块"></a>运行块</h2><pre><code>AngularJS提供了run方法来实现。
+run方法还是最先执行的，利用这个特点我们可以将一些需要优先执行的功能通过run方法来运行
+比如验证用户是否登录，未登录则不允许进行任何其它操作
+</code></pre><h2 id="单页面应用程序-spa"><a href="#单页面应用程序-spa" class="headerlink" title="单页面应用程序(spa)"></a>单页面应用程序(spa)</h2><pre><code>SPA（Single Page Application）指的是通单一页面展示所有功能，通过Ajax动态获取数据然后进行实时渲染，结合CSS3动画模仿原生App交互，然后再进行打包（使用工具把Web应用包一个壳，这个壳本质上是浏览器）变成一个“原生”应用。
+实现单页面应用需要具备：
+a、只有一页面
+b、链接使用锚点
+</code></pre><h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><pre><code>必要东西  
+</code></pre><p>①angular-route.js文件<br>②[‘ngRoute’]依赖模块名字<br>③配置路由$routeProvider<br>④调用when方法 routeProvider.when(‘/index/:id’)<br>⑤ng-view展示路由数据<br>⑥控制器的服务$routeParams.id,拿到when的形参  </p>
+<pre><code>在angular当中路由就是锚点
+用来做单页面应用程序的切换。
+锚点的变化，我们又称为路由的变化。
+路由在angular当中属于单独的一个模块。
+帮你监听锚点的跳转，它就是路由。
+&lt;script src=&quot;angular-route.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+在创建模块时，注入路由模块
+var app = angular.module(&apos;app&apos;,[&apos;ngRoute&apos;]);
+配置路由。
+让路由帮你去监听哪些锚点的变化。
+app.config([&apos;$routeProvider&apos;,function ($routeProvider) {
+当锚点为指定值时， 帮你处理相应的逻辑
+路由规定，在锚点之前， 加上一个&quot;/&quot;
+$routeProvider.when(&apos;/index&apos;,{
+可以外链一个模板,指定控制器
+            // templateUrl:&apos;template/music_tpl.html&apos;,
+// controller:&apos;musicController&apos;
+template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;
+ })
+ .when(&apos;/music&apos;,{
+template:&quot;&lt;h1&gt;音乐&lt;/h1&gt;&quot;
+ })
+ .when(&apos;/singer&apos;,{
+template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;
+ })
+        //默认显示哪一个
+ .otherwise({
+redirectTo:&apos;/index&apos;
+ })
+ }]);
+
+&lt;/script&gt;
+&lt;div class=&quot;nav&quot;&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href=&quot;#/index&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;#/music&quot;&gt;音乐&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;#/singer&quot;&gt;歌手&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;
+   ng-view 把内容展示
+&lt;div class=&quot;content&quot; ng-view&gt;
+</code></pre><blockquote>
+<p>路由传参数加发送请求</p>
+</blockquote>
+<pre><code>&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;angular-route.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[&apos;ngRoute&apos;]);
+ 配置路由
+app.config([&apos;$routeProvider&apos;,function ($routeProvider) {
+$routeProvider.when(&apos;/index/:id’,{传参
+templateUrl:&apos;template/musicList_tpl.html&apos;,
+controller:&quot;musicControler&quot;
+}).otherwise({
+redirectTo:&apos;/index/1&apos;
+})
+}]);
+
+定义控制器
+app.controller(&apos;musicControler&apos;,[&apos;$routeParams&apos;,&apos;$http&apos;,&apos;$scope&apos;,function ($routeParams,$http,$scope) {
+console.log($routeParams.id);
+$http({访问地址
+url:&apos;listMusic.php&apos;,
+method:&apos;get&apos;,
+params:{
+id:$routeParams.id
+}
+}).success(function (res) {
+把获取的结果赋值给模型
+$scope.musicList = res;
+})
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div class=&quot;nav&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#/index/1&quot;&gt;流行&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#/index/2&quot;&gt;复古&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#/index/3&quot;&gt;欧美&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot; ng-view&gt;
+&lt;/div&gt;
+</code></pre><h2 id="1-6angular版本-http和路由"><a href="#1-6angular版本-http和路由" class="headerlink" title="1.6angular版本$http和路由"></a>1.6angular版本$http和路由</h2><pre><code>取消了success和error方法 用then catch代替
+锚点以这种形式
+&lt;li&gt;&lt;a href=&quot;#!/index/1&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#!/music&quot;&gt;音乐&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#!/singer&quot;&gt;歌手&lt;/a&gt;&lt;/li&gt;
+跨域需要设置白名单
+.config([&apos;$sceDelegateProvider&apos;,function ($sceDelegateProvider) {
+设置白名单
+$sceDelegateProvider.resourceUrlWhitelist([
+&apos;self&apos;,
+&apos;http://localhost/api/**&apos;
+]);
+}]);
+</code></pre><h2 id="watch监听-broadcast-on-emit-方法"><a href="#watch监听-broadcast-on-emit-方法" class="headerlink" title="$watch监听$broadcast,$on $emit 方法"></a>$watch监听$broadcast,$on $emit 方法</h2><pre><code>$watch监听方法
+&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;xmgController&apos;,[&apos;$scope&apos;,function ($scope) {
+如果是一个对象。在监听时，要在最后添加一个参数：true
+如果不添加，是监听不到的。
+默认情况，对象监听是地址。 对象值修改了， 地址没有改变。
+var count = 0;
+var unWatch = $scope.$watch(&apos;persion.age&apos;,function (newValue,oldValue) {
+   console.log(&apos;新值：&apos;+ newValue+&apos;旧值：&apos;+oldValue);
+   count++;
+   if (count &gt; 5){
+   取消监听
+   unWatch();
+   }
+},true);
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot; ng-controller=&quot;xmgController&quot;&gt;
+&lt;input type=&quot;text&quot; ng-model=&quot;persion.age&quot;&gt;
+&lt;/body&gt;
+$broadcast,$on $emit 方法
+&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;xmgController&apos;,[&apos;$scope&apos;,function ($scope) {
+$scope.names = &quot;父级的名字&quot;;
+发送广播
+发送广播时，一定要等指令加载完毕之后，才去发送广播
+$scope.click = function () {
+$scope.$broadcast(&apos;aaa&apos;,{id:1})
+};
+监听广播
+$scope.$on(&apos;bbbb&apos;,function ($event,data) {
+console.log(data);
+});
+}]);
+app.directive(&apos;tag&apos;,[function () {
+return {
+restrict:&apos;EA&apos;,
+template:&quot;&lt;h1 ng-click=&apos;tagClick()&apos;&gt;子级自定义指令&lt;/h1&gt;&quot;,
+replace:true,
+controller:function ($scope) {
+监听广播
+$scope.$on(&apos;aaa&apos;,function ($event,data) {
+console.log(data);
+});
+$scope.tagClick = function () {
+向上级冒泡一个事件
+$scope.$emit(&apos;bbbb&apos;,{name:&apos;xmg&apos;});
+}
+}
+}
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot; ng-controller=&quot;xmgController&quot;&gt;
+&lt;button ng-click=&quot;click()&quot;&gt;广播&lt;/button&gt;
+&lt;div tag&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="degist-和-apply"><a href="#degist-和-apply" class="headerlink" title="$degist()和$apply()"></a>$degist()和$apply()</h2><pre><code>每一次在界面上,绑定一个数据时就会把对应的属性添加到一个叫$watchList数组中,里面的属性会被$watch监听,一直处于监听事件状态
+只要发生了事件,就会触发$degist事件,它会遍历$watchList数组,询问每一个属性有没有被更改过,再去查看$scope有没有更新,如果有更新,再次遍历$watchList,遍历结束,会调用$apply()更新DOM节点里面数据.
+脏值检测,$degist遍历$watchList的过程
+在网络请求中,因为可能出现延时效果,所以有时候需要手动调用$apply方法来让数据展示到dom节点中!
+</code></pre><h2 id="指令的作用域"><a href="#指令的作用域" class="headerlink" title="指令的作用域"></a>指令的作用域</h2><p>默认情况下,指令的控制器和父级的控制器是一致的,是同一个作用域,修改任何一个作用域都会互相影响,所以可以设置scope属性来控制,默认情况scope为false,当设置为true的时候,会各自使用自己控制器里面的作用域,不过当自己没找到的时候,还是会跑到父级去寻找,当为一个对象的时候,则会独立出来一个作用域</p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="@修饰符"></a>@修饰符</h2><pre><code>scope:&apos;@&apos;
+外界传递参数时，使用{{}}来传递
+  &lt;xmg content=&quot;{{content}}&quot; my-title=&quot;{{title}}&quot;&gt;&lt;/xmg&gt;
+特点:
+属于单向传递,如果外界修改了,则内部也会跟着修改,如果内部修改了,外部不会修改,如果内部当中有一样的属性,则外部的属性会覆盖内部的属性
+</code></pre><h2 id="修饰符-1"><a href="#修饰符-1" class="headerlink" title="=修饰符"></a>=修饰符</h2><pre><code>scope:&apos;=&apos;
+不需要{{}} 直接在后面写上要传递数据即可
+   格式：&lt;xmg content=&quot;content&quot; my-title=&quot;title&quot;&gt;&lt;/xmg&gt;
+特点:
+属于双向的传递,无论哪一边进行更改,都会受到影响.
+外部的属性会覆盖内部的属性
+</code></pre><h2 id="amp-修饰符"><a href="#amp-修饰符" class="headerlink" title="&amp;修饰符"></a>&amp;修饰符</h2><pre><code>外界传入方法(函数)进来
+scope:{
+ click:&apos;&amp;&apos;
+}
+</code></pre><h2 id="link"><a href="#link" class="headerlink" title="link"></a>link</h2><pre><code>用来操作dom元素,属于jqlite对象
+里面有三个参数
+ link:function ($scope,ele,attr) {
+  @param $scope 就是控制器当中的模型
+ * @param ele 指令所在的dom元素。注意：它是一个jQlite对象
+  * @param attr 指令身上绑定的所有属性   
+ }
+</code></pre><h2 id="ui-router路由"><a href="#ui-router路由" class="headerlink" title="ui-router路由"></a>ui-router路由</h2><p>ui-router弥补了原生路由的不足,例如多视图的嵌入.或者一些方法封装</p>
+<pre><code>&lt;script src=&quot;angular-ui-router.js&quot;&gt;&lt;/script&gt;
+//依赖ui.router服务
+ var app = angular.module(&apos;app&apos;,[&apos;ui.router&apos;]);
+//配置路由 
+app.config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+
+ $stateProvider.state(&apos;home&apos;,{
+ url:&apos;/index&apos;,
+ template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;,
+ controller:&quot;xmgController&quot;
+ })
+.state(&apos;music&apos;,{
+url:&apos;/music&apos;,
+template:&quot;&lt;h1&gt;音乐&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+.state(&apos;singer&apos;,{
+url:&apos;/singer&apos;,
+template:&quot;&lt;h1&gt;歌手&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+$urlRouterProvider.otherwise(&apos;index&apos;);
+}]);
+ state的第一个参数和对应点击的ui-sref要一致 ui-sref代替了a标签的href属性,也是用来当作锚点,ui-sref-active让我们绑定啦,点击哪一个改变样式
+&lt;ul&gt;
+ui-sref-active=“active&quot; 如果选中当前的路由,就会给该标签添加class类
+ui-sref=“home” 跳转路由
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;home&quot;&gt;&lt;a&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;music&quot;&gt;&lt;a&gt;音乐&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;singer&quot;&gt;&lt;a&gt;歌手&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ 最后通过ui-view去展示对应的模板
+&lt;div class=&quot;content&quot; ui-view&gt;
+</code></pre><h2 id="多视图"><a href="#多视图" class="headerlink" title="多视图"></a>多视图</h2><pre><code>多一个页面可以进行锚点的跳转
+app.config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+$stateProvider.state(&apos;index&apos;,{
+url:&quot;/&quot;,
+views:{
+header:{
+template:&quot;&lt;h1&gt;头部&lt;/h1&gt;&quot;
+},
+left:{
+template:&quot;&lt;h1&gt;左侧&lt;/h1&gt;&quot;
+},
+right:{
+template:&quot;&lt;h1&gt;右侧&lt;/h1&gt;&quot;
+}
+}
+})
+$urlRouterProvider.otherwise(&apos;/&apos;);
+}]);
+上面配置views参数写上对应的参数,下图使用ui-view=对应的参数来绑定
+&lt;div class=&quot;header&quot; ui-view=&quot;header&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;left&quot; ui-view=&quot;left&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;right&quot; ui-view=&quot;right&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h2 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h2><pre><code>通常使用url:/music/:id 方法传参
+app.config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+$stateProvider.state(&apos;home&apos;,{
+ url:&apos;/index/:id&apos;,
+ url:&apos;/index/{id:int}&apos;,
+ url:&apos;/index/?id&amp;name&apos;,
+ template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;,
+ controller:&quot;xmgController&quot;
+})
+.state(&apos;music&apos;,{
+url:&apos;/music/:id&apos;,
+template:&quot;&lt;h1&gt;音乐&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+.state(&apos;singer&apos;,{
+url:&apos;/singer/:id&apos;,
+template:&quot;&lt;h1&gt;歌手&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+$urlRouterProvider.otherwise(&apos;index/1&apos;);
+通过$stateParams来获取路由的参数
+app.controller(&apos;xmgController&apos;,[&apos;$scope&apos;,&apos;$stateParams&apos;,function ($scope,$stateParams) {
+console.log($stateParams);
+
+}]);
+通过ui-sref=&quot;home{{id:1}}&quot;来进行传参数
+&lt;ul&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;home({id:1})&quot;&gt;&lt;a&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;music({id:2})&quot;&gt;&lt;a&gt;音乐&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;singer({id:3})&quot;&gt;&lt;a&gt;歌手&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><h2 id="子路由"><a href="#子路由" class="headerlink" title="子路由"></a>子路由</h2><pre><code>子路由的参数在父的基础上加上. 例如父 home  子home.list  对应的按钮ui-sref和state第一个参数一样
+ .config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+$stateProvider.state(&apos;home&apos;,{
+url:&apos;/home&apos;,
+templateUrl:&quot;../view/home_tpl.html”,  在一个模板当中再放入一个路由占位符
+controller:&quot;homeController&quot;
+}).state(&apos;home.list&apos;,{
+url:&apos;/list&apos;,
+template:&quot;&lt;div list-view&gt;&lt;/div&gt;&quot;,
+controller:&quot;homeController&quot;
+}).state(&apos;home.detail&apos;,{
+url:&apos;/detail/:id&apos;,
+templateUrl:&apos;../view/template/detail_tpl.html&apos;,
+controller:&quot;detailController&quot;
+})
+$urlRouterProvider.otherwise(&apos;home&apos;);
+}])
+默认子路由
+angular.module(&apos;app&apos;).controller(&apos;homeController&apos;,[&apos;$scope&apos;,&apos;httpTool&apos;,&apos;$state&apos;,function ($scope,httpTool,$state) {
+ 设置默认子路由
+$state.go(&apos;home.list&apos;);
+}]);
+</code></pre><h2 id="angular简单应用"><a href="#angular简单应用" class="headerlink" title="angular简单应用"></a>angular简单应用</h2><p>通过跨域访问别人的数据,然后获取数据进行展示,根据数据的多少进行分页设置</p>
+<pre><code>&lt;body ng-app=&quot;app&quot; ng-controller=&quot;lbmController&quot;&gt;
+&lt;form action=&quot;&quot; ng-click=&quot;send()&quot;&gt;
+&lt;input type=&quot;text&quot; ng-model=&quot;msg&quot;&gt;
+&lt;input type=&quot;button&quot; value=&quot;搜索&quot;&gt;
+&lt;/form&gt;
+  &lt;ul class=&quot;nav&quot;&gt;
+  &lt;li&gt;书名&lt;/li&gt;
+  &lt;li&gt;作者&lt;/li&gt;
+  &lt;li&gt;图片&lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;div class=&quot;box&quot;&gt;
+ &lt;ul ng-repeat=&quot;(key,value) in res&quot; class=&quot;clearfix&quot;&gt;
+ &lt;li&gt;{{res[key].title.$t}}&lt;/li&gt;
+ &lt;li&gt;{{res[key].author[0].name.$t}}&lt;/li&gt;
+ &lt;li &gt;&lt;img ng-src=&quot;{{res[key].link[2]['@href']}}
+&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;/div&gt;
+&lt;div class=&quot;tcdPageCode&quot;&gt;&lt;/div&gt;
+&lt;!--
+//http://api.douban.com/book/subjects?q=&apos;+oQ.value+&apos;&amp;alt=xd&amp;callback=fn1&amp;start-index=(当前页*每页显示的条数)&amp;max-results=10(每页显示的条数)
+--&gt;
+&lt;script src=&quot;jQueryPager20160918/js/jquery-1.8.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jQueryPager20160918/js/jquery.page.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+ angular.module(&apos;app&apos;,[]).controller(&apos;lbmController&apos;,[&apos;$scope&apos;,&apos;$http&apos;,function ($scope,$http) {
+ $scope.msg=&apos;&apos;;
+ $scope.arr=[];
+ $scope.send=function (){
+ $http({
+ url:&apos;http://api.douban.com/book/subjects&apos;,
+ method:&apos;jsonp&apos;,
+ params:{
+ &apos;q&apos;: $scope.msg,
+ &apos;alt&apos;:&apos;xd&apos;,
+ callback:&apos;JSON_CALLBACK&apos;,
+ &apos;max-results&apos;:10,
+ &apos;start-index&apos;:10
+ }
+ }).success(function (res) {
+ $scope.total=res[&apos;opensearch:totalResults&apos;].$t;
+ $scope.maxPage=res[&apos;opensearch:itemsPerPage&apos;].$t;
+ var page=parseInt( $scope.total/$scope.maxPage);
+ $(&quot;.tcdPageCode&quot;).createPage({
+ pageCount:page,
+ current:1,
+ backFn:function(p){
+ $http({
+ url:&apos;http://api.douban.com/book/subjects&apos;,
+ method:&apos;jsonp&apos;,
+ params:{
+ &apos;q&apos;: $scope.msg,
+ &apos;alt&apos;:&apos;xd&apos;,
+ callback:&apos;JSON_CALLBACK&apos;,
+ &apos;max-results&apos;:10,
+ &apos;start-index&apos;:p*10
+ }
+ }).success(function (res) {
+ $scope.res=res[&apos;entry&apos;];
+ }).error(function (err) {
+ })
+ }
+ });
+
+ $scope.res=res[&apos;entry&apos;];
+ console.log(res);
+ }).error(function (err) {
+ console.log(err);
+ })
+ }
+ }])
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><img src="http://carrotming.cn/assets/blogImg/angular-1.gif" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ng/" rel="tag"># ng</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/15/js设计模式之工厂模式/" rel="next" title="js设计模式之工厂模式">
+                <i class="fa fa-chevron-left"></i> js设计模式之工厂模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/20/ajax原生js封装/" rel="prev" title="Ajax原生js封装">
+                Ajax原生js封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="yetten" />
+          <p class="site-author-name" itemprop="name">yetten</p>
+           
+              <p class="site-description motion-element" itemprop="description">人生如梦,一尊还酹江月</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#angular介绍"><span class="nav-number">1.</span> <span class="nav-text">angular介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用步骤"><span class="nav-number">2.</span> <span class="nav-text">基本使用步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内置指令"><span class="nav-number">3.</span> <span class="nav-text">内置指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义指令"><span class="nav-number">4.</span> <span class="nav-text">自定义指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器"><span class="nav-number">5.</span> <span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见内置服务"><span class="nav-number">6.</span> <span class="nav-text">常见内置服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义服务"><span class="nav-number">7.</span> <span class="nav-text">自定义服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置块"><span class="nav-number">8.</span> <span class="nav-text">配置块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行块"><span class="nav-number">9.</span> <span class="nav-text">运行块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单页面应用程序-spa"><span class="nav-number">10.</span> <span class="nav-text">单页面应用程序(spa)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由"><span class="nav-number">11.</span> <span class="nav-text">路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6angular版本-http和路由"><span class="nav-number">12.</span> <span class="nav-text">1.6angular版本$http和路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watch监听-broadcast-on-emit-方法"><span class="nav-number">13.</span> <span class="nav-text">$watch监听$broadcast,$on $emit 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#degist-和-apply"><span class="nav-number">14.</span> <span class="nav-text">$degist()和$apply()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指令的作用域"><span class="nav-number">15.</span> <span class="nav-text">指令的作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符"><span class="nav-number">16.</span> <span class="nav-text">@修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符-1"><span class="nav-number">17.</span> <span class="nav-text">=修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#amp-修饰符"><span class="nav-number">18.</span> <span class="nav-text">&修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#link"><span class="nav-number">19.</span> <span class="nav-text">link</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ui-router路由"><span class="nav-number">20.</span> <span class="nav-text">ui-router路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多视图"><span class="nav-number">21.</span> <span class="nav-text">多视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传参"><span class="nav-number">22.</span> <span class="nav-text">传参</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子路由"><span class="nav-number">23.</span> <span class="nav-text">子路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#angular简单应用"><span class="nav-number">24.</span> <span class="nav-text">angular简单应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yetten</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

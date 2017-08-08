@@ -263,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/03/01/angular的学习/">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/08/01/微信小程序学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yetten">
@@ -285,7 +285,1262 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/01/angular的学习/" itemprop="url">
+                <a class="post-title-link" href="/2017/08/01/微信小程序学习/" itemprop="url">
+                  微信小程序的学习
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T14:55:44+08:00">
+                2017-08-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
+<h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong></p>
+<pre><code>通过app.js设置
+app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.
+默认设置
+App({
+  onLaunch: function () {
+//调用API从本地缓存中获取数据
+var logs = wx.getStorageSync(&apos;logs&apos;) || []
+logs.unshift(Date.now())
+wx.setStorageSync(&apos;logs&apos;, logs)
+  },
+  getUserInfo:function(cb){
+var that = this;
+if(this.globalData.userInfo){
+  typeof cb == &quot;function&quot; &amp;&amp; cb(this.globalData.userInfo)
+}else{
+  //调用登录接口
+  wx.login({
+success: function () {
+  wx.getUserInfo({
+success: function (res) {
+  that.globalData.userInfo = res.userInfo;
+  typeof cb == &quot;function&quot; &amp;&amp; cb(that.globalData.userInfo)
+}
+  })
+}
+  });
+}
+  },
+  globalData:{
+userInfo:null
+  }
+})
+</code></pre><p><strong>小程序公共设置</strong></p>
+<pre><code>app.json 设置 
+是对整个小程序的全局配置。我们可以在这个文件中配置小程序是由哪些页面组成，配置小程序的窗口背景色，配置导航条样式，配置默认标题。注意该文件不可添加任何注释
+默认设置
+{
+  &quot;pages&quot;:[
+&quot;pages/index/index&quot;,
+&quot;pages/logs/logs&quot;
+  ],
+  &quot;window&quot;:{
+&quot;backgroundTextStyle&quot;:&quot;light&quot;,
+&quot;navigationBarBackgroundColor&quot;: &quot;#fff&quot;,
+&quot;navigationBarTitleText&quot;: &quot;WeChat&quot;,
+&quot;navigationBarTextStyle&quot;:&quot;black&quot;
+  }
+}
+</code></pre><p><strong>小程序公共样式表</strong></p>
+<pre><code>通过app.wxss设置
+是整个小程序的公共样式表。我们可以在页面组件的 class 属性上直接使用 app.wxss 中声明的样式规则。
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+</code></pre><p><strong>创建页面</strong></p>
+<pre><code>通过app.json的 &quot;pages&quot;绑定 且第一个为首页
+每一个页面有4个文件组成
+index.js、 index.wxml、 index.wxss、 index.json
+.js后缀的文件是脚本文件，.json后缀的文件是配置文件，.wxss后缀的是样式表文件，.wxml后缀的文件是页面结构文件。
+默认设置
+</code></pre><blockquote>
+<p><strong><em>index.wxml</em></strong></p>
+</blockquote>
+<pre><code>&lt;view class=&quot;container&quot;&gt;
+  &lt;view  bindtap=&quot;bindViewTap&quot; class=&quot;userinfo&quot;&gt;
+&lt;image class=&quot;userinfo-avatar&quot; src=&quot;{{userInfo.avatarUrl}}&quot; background-size=&quot;cover&quot;&gt;&lt;/image&gt;
+&lt;text class=&quot;userinfo-nickname&quot;&gt;{{userInfo.nickName}}&lt;/text&gt;
+  &lt;/view&gt;
+  &lt;view class=&quot;usermotto&quot;&gt;
+&lt;text class=&quot;user-motto&quot;&gt;{{motto}}&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><blockquote>
+<p>index.js</p>
+</blockquote>
+<pre><code>index.js 是页面的脚本文件，在这个文件中我们可以监听并处理页面的生命周期函数、获取小程序实例，声明并处理数据，响应页面交互事件等。
+var app = getApp()
+Page({
+  data: {
+motto: &apos;Hello World&apos;,
+userInfo: {}
+  },
+  //事件处理函数
+  bindViewTap: function() {
+wx.navigateTo({
+  url: &apos;../logs/logs&apos;
+})
+  },
+  onLoad: function () {
+console.log(&apos;onLoad&apos;)
+var that = this
+//调用应用实例的方法获取全局数据
+app.getUserInfo(function(userInfo){
+  //更新数据
+  that.setData({
+userInfo:userInfo
+  })
+})
+  }
+})
+</code></pre><blockquote>
+<p>index.wxss</p>
+</blockquote>
+<pre><code>是页面的样式表 如果不指定会使用app.wxss的样式,如果写了会覆盖app.wxss的样式
+</code></pre><h2 id="视图容器"><a href="#视图容器" class="headerlink" title="视图容器"></a>视图容器</h2><p><strong>介绍这个常用的,具体方法都能在官方文档找到哦</strong></p>
+<pre><code>&gt; view视图
+
+写样式和html很类似  通过class绑定样式 style也可以设置样式
+其中flex-direction: row  弹性布局横向布局
+   direction:column  弹性布局纵向布局
+    具体属性作用
+hover-class 指定按下去的样式类。当 hover-class=&quot;none&quot; 时，没有点击态效果
+hover-start-time  按住后多久出现点击态，单位毫秒
+hover-stay-time      手指松开后点击态保留时间，单位毫秒
+&lt;view class=&quot;section&quot;&gt;
+
+  &lt;view class=&quot;flex-wrp&quot; style=&quot;flex-direction:row;&quot;&gt;
+&lt;view class=&quot;flex-item bc_green&quot;&gt;1&lt;/view&gt;
+&lt;view class=&quot;flex-item bc_red&quot;&gt;2&lt;/view&gt;
+&lt;view class=&quot;flex-item bc_blue&quot;&gt;3&lt;/view&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><blockquote>
+<p> scroll-view视图</p>
+</blockquote>
+<pre><code>注意点:
+使用竖向滚动时，需要给&lt;scroll-view/&gt;一个固定高度，通过 WXSS 设置 height。
+请勿在 scroll-view 中使用 textarea、map、canvas、video 组件
+scroll-into-view 的优先级高于 scroll-top
+在滚动 scroll-view 时会阻止页面回弹，所以在 scroll-view 中滚动，是无法触发 onPullDownRefresh
+若要使用下拉刷新，请使用页面的滚动，而不是 scroll-view ，这样也能通过点击顶部状态栏回到页面顶部
+&lt;view class=&quot;section&quot;&gt;
+  &lt;view class=&quot;section__title&quot;&gt;vertical scroll&lt;/view&gt;
+  &lt;scroll-view scroll-y style=&quot;height: 200px;&quot; bindscrolltoupper=&quot;upper&quot; bindscrolltolower=&quot;lower&quot; bindscroll=&quot;scroll&quot; scroll-into-view=&quot;{{toView}}&quot; scroll-top=&quot;{{scrollTop}}&quot;&gt;
+&lt;view id=&quot;green&quot; class=&quot;scroll-view-item bc_green&quot;&gt;&lt;/view&gt;
+&lt;view id=&quot;red&quot;  class=&quot;scroll-view-item bc_red&quot;&gt;&lt;/view&gt;
+&lt;view id=&quot;yellow&quot; class=&quot;scroll-view-item bc_yellow&quot;&gt;&lt;/view&gt;
+&lt;view id=&quot;blue&quot; class=&quot;scroll-view-item bc_blue&quot;&gt;&lt;/view&gt;
+  &lt;/scroll-view&gt;
+  &lt;view class=&quot;btn-area&quot;&gt;
+&lt;button size=&quot;mini&quot; bindtap=&quot;tap&quot;&gt;click me to scroll into view &lt;/button&gt;
+&lt;button size=&quot;mini&quot; bindtap=&quot;tapMove&quot;&gt;click me to scroll&lt;/button&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><blockquote>
+<p>swiper组件</p>
+</blockquote>
+<pre><code>滑块视图容器。 也就是轮播图组件
+swiper-item
+仅可放置在&lt;swiper/&gt;组件中，宽高自动设置为100%。
+&lt;swiper indicator-dots=&quot;{{indicatorDots}}&quot;
+  autoplay=&quot;{{autoplay}}&quot; interval=&quot;{{interval}}&quot; duration=&quot;{{duration}}&quot;&gt;
+  &lt;block wx:for=&quot;{{imgUrls}}&quot;&gt;
+&lt;swiper-item&gt;
+  &lt;image src=&quot;{{item}}&quot; class=&quot;slide-image&quot; width=&quot;355&quot; height=&quot;150&quot;/&gt;
+&lt;/swiper-item&gt;
+  &lt;/block&gt;
+&lt;/swiper&gt;
+&lt;button bindtap=&quot;changeIndicatorDots&quot;&gt; indicator-dots &lt;/button&gt;
+&lt;button bindtap=&quot;changeAutoplay&quot;&gt; autoplay &lt;/button&gt;
+&lt;slider bindchange=&quot;intervalChange&quot; show-value min=&quot;500&quot; max=&quot;2000&quot;/&gt; interval
+&lt;slider bindchange=&quot;durationChange&quot; show-value min=&quot;1000&quot; max=&quot;10000&quot;/&gt; duration
+</code></pre><blockquote>
+<p>icon</p>
+</blockquote>
+<pre><code>图标。
+用来设置不同的icon图标
+</code></pre><blockquote>
+<p>progress<br><strong>用来设置滚动条</strong></p>
+<p>picker</p>
+</blockquote>
+<p>从底部弹起的滚动选择器，现支持五种选择器，通过mode来区分，分别是普通选择器，多列选择器，时间选择器，日期选择器，省市区选择器，默认是普通选择器。</p>
+<blockquote>
+<p>slider</p>
+</blockquote>
+<p>滑动选择器。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/07/20/跨域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/20/跨域/" itemprop="url">
+                  ajax处理跨域的方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T10:23:44+08:00">
+                2017-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于JS同源策略的影响，因此js只能访问同域名下的文档。因此要实现跨域，一般有以下几个方法：  </p>
+<h1 id="一、处理跨域的方式："><a href="#一、处理跨域的方式：" class="headerlink" title="一、处理跨域的方式："></a>一、处理跨域的方式：</h1><h2 id="1-代理"><a href="#1-代理" class="headerlink" title="1.代理"></a>1.代理</h2><h2 id="2-XHR2"><a href="#2-XHR2" class="headerlink" title="2.XHR2"></a>2.XHR2</h2><p>HTML5中提供的XMLHTTPREQUEST Level2（及XHR2）已经实现了跨域访问。但ie10以下不支持<br>只需要在服务端填上响应头：  </p>
+<p>header(“Access-Control-Allow-Origin:<em>“);<br>/</em>星号表示所有的域都可以接受，*/<br>header(“Access-Control-Allow-Methods:GET,POST”);  </p>
+<h2 id="3-jsonP"><a href="#3-jsonP" class="headerlink" title="3.jsonP"></a>3.jsonP</h2><p>原理：<br> ajax本身是不可以跨域的，<br>通过产生一个script标签来实现跨域。因为script标签的src属性是没有跨域的限制的。<br>其实设置了dataType: ‘jsonp’后，$.ajax方法就和ajax XmlHttpRequest没什么关系了，取而代之的则是JSONP协议。JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问。<br> ajax的跨域写法：<br>（其余写法和不跨域的一样）：<br>比如<br>/<em>当前网址是localhost:3000</em>/<br>js代码  </p>
+<p>$.ajax({<br>type:”get”,<br>url:”<a href="http://localhost:3000/showAll&quot;,/*url写异域的请求地址*/" target="_blank" rel="external">http://localhost:3000/showAll&quot;,/*url写异域的请求地址*/</a><br>dataType:”jsonp”,/<em>加上datatype</em>/<br>jsonpCallback:”cb”,/<em>设置一个回调函数，名字随便取，和下面的函数里的名字相同就行</em>/<br>success:function(){  </p>
+<p>}<br>});  </p>
+<p>/<em>而在异域服务器上，</em>/<br>app.js<br>app.get(‘/showAll’,students.showAll);/<em>这和不跨域的写法相同</em>/  </p>
+<p>/<em>在异域服务器的showAll函数里，</em>/  </p>
+<p>var db = require(“./database”);  </p>
+<p>exports.showAll = function(req,res){  </p>
+<p>/<strong>设置响应头允许ajax跨域访问</strong>/<br>res.setHeader(“Access-Control-Allow-Origin”,”<em>“);<br>/</em>星号表示所有的异域请求都可以接受，*/<br>res.setHeader(“Access-Control-Allow-Methods”,”GET,POST”);  </p>
+<p>var con = db.getCon();<br>con.query(“select <em> from t_students”,function(error,rows){<br>if(error){<br>console.log(“数据库出错：”+error);<br>}else{<br>/</em>注意这里，返回的就是jsonP的回调函数名+数据了*/<br>res.send(“cb(“+JSON.stringify(r)+”)”);<br>}<br>});<br>}  </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/07/10/js原型链/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/10/js原型链/" itemprop="url">
+                  js原型链的总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-10T15:33:44+08:00">
+                2017-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原型链还是比较重要-单独拿出来总结"><a href="#原型链还是比较重要-单独拿出来总结" class="headerlink" title="原型链还是比较重要,单独拿出来总结!"></a>原型链还是比较重要,单独拿出来总结!</h2><p>① 构造函数作为函数的时候原型默认指向一个空的对象Object {};<br>构造函数.prototype为Object{};<br>注意点:除了Function作为构造函数之外 它默认指向一个空函数<br>只有构造函数有.prototype!!对象没有<br>比如 var o={}; o.prototype==undefined;<br>② 构造函数的原型对象有一个constructor 构造器属性 默认该构造器都是它的构造函数 该属性默认仅仅在原型对象中才有<br>③ 构造函数的原型对象也是一个对象,它也有他的原型对象 构造函数.prototype.proto 所有对象访问原型都是通过.proto,并且都会指向Object的原型(包括Function) 除了Object作为构造函数除外   Object.prototype.proto = null<br>④ 构造函数作为对象的时候 构造函数.proto 都会指向空函数  </p>
+<pre><code>&lt;script&gt;
+/*
+ ①①①①①①①①①①①①①①①①①①①
+* */
+/*var o={};
+function Person(){}
+function Object(){}
+console.log(o.prototype);//undefined
+console.log(Function.prototype);//空函数
+console.log(Person.prototype );//Object {}
+console.log(Object.prototype );//Object {}*/
+/*
+* ②②②②②②②②②②②②②
+* */
+/*function Person(){}
+console.log(Person.prototype.constructor);//  function Person(){}
+function Object(){}
+console.log(Object.prototype.constructor); // function Object(){}
+   /!* function Function(){}
+console.log(Function.prototype.constructor); // function Function(){}*!/*/
+/*
+* ③③③③③③③③③③③③③③
+*
+* */
+   /* function Person(){}
+console.log(Person.prototype.__proto__);//Object
+function Object(){}
+console.log(Object.prototype.__proto__) ;//null;*/
+   /* function Function(){}
+console.log(Function.prototype.__proto__);//Object*/
+/*
+* ④④④④④④④④④④④④④④
+*
+* */
+   /* function Person(){}
+console.log(Person.__proto__);//空函数
+function Object(){}
+console.log(Object.__proto__);//空函数*/
+/*function Function(){}
+console.log(Function.__proto__);//空函数*/
+&lt;/script&gt;
+</code></pre><p><img src="http://carrotming.cn/assets/blogImg/js19-1.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/06/10/js面向对象Object的静态成员/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/10/js面向对象Object的静态成员/" itemprop="url">
+                  js面向对象Object的静态成员
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T09:15:14+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于Object静态成员的具体介绍"><a href="#关于Object静态成员的具体介绍" class="headerlink" title="关于Object静态成员的具体介绍"></a>关于Object静态成员的具体介绍</h1><h2 id="静态成员："><a href="#静态成员：" class="headerlink" title="静态成员："></a>静态成员：</h2><pre><code>01 Object.apply
+借用其他对象的方法
+用法：对象.方法.apply(this绑定的对象,[参数1，参数2])
+02 Object.arguments
+函数内部的一个隐藏参数，这个隐藏参数用来接收实参的。
+它本身是一个类似于数组的结构，但是不是数组。它可以像数组一样通过下标来操作数据
+
+03 Object.assign
+作用:拷贝对象的属性，多个对象。
+04 Object.bind
+该方法的作用同call|apply差不多。
+
+05 Object.call
+借用其他对象的方法
+用法：对象.方法.call(this绑定的对象,参数1，参数2);
+
+06 Object.caller
+指向调用当前函数的函数
+
+07 Object.create
+创建对象，设置原型对象。
+
+08 Object.getOwnPropertyDescriptor
+作用：获得某个实例属性的描述信息（对象）
+描述对象：
+001 是否可以配置   configurable
+如果是true该属性可以被删除，且configurable可以被设置为false
+如果是false该属性不可以被删除，且configurable不可以再被设置为true
+
+002 是否可以枚举   enumerable
+如果是true,那么在使用for..in循环遍历对象的时候可以列举出来，否则不可以列举
+003 是否可以重写   writable
+修改这个属性的值
+004 具体的值   value
+
+09 Object.getOwnPropertyDescriptors
+作用：多个属性的描述信息（对象）
+
+10 Object.defineProperty
+设置对象中某个属性的描述信息（对象）
+
+11 Object.getOwnPropertyNames
+返回对象中所有实例属性的名称数组
+关于是否可以枚举  不论是否可以被枚举都会返回
+12 Object.keys
+返回对象中所有实例属性的名称数组 只返回可以被枚举的属性
+
+13 Object.getPrototypeOf
+获得某个对象的原型对象
+
+14 Object.preventExtensions
+作用：禁止扩展对象  不能添加任何的属性和方法
+
+15 Object.seal
+作用：密封（封闭）对象
+特征：不能够扩展对象，也不能删除对象的属性
+
+16 Object.freeze
+作用：冻结对象
+特征：不能够扩展对象，也不能删除对象的属性，不能修改
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/05/15/angular的总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/15/angular的总结/" itemprop="url">
+                  angular框架的总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T18:22:15+08:00">
+                2017-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="angular关键核心点进行总结"><a href="#angular关键核心点进行总结" class="headerlink" title="angular关键核心点进行总结"></a>angular关键核心点进行总结</h2><p><strong>angular中有很多知识点需要学习,学习成本是很大的,我通过平常开发中把一些<br>很重要知识点总结下来,不管是以后拿来用,或者跳槽面试需要,我都感觉是很有帮助的!</strong>  </p>
+<h2 id="angular的缺点"><a href="#angular的缺点" class="headerlink" title="angular的缺点"></a>angular的缺点</h2><pre><code>本身它是比较笨重的,源码就有3w多行,并且替我封装了很多的方法,所以它的性能是比较差的.
+所以我们在用的时候,就要尽最多程度保证性能了.
+第一个:不要过多在$Scope.$watch方法,因为这个方法会一直执行,如果我们不去手动关闭,
+这个方法会一直监听绑定的属性,所以是非常耗性能的.
+减少不必要的数据展示,因为进行视图的展示,会触发脏值检测,如果一些不必要的数据展示到视图
+中,就会耗性能了
+</code></pre><h2 id="ng-if-ng-show-ng-hide-区别"><a href="#ng-if-ng-show-ng-hide-区别" class="headerlink" title="ng-if ,ng-show ,ng-hide 区别"></a>ng-if ,ng-show ,ng-hide 区别</h2><pre><code>这三者虽然很类似,但是还是不同
+首先是共同点:它们三者都可以起到隐藏显示元素的作用
+不同点:ng-if的隐藏是把dom元素直接删除,而show和hide只是类似使用display:none的方法
+第二个不同点使用场景不一样,ng-if一般用在单次显示隐藏的时候,比如页面一上来就出现的广告
+信息,关闭之后就不会在显示,而show hide一般是配套使用用来控制一些元素显示隐藏,
+多次使用,比如头部的返回和底部的tabbar,它们是相反的,通过show和hide方法就能用
+一个变量控制它们的显示和隐藏
+</code></pre><h2 id="ng-repeat迭代数据出现数据相同处理"><a href="#ng-repeat迭代数据出现数据相同处理" class="headerlink" title="ng-repeat迭代数据出现数据相同处理"></a>ng-repeat迭代数据出现数据相同处理</h2><pre><code>平常使用ng-repeat时候,遍历数据可能会出现数据相同情况,这时候就会报错,如何解决这个
+问题呢?其实很简单,只需要在后面加上 track-by=&apos;索引&apos; 里面传入一个不同的值,就能解决
+数据一样的情况了
+</code></pre><h2 id="ng-事件绑定-能否使用原生js对象方法"><a href="#ng-事件绑定-能否使用原生js对象方法" class="headerlink" title="ng-事件绑定,能否使用原生js对象方法"></a>ng-事件绑定,能否使用原生js对象方法</h2><pre><code>我们在事件绑定时候,是不允许使用原生js对象的方法的,因为angualr不允许我们这样做,如何
+使用这些方法,angular为我们封装了属于自己的对象,在原生对象的前面加一个$,例如$window,
+$timeout.$interval 都是angular为我们封装,我们需要使用的使用,在依赖注入服务的时候
+把这些服务也一同注入进来,就能使用这样对象,它们的实现的功能和原生js对象是一样的,只不过用法
+稍微不同而尔!
+</code></pre><h2 id="factory、service-和-provider-区别"><a href="#factory、service-和-provider-区别" class="headerlink" title="factory、service 和 provider 区别"></a>factory、service 和 provider 区别</h2><pre><code>在平常的开发中,需要用到很多自定义服务,而它们三者之间的共同点就是用来自定义服务的,它们的本质都是创建对象返回一个方法.
+而它们之间的不同就在于定义的方式不一样
+factory自定义服务:我们需要在内部返回一个一个对象,先通过function getData() 定义函数
+然后通过返回一个对象 return {getDate:getData}的方式,我们需要使用的时候通过服务名称
+.对象的key 例如上面的例子,服务名称.getDate()就能调用服务的方法了
+service服务:我们通过this来创建函数,例如,this.getData=function() 然后通过服务名称.
+getData() 就能调用服务里面的方法了
+provider服务:我们需要通过this调用 $get方法 this.$get({return｛｝})　方法里面返回一个
+对象，然后对象接收一个方法，我们通过服务名称.对象名称就能调用服务的方法了
+内置服务都会提供一个provider来进行配置,通过配置文件config方法,然后注入对应服务的名称
+例如 //开启和禁用 调用config方法
+app.config([&apos;$logProvider&apos;,function ($logProvider) {
+$logProvider.debugEnabled(false);
+}])
+</code></pre><h2 id="angular当中数据绑定的机制和原理-digest-apply"><a href="#angular当中数据绑定的机制和原理-digest-apply" class="headerlink" title="angular当中数据绑定的机制和原理 $digest $apply"></a>angular当中数据绑定的机制和原理 $digest $apply</h2><pre><code>angular中是通过脏值检测的方式来进行数据展示到视图的
+每次在视图中绑定数据的时候,都会把这个数据添加到一个$watchlist数组当中,里面的属性会被
+$watch监听,只要有事件的方式,就会触发$degist事件,它第一次会遍历$watchlist数组,
+询问每一个属性是否有更改,然后回再次遍历一次$scope上面的属性,是否有更新,如果有,会再次遍历
+数组,如果没有就会触发$apply方法,把数据展示到视图中
+</code></pre><h2 id="定时器的取消和-watch的停止"><a href="#定时器的取消和-watch的停止" class="headerlink" title="定时器的取消和$watch的停止"></a>定时器的取消和$watch的停止</h2><pre><code>当我们项目需要用到定时器时候,我们肯定需要关闭定时,原生js通过clearInterval来关闭
+而angular中通过 $interval.cancel(timer)来关闭 先用一个变量接收var timer=$interval();
+$watch方法调用的时候会返回一个函数,如果我们想要停止某个监听,在定义时候接收一下
+var stopWatch = $scope.$watch(&apos;监听的值&apos;,回调)  ,再次调用该方法即可关闭监听 
+stopWatch();
+</code></pre><h2 id="angualr中指令以及里面的常用方法"><a href="#angualr中指令以及里面的常用方法" class="headerlink" title="angualr中指令以及里面的常用方法"></a>angualr中指令以及里面的常用方法</h2><pre><code>自定义指令是可以以哪种方式进行展示的,
+通过 restrict 来定义 
+里面具体的值 为 E==&gt;元素  &lt;nav&gt;&lt;/nav&gt;
+  A==&gt;属性   &lt;div nav&gt;&lt;/div&gt;
+  C==&gt;类 &lt;div class=&apos;nav&apos;&gt;&lt;/div&gt;
+  M==&gt;注释   不建议使用
+template:模板,可以直接写html结构 并且里面的标签必须有一个父级包着,要不会报错.
+templateUrl:模板地址 写一个路径
+replace:true  设置为true会替换原来的标签
+transculde:true  该方法之适用外链模板 会保留标签里面的元素  在需要保留的元素添加
+ &lt;div transculde&gt;&lt;/div&gt;
+link:里面接收三个参数,分别是scope,ele,attr,
+它们分别是scope服务,ele为模板的元素,它会默认转换成jQ对象,attr为元素身上的属性
+scope修饰符:
+  里面有三个选项 该方法作用用于外界传值使用
+
+  第一种：自定义名称:&apos;@&apos; 通过&lt;xmg content=&quot;{{content}}&quot;&quot;&gt;&lt;/xmg&gt;
+   的插值语法获取值,该修饰符特点:外界数据修改,内部数据会一起修改,内部修改外部不修改,
+   并且如果指令本身具有该属性,外界同名的属性会覆盖
+  第二种:自定义名称:&apos;=&apos; &lt;xmg content=&quot;content&quot;&gt;&lt;/xmg&gt; 通过这中语法获取值
+  该修饰符特点:外界数据和内部数据会互相更改,并且内部同名的属性会被外部同名的属性覆盖
+  第三种 自定义名称:&apos;&amp;&apos;  &lt;xmg content=&quot;content()&quot;&gt;&lt;/xmg&gt; 外界传入的是一个函数
+</code></pre><h2 id="angular常用的路由和它们之间的区别"><a href="#angular常用的路由和它们之间的区别" class="headerlink" title="angular常用的路由和它们之间的区别"></a>angular常用的路由和它们之间的区别</h2><pre><code>angular当中常用路由是原生ngRoute 和 ui.router
+并且ui.router是依赖angualr的
+它们的共同点都是用来进行设置单页面(spa)
+不同的是,原生angular的路由只支持单视图展示,也就是说视图与视图不能嵌套,用法上受到很大的
+限制.
+而ui.router方法弥补了原生路由的不足,它不仅可以设置多视图的展示,还可以设置子路由的概念,
+就是同一个页面存在多个路由
+</code></pre><h2 id="angular依赖注入的原理"><a href="#angular依赖注入的原理" class="headerlink" title="angular依赖注入的原理"></a>angular依赖注入的原理</h2><pre><code>我们知道依赖注入是angualr的核心之一,我们通过注入服务的方式,达到不同功能之间的相互联系,
+angualr当中有2种注入方式,一种是行内是注入,即我们帮注入的名称放到[]中
+例如 app.controller(&apos;控制器名称&apos;,[$scope,funtion($scope){}]) 
+另外一种是推断式注入 app.controller(&apos;控制器名称&apos;,funtion($scope){}]) 不写[],直接跟
+一个函数,它的缺点是很明显的,我们的项目都是需要经过压缩的,压缩会把一些形参转换成一些简单
+的字母,这时候anular就不能通过形参的值来判断需要哪一个服务,就会报错,所以这种方式不建议使用..
+</code></pre><h2 id="rootScope-和-scope-区别"><a href="#rootScope-和-scope-区别" class="headerlink" title="$rootScope 和$scope 区别"></a>$rootScope 和$scope 区别</h2><pre><code>它们的共同点都是作业域.只不过$rootScope是作为根作用域,$scope的作用域和原生js的作用域链
+类似,都是由底层往上找,上面不能往下找,所以在$rootScope中定义的数据,在任何地方都能被使用,
+它就是一个数的根节点, $scope就像它的分支,一层层的往下分,形成一个树状分支.
+</code></pre><h2 id="数据绑定出现闪烁处理"><a href="#数据绑定出现闪烁处理" class="headerlink" title="数据绑定出现闪烁处理"></a>数据绑定出现闪烁处理</h2><pre><code>当我们使用插值语法进行数据绑定的时候,会出现闪烁.
+解决办法第一种是ng-bind的方法或者ng-bind-template 方法
+第二个是绑定一个类ng-cloak 添加 display:none的方法
+</code></pre><h2 id="angular-mvc和mvvm"><a href="#angular-mvc和mvvm" class="headerlink" title="angular mvc和mvvm"></a>angular mvc和mvvm</h2><pre><code>简单的来说,angular是属于mvc和mvvm
+mvc指视 视图模型控制器
+mvvm值 数据的双向绑定
+</code></pre><h2 id="控制器之间的通讯"><a href="#控制器之间的通讯" class="headerlink" title="控制器之间的通讯"></a>控制器之间的通讯</h2><pre><code>想要实现控制器的通讯,先清楚作用域之间的关系,父控制器想要传输数据到子控制器,通过
+$scope.$broadcast 方法发送一个广播给子控制器,里面绑定一个通讯名称key 后面带上参数
+子空控制器通过$scope.$on 方法接收 传入key名称和一个回调.
+如果是子向父传数据,通过$scope.$emit方法发送,父级也是通过 $scope.$on方法来接收数据
+另外需要注意,一定要等指令加载完毕才去发送广播!
+</code></pre><h2 id="单页面应用的优缺点"><a href="#单页面应用的优缺点" class="headerlink" title="单页面应用的优缺点"></a>单页面应用的优缺点</h2><pre><code>spa应用,优缺点还是很明显的优点是性能高,始终只有一个页面,不需要跳转页面,减轻了服务器的压力.让用户的体验更加好.
+缺点就是不利于seo,对搜索引擎不友好.另外就是没有新窗口的跳转,对应习惯新窗口的用户来说可能造成不适应!!!
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/05/15/js设计模式之工厂模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/15/js设计模式之工厂模式/" itemprop="url">
+                  js设计模式之工厂模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T10:05:55+08:00">
+                2017-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>设计模式之工厂模式</p>
+<p>核心过程<br>01提供父构造函数</p>
+<p>02设置父构造函数的原型对象（属性|方法） 目的是共享</p>
+<p>03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法）</p>
+<p>(001接收产品的类型</p>
+<p>002判断是否支持生产该类型的产品</p>
+<p>003设置原型继承，获得原型对象上面的方法</p>
+<p>004生产该类型的一个产品（创建对象）</p>
+<p>005返回对象)</p>
+<p>04定制合作伙伴（创建子构造函数）</p>
+<p>05调用父构造函数的工厂函数来创建对象</p>
+<p>代码如下</p>
+<p><img src="http://carrotming.cn/assets/blogImg/js18-1.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/04/01/angular的学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/01/angular的学习/" itemprop="url">
                   angular框架的学习
                 </a>
               
@@ -302,8 +1557,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T17:12:44+08:00">
-                2017-03-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-01T17:12:44+08:00">
+                2017-04-01
               </time>
             
 
@@ -1129,6 +2384,253 @@ $state.go(&apos;home.list&apos;);
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/03/20/ajax原生js封装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/20/ajax原生js封装/" itemprop="url">
+                  Ajax原生js封装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-20T11:33:15+08:00">
+                2017-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="通过自定义封装Ajax的请求过程"><a href="#通过自定义封装Ajax的请求过程" class="headerlink" title="通过自定义封装Ajax的请求过程"></a>通过自定义封装Ajax的请求过程</h2><p>Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台返回来的数据,顺便封装了一些Ajax会用到的缓存方法,比如cookie.</p>
+<p>代码如下</p>
+<pre><code>//设置cookie
+function setCookie(key,value,day) {
+//没有过期时间
+if(arguments.length==2){
+document.cookie = key+&apos;=&apos;+value+&apos;; &apos;;
+}else if(arguments.length==3){
+var date=new Date();
+date.setDate(date.getDate()+day);
+document.cookie = key+&quot;=&quot;+value+&quot;; &quot;+ &quot;expires=&quot;+date+&quot;;&quot;;
+}
+}
+//获取cookie
+function getCookie(key) {
+   var arr=document.cookie.split(&apos;; &apos;);
+for (var i = 0; i &lt; arr.length; i++) {
+var res=arr[i].split(&apos;=&apos;);
+ if(res[0]==key){
+ return res[1];
+ }
+}
+}
+//删除cookie
+function removeCookie(key) {
+setCookie(key, &quot;&quot;, -1);
+}
+//jsonP格式 (url,data,success,cbName)
+function jsonP(option) {
+var temp=document.querySelector(&apos;#javascript&apos;);
+if(temp){
+document.body.removeChild(temp);
+}
+   //随机名字
+var name=(&apos;carrot&apos;+Math.random()).replace(&apos;.&apos;,&apos;&apos;);
+//全局函数
+window[name]=option.success;
+option.data[option.cbName]= name;
+var str=jsonData(option.data);
+var oScript=document.createElement(&apos;script&apos;);
+oScript.setAttribute(&apos;id&apos;,&apos;javascript&apos;);
+oScript.src=option.url+&apos;?&apos;+str;
+document.body.appendChild(oScript);
+}
+//把数据转换成对应格式
+function jsonData(data) {
+//添加一个随机因子
+data.t=Math.random();
+//定义一个数组
+var arr=[];
+//通过for in 循环把数据放进数组
+for(var key in data){
+arr.push(key+&apos;=&apos;+encodeURI(data[key]));
+}
+//数组变字符串通过&amp;连接
+var str=arr.join(&apos;&amp;&apos;);
+return str;
+}
+// type,url,data,timeout,success,error
+function myAjax(option) {
+//没有传入地址直接结束
+if(!option.url){
+return ;
+}
+option.type = option.type || &quot;get&quot;;
+option.data = option.data || null;
+option.timeout = option.timeout || 0;
+   var xhr=null;
+//兼容IE写法
+   window.XMLHttpRequest?xhr=new XMLHttpRequest():xhr=new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);
+   //把数据转换拼接形式
+   var str=jsonData(option.data);
+   //判断请求方式
+if(option.type.toLowerCase()==&apos;get&apos;){
+//get请求
+xhr.open(&apos;get&apos;,option.url+&apos;?&apos;+str,true);
+xhr.send();
+}else{
+//post请求
+xhr.open(option.type.toLowerCase(),option.url,true);
+//设置请求头 在open和send中间
+xhr.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);
+//发送
+xhr.send(str);
+}
+xhr.onreadystatechange=function () {
+if(xhr.readyState==4){
+//关闭定时器
+clearTimeout(timer);
+if(xhr.status&gt;=200&amp;&amp;xhr.status&lt;300||xhr.status==304){
+//成功回调
+option.success(xhr.responseText);
+}else {
+//失败回调
+option.error(xhr.status);
+}
+}
+};
+//超时中断传送
+if(option.timeout){
+var timer = setTimeout(function () {
+// 如果请求超时了, 那么应该中断请求
+xhr.abort();
+}, option.timeout);
+}
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/24/ajax跨域与缓存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1380,7 +2882,7 @@ oUl.appendChild(oLi);
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/20/ajax原生js封装/">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2016/11/23/git/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yetten">
@@ -1402,1418 +2904,7 @@ oUl.appendChild(oLi);
             
               
                 
-                <a class="post-title-link" href="/2017/02/20/ajax原生js封装/" itemprop="url">
-                  Ajax原生js封装
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-20T11:33:15+08:00">
-                2017-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="通过自定义封装Ajax的请求过程"><a href="#通过自定义封装Ajax的请求过程" class="headerlink" title="通过自定义封装Ajax的请求过程"></a>通过自定义封装Ajax的请求过程</h2><p>Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台返回来的数据,顺便封装了一些Ajax会用到的缓存方法,比如cookie.</p>
-<p>代码如下</p>
-<pre><code>//设置cookie
-function setCookie(key,value,day) {
-//没有过期时间
-if(arguments.length==2){
-document.cookie = key+&apos;=&apos;+value+&apos;; &apos;;
-}else if(arguments.length==3){
-var date=new Date();
-date.setDate(date.getDate()+day);
-document.cookie = key+&quot;=&quot;+value+&quot;; &quot;+ &quot;expires=&quot;+date+&quot;;&quot;;
-}
-}
-//获取cookie
-function getCookie(key) {
-   var arr=document.cookie.split(&apos;; &apos;);
-for (var i = 0; i &lt; arr.length; i++) {
-var res=arr[i].split(&apos;=&apos;);
- if(res[0]==key){
- return res[1];
- }
-}
-}
-//删除cookie
-function removeCookie(key) {
-setCookie(key, &quot;&quot;, -1);
-}
-//jsonP格式 (url,data,success,cbName)
-function jsonP(option) {
-var temp=document.querySelector(&apos;#javascript&apos;);
-if(temp){
-document.body.removeChild(temp);
-}
-   //随机名字
-var name=(&apos;carrot&apos;+Math.random()).replace(&apos;.&apos;,&apos;&apos;);
-//全局函数
-window[name]=option.success;
-option.data[option.cbName]= name;
-var str=jsonData(option.data);
-var oScript=document.createElement(&apos;script&apos;);
-oScript.setAttribute(&apos;id&apos;,&apos;javascript&apos;);
-oScript.src=option.url+&apos;?&apos;+str;
-document.body.appendChild(oScript);
-}
-//把数据转换成对应格式
-function jsonData(data) {
-//添加一个随机因子
-data.t=Math.random();
-//定义一个数组
-var arr=[];
-//通过for in 循环把数据放进数组
-for(var key in data){
-arr.push(key+&apos;=&apos;+encodeURI(data[key]));
-}
-//数组变字符串通过&amp;连接
-var str=arr.join(&apos;&amp;&apos;);
-return str;
-}
-// type,url,data,timeout,success,error
-function myAjax(option) {
-//没有传入地址直接结束
-if(!option.url){
-return ;
-}
-option.type = option.type || &quot;get&quot;;
-option.data = option.data || null;
-option.timeout = option.timeout || 0;
-   var xhr=null;
-//兼容IE写法
-   window.XMLHttpRequest?xhr=new XMLHttpRequest():xhr=new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);
-   //把数据转换拼接形式
-   var str=jsonData(option.data);
-   //判断请求方式
-if(option.type.toLowerCase()==&apos;get&apos;){
-//get请求
-xhr.open(&apos;get&apos;,option.url+&apos;?&apos;+str,true);
-xhr.send();
-}else{
-//post请求
-xhr.open(option.type.toLowerCase(),option.url,true);
-//设置请求头 在open和send中间
-xhr.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);
-//发送
-xhr.send(str);
-}
-xhr.onreadystatechange=function () {
-if(xhr.readyState==4){
-//关闭定时器
-clearTimeout(timer);
-if(xhr.status&gt;=200&amp;&amp;xhr.status&lt;300||xhr.status==304){
-//成功回调
-option.success(xhr.responseText);
-}else {
-//失败回调
-option.error(xhr.status);
-}
-}
-};
-//超时中断传送
-if(option.timeout){
-var timer = setTimeout(function () {
-// 如果请求超时了, 那么应该中断请求
-xhr.abort();
-}, option.timeout);
-}
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/15/js设计模式之工厂模式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/15/js设计模式之工厂模式/" itemprop="url">
-                  js设计模式之工厂模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T10:05:55+08:00">
-                2017-02-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>设计模式之工厂模式</p>
-<p>核心过程<br>01提供父构造函数</p>
-<p>02设置父构造函数的原型对象（属性|方法） 目的是共享</p>
-<p>03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法）</p>
-<p>(001接收产品的类型</p>
-<p>002判断是否支持生产该类型的产品</p>
-<p>003设置原型继承，获得原型对象上面的方法</p>
-<p>004生产该类型的一个产品（创建对象）</p>
-<p>005返回对象)</p>
-<p>04定制合作伙伴（创建子构造函数）</p>
-<p>05调用父构造函数的工厂函数来创建对象</p>
-<p>代码如下</p>
-<p><img src="http://carrotming.cn/assets/blogImg/js18-1.png" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/10/js面向对象Object的静态成员/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/10/js面向对象Object的静态成员/" itemprop="url">
-                  js面向对象Object的静态成员
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-10T09:15:14+08:00">
-                2017-02-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="关于Object静态成员的具体介绍"><a href="#关于Object静态成员的具体介绍" class="headerlink" title="关于Object静态成员的具体介绍"></a>关于Object静态成员的具体介绍</h1><h2 id="静态成员："><a href="#静态成员：" class="headerlink" title="静态成员："></a>静态成员：</h2><pre><code>01 Object.apply
-借用其他对象的方法
-用法：对象.方法.apply(this绑定的对象,[参数1，参数2])
-02 Object.arguments
-函数内部的一个隐藏参数，这个隐藏参数用来接收实参的。
-它本身是一个类似于数组的结构，但是不是数组。它可以像数组一样通过下标来操作数据
-
-03 Object.assign
-作用:拷贝对象的属性，多个对象。
-04 Object.bind
-该方法的作用同call|apply差不多。
-
-05 Object.call
-借用其他对象的方法
-用法：对象.方法.call(this绑定的对象,参数1，参数2);
-
-06 Object.caller
-指向调用当前函数的函数
-
-07 Object.create
-创建对象，设置原型对象。
-
-08 Object.getOwnPropertyDescriptor
-作用：获得某个实例属性的描述信息（对象）
-描述对象：
-001 是否可以配置   configurable
-如果是true该属性可以被删除，且configurable可以被设置为false
-如果是false该属性不可以被删除，且configurable不可以再被设置为true
-
-002 是否可以枚举   enumerable
-如果是true,那么在使用for..in循环遍历对象的时候可以列举出来，否则不可以列举
-003 是否可以重写   writable
-修改这个属性的值
-004 具体的值   value
-
-09 Object.getOwnPropertyDescriptors
-作用：多个属性的描述信息（对象）
-
-10 Object.defineProperty
-设置对象中某个属性的描述信息（对象）
-
-11 Object.getOwnPropertyNames
-返回对象中所有实例属性的名称数组
-关于是否可以枚举  不论是否可以被枚举都会返回
-12 Object.keys
-返回对象中所有实例属性的名称数组 只返回可以被枚举的属性
-
-13 Object.getPrototypeOf
-获得某个对象的原型对象
-
-14 Object.preventExtensions
-作用：禁止扩展对象  不能添加任何的属性和方法
-
-15 Object.seal
-作用：密封（封闭）对象
-特征：不能够扩展对象，也不能删除对象的属性
-
-16 Object.freeze
-作用：冻结对象
-特征：不能够扩展对象，也不能删除对象的属性，不能修改
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/01/js原型链/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/01/js原型链/" itemprop="url">
-                  js原型链的总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-01T15:33:44+08:00">
-                2017-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="原型链还是比较重要-单独拿出来总结"><a href="#原型链还是比较重要-单独拿出来总结" class="headerlink" title="原型链还是比较重要,单独拿出来总结!"></a>原型链还是比较重要,单独拿出来总结!</h2><p>① 构造函数作为函数的时候原型默认指向一个空的对象Object {};<br>构造函数.prototype为Object{};<br>注意点:除了Function作为构造函数之外 它默认指向一个空函数<br>只有构造函数有.prototype!!对象没有<br>比如 var o={}; o.prototype==undefined;<br>② 构造函数的原型对象有一个constructor 构造器属性 默认该构造器都是它的构造函数 该属性默认仅仅在原型对象中才有<br>③ 构造函数的原型对象也是一个对象,它也有他的原型对象 构造函数.prototype.proto 所有对象访问原型都是通过.proto,并且都会指向Object的原型(包括Function) 除了Object作为构造函数除外   Object.prototype.proto = null<br>④ 构造函数作为对象的时候 构造函数.proto 都会指向空函数  </p>
-<pre><code>&lt;script&gt;
-/*
- ①①①①①①①①①①①①①①①①①①①
-* */
-/*var o={};
-function Person(){}
-function Object(){}
-console.log(o.prototype);//undefined
-console.log(Function.prototype);//空函数
-console.log(Person.prototype );//Object {}
-console.log(Object.prototype );//Object {}*/
-/*
-* ②②②②②②②②②②②②②
-* */
-/*function Person(){}
-console.log(Person.prototype.constructor);//  function Person(){}
-function Object(){}
-console.log(Object.prototype.constructor); // function Object(){}
-   /!* function Function(){}
-console.log(Function.prototype.constructor); // function Function(){}*!/*/
-/*
-* ③③③③③③③③③③③③③③
-*
-* */
-   /* function Person(){}
-console.log(Person.prototype.__proto__);//Object
-function Object(){}
-console.log(Object.prototype.__proto__) ;//null;*/
-   /* function Function(){}
-console.log(Function.prototype.__proto__);//Object*/
-/*
-* ④④④④④④④④④④④④④④
-*
-* */
-   /* function Person(){}
-console.log(Person.__proto__);//空函数
-function Object(){}
-console.log(Object.__proto__);//空函数*/
-/*function Function(){}
-console.log(Function.__proto__);//空函数*/
-&lt;/script&gt;
-</code></pre><p><img src="http://carrotming.cn/assets/blogImg/js19-1.jpg" alt=""></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/01/15/微信小程序学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/15/微信小程序学习/" itemprop="url">
-                  微信小程序的学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-15T14:55:44+08:00">
-                2017-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
-<h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong></p>
-<pre><code>通过app.js设置
-app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.
-默认设置
-App({
-  onLaunch: function () {
-//调用API从本地缓存中获取数据
-var logs = wx.getStorageSync(&apos;logs&apos;) || []
-logs.unshift(Date.now())
-wx.setStorageSync(&apos;logs&apos;, logs)
-  },
-  getUserInfo:function(cb){
-var that = this;
-if(this.globalData.userInfo){
-  typeof cb == &quot;function&quot; &amp;&amp; cb(this.globalData.userInfo)
-}else{
-  //调用登录接口
-  wx.login({
-success: function () {
-  wx.getUserInfo({
-success: function (res) {
-  that.globalData.userInfo = res.userInfo;
-  typeof cb == &quot;function&quot; &amp;&amp; cb(that.globalData.userInfo)
-}
-  })
-}
-  });
-}
-  },
-  globalData:{
-userInfo:null
-  }
-})
-</code></pre><p><strong>小程序公共设置</strong></p>
-<pre><code>app.json 设置 
-是对整个小程序的全局配置。我们可以在这个文件中配置小程序是由哪些页面组成，配置小程序的窗口背景色，配置导航条样式，配置默认标题。注意该文件不可添加任何注释
-默认设置
-{
-  &quot;pages&quot;:[
-&quot;pages/index/index&quot;,
-&quot;pages/logs/logs&quot;
-  ],
-  &quot;window&quot;:{
-&quot;backgroundTextStyle&quot;:&quot;light&quot;,
-&quot;navigationBarBackgroundColor&quot;: &quot;#fff&quot;,
-&quot;navigationBarTitleText&quot;: &quot;WeChat&quot;,
-&quot;navigationBarTextStyle&quot;:&quot;black&quot;
-  }
-}
-</code></pre><p><strong>小程序公共样式表</strong></p>
-<pre><code>通过app.wxss设置
-是整个小程序的公共样式表。我们可以在页面组件的 class 属性上直接使用 app.wxss 中声明的样式规则。
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-}
-</code></pre><p><strong>创建页面</strong></p>
-<pre><code>通过app.json的 &quot;pages&quot;绑定 且第一个为首页
-每一个页面有4个文件组成
-index.js、 index.wxml、 index.wxss、 index.json
-.js后缀的文件是脚本文件，.json后缀的文件是配置文件，.wxss后缀的是样式表文件，.wxml后缀的文件是页面结构文件。
-默认设置
-</code></pre><blockquote>
-<p><strong><em>index.wxml</em></strong></p>
-</blockquote>
-<pre><code>&lt;view class=&quot;container&quot;&gt;
-  &lt;view  bindtap=&quot;bindViewTap&quot; class=&quot;userinfo&quot;&gt;
-&lt;image class=&quot;userinfo-avatar&quot; src=&quot;{{userInfo.avatarUrl}}&quot; background-size=&quot;cover&quot;&gt;&lt;/image&gt;
-&lt;text class=&quot;userinfo-nickname&quot;&gt;{{userInfo.nickName}}&lt;/text&gt;
-  &lt;/view&gt;
-  &lt;view class=&quot;usermotto&quot;&gt;
-&lt;text class=&quot;user-motto&quot;&gt;{{motto}}&lt;/text&gt;
-  &lt;/view&gt;
-&lt;/view&gt;
-</code></pre><blockquote>
-<p>index.js</p>
-</blockquote>
-<pre><code>index.js 是页面的脚本文件，在这个文件中我们可以监听并处理页面的生命周期函数、获取小程序实例，声明并处理数据，响应页面交互事件等。
-var app = getApp()
-Page({
-  data: {
-motto: &apos;Hello World&apos;,
-userInfo: {}
-  },
-  //事件处理函数
-  bindViewTap: function() {
-wx.navigateTo({
-  url: &apos;../logs/logs&apos;
-})
-  },
-  onLoad: function () {
-console.log(&apos;onLoad&apos;)
-var that = this
-//调用应用实例的方法获取全局数据
-app.getUserInfo(function(userInfo){
-  //更新数据
-  that.setData({
-userInfo:userInfo
-  })
-})
-  }
-})
-</code></pre><blockquote>
-<p>index.wxss</p>
-</blockquote>
-<pre><code>是页面的样式表 如果不指定会使用app.wxss的样式,如果写了会覆盖app.wxss的样式
-</code></pre><h2 id="视图容器"><a href="#视图容器" class="headerlink" title="视图容器"></a>视图容器</h2><p><strong>介绍这个常用的,具体方法都能在官方文档找到哦</strong></p>
-<pre><code>&gt; view视图
-
-写样式和html很类似  通过class绑定样式 style也可以设置样式
-其中flex-direction: row  弹性布局横向布局
-   direction:column  弹性布局纵向布局
-    具体属性作用
-hover-class 指定按下去的样式类。当 hover-class=&quot;none&quot; 时，没有点击态效果
-hover-start-time  按住后多久出现点击态，单位毫秒
-hover-stay-time      手指松开后点击态保留时间，单位毫秒
-&lt;view class=&quot;section&quot;&gt;
-
-  &lt;view class=&quot;flex-wrp&quot; style=&quot;flex-direction:row;&quot;&gt;
-&lt;view class=&quot;flex-item bc_green&quot;&gt;1&lt;/view&gt;
-&lt;view class=&quot;flex-item bc_red&quot;&gt;2&lt;/view&gt;
-&lt;view class=&quot;flex-item bc_blue&quot;&gt;3&lt;/view&gt;
-  &lt;/view&gt;
-&lt;/view&gt;
-</code></pre><blockquote>
-<p> scroll-view视图</p>
-</blockquote>
-<pre><code>注意点:
-使用竖向滚动时，需要给&lt;scroll-view/&gt;一个固定高度，通过 WXSS 设置 height。
-请勿在 scroll-view 中使用 textarea、map、canvas、video 组件
-scroll-into-view 的优先级高于 scroll-top
-在滚动 scroll-view 时会阻止页面回弹，所以在 scroll-view 中滚动，是无法触发 onPullDownRefresh
-若要使用下拉刷新，请使用页面的滚动，而不是 scroll-view ，这样也能通过点击顶部状态栏回到页面顶部
-&lt;view class=&quot;section&quot;&gt;
-  &lt;view class=&quot;section__title&quot;&gt;vertical scroll&lt;/view&gt;
-  &lt;scroll-view scroll-y style=&quot;height: 200px;&quot; bindscrolltoupper=&quot;upper&quot; bindscrolltolower=&quot;lower&quot; bindscroll=&quot;scroll&quot; scroll-into-view=&quot;{{toView}}&quot; scroll-top=&quot;{{scrollTop}}&quot;&gt;
-&lt;view id=&quot;green&quot; class=&quot;scroll-view-item bc_green&quot;&gt;&lt;/view&gt;
-&lt;view id=&quot;red&quot;  class=&quot;scroll-view-item bc_red&quot;&gt;&lt;/view&gt;
-&lt;view id=&quot;yellow&quot; class=&quot;scroll-view-item bc_yellow&quot;&gt;&lt;/view&gt;
-&lt;view id=&quot;blue&quot; class=&quot;scroll-view-item bc_blue&quot;&gt;&lt;/view&gt;
-  &lt;/scroll-view&gt;
-  &lt;view class=&quot;btn-area&quot;&gt;
-&lt;button size=&quot;mini&quot; bindtap=&quot;tap&quot;&gt;click me to scroll into view &lt;/button&gt;
-&lt;button size=&quot;mini&quot; bindtap=&quot;tapMove&quot;&gt;click me to scroll&lt;/button&gt;
-  &lt;/view&gt;
-&lt;/view&gt;
-</code></pre><blockquote>
-<p>swiper组件</p>
-</blockquote>
-<pre><code>滑块视图容器。 也就是轮播图组件
-swiper-item
-仅可放置在&lt;swiper/&gt;组件中，宽高自动设置为100%。
-&lt;swiper indicator-dots=&quot;{{indicatorDots}}&quot;
-  autoplay=&quot;{{autoplay}}&quot; interval=&quot;{{interval}}&quot; duration=&quot;{{duration}}&quot;&gt;
-  &lt;block wx:for=&quot;{{imgUrls}}&quot;&gt;
-&lt;swiper-item&gt;
-  &lt;image src=&quot;{{item}}&quot; class=&quot;slide-image&quot; width=&quot;355&quot; height=&quot;150&quot;/&gt;
-&lt;/swiper-item&gt;
-  &lt;/block&gt;
-&lt;/swiper&gt;
-&lt;button bindtap=&quot;changeIndicatorDots&quot;&gt; indicator-dots &lt;/button&gt;
-&lt;button bindtap=&quot;changeAutoplay&quot;&gt; autoplay &lt;/button&gt;
-&lt;slider bindchange=&quot;intervalChange&quot; show-value min=&quot;500&quot; max=&quot;2000&quot;/&gt; interval
-&lt;slider bindchange=&quot;durationChange&quot; show-value min=&quot;1000&quot; max=&quot;10000&quot;/&gt; duration
-</code></pre><blockquote>
-<p>icon</p>
-</blockquote>
-<pre><code>图标。
-用来设置不同的icon图标
-</code></pre><blockquote>
-<p>progress<br><strong>用来设置滚动条</strong></p>
-<p>picker</p>
-</blockquote>
-<p>从底部弹起的滚动选择器，现支持五种选择器，通过mode来区分，分别是普通选择器，多列选择器，时间选择器，日期选择器，省市区选择器，默认是普通选择器。</p>
-<blockquote>
-<p>slider</p>
-</blockquote>
-<p>滑动选择器。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2016/08/11/跨域/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/11/跨域/" itemprop="url">
-                  ajax处理跨域的方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T10:23:44+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>由于JS同源策略的影响，因此js只能访问同域名下的文档。因此要实现跨域，一般有以下几个方法：  </p>
-<h1 id="一、处理跨域的方式："><a href="#一、处理跨域的方式：" class="headerlink" title="一、处理跨域的方式："></a>一、处理跨域的方式：</h1><h2 id="1-代理"><a href="#1-代理" class="headerlink" title="1.代理"></a>1.代理</h2><h2 id="2-XHR2"><a href="#2-XHR2" class="headerlink" title="2.XHR2"></a>2.XHR2</h2><p>HTML5中提供的XMLHTTPREQUEST Level2（及XHR2）已经实现了跨域访问。但ie10以下不支持<br>只需要在服务端填上响应头：  </p>
-<p>header(“Access-Control-Allow-Origin:<em>“);<br>/</em>星号表示所有的域都可以接受，*/<br>header(“Access-Control-Allow-Methods:GET,POST”);  </p>
-<h2 id="3-jsonP"><a href="#3-jsonP" class="headerlink" title="3.jsonP"></a>3.jsonP</h2><p>原理：<br> ajax本身是不可以跨域的，<br>通过产生一个script标签来实现跨域。因为script标签的src属性是没有跨域的限制的。<br>其实设置了dataType: ‘jsonp’后，$.ajax方法就和ajax XmlHttpRequest没什么关系了，取而代之的则是JSONP协议。JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问。<br> ajax的跨域写法：<br>（其余写法和不跨域的一样）：<br>比如<br>/<em>当前网址是localhost:3000</em>/<br>js代码  </p>
-<p>$.ajax({<br>type:”get”,<br>url:”<a href="http://localhost:3000/showAll&quot;,/*url写异域的请求地址*/" target="_blank" rel="external">http://localhost:3000/showAll&quot;,/*url写异域的请求地址*/</a><br>dataType:”jsonp”,/<em>加上datatype</em>/<br>jsonpCallback:”cb”,/<em>设置一个回调函数，名字随便取，和下面的函数里的名字相同就行</em>/<br>success:function(){  </p>
-<p>}<br>});  </p>
-<p>/<em>而在异域服务器上，</em>/<br>app.js<br>app.get(‘/showAll’,students.showAll);/<em>这和不跨域的写法相同</em>/  </p>
-<p>/<em>在异域服务器的showAll函数里，</em>/  </p>
-<p>var db = require(“./database”);  </p>
-<p>exports.showAll = function(req,res){  </p>
-<p>/<strong>设置响应头允许ajax跨域访问</strong>/<br>res.setHeader(“Access-Control-Allow-Origin”,”<em>“);<br>/</em>星号表示所有的异域请求都可以接受，*/<br>res.setHeader(“Access-Control-Allow-Methods”,”GET,POST”);  </p>
-<p>var con = db.getCon();<br>con.query(“select <em> from t_students”,function(error,rows){<br>if(error){<br>console.log(“数据库出错：”+error);<br>}else{<br>/</em>注意这里，返回的就是jsonP的回调函数名+数据了*/<br>res.send(“cb(“+JSON.stringify(r)+”)”);<br>}<br>});<br>}  </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2016/07/29/Ajax/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/29/Ajax/" itemprop="url">
-                  ajax的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-29T14:13:24+08:00">
-                2016-07-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/H5/" itemprop="url" rel="index">
-                    <span itemprop="name">H5</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="什么是-AJAX-？"><a href="#什么是-AJAX-？" class="headerlink" title="什么是 AJAX ？"></a>什么是 AJAX ？</h1><p>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。</p>
-<h1 id="创建-XMLHttpRequest-对象"><a href="#创建-XMLHttpRequest-对象" class="headerlink" title="创建 XMLHttpRequest 对象"></a>创建 XMLHttpRequest 对象</h1><p>为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject ：<br><br>    var xmlhttp;<br>    if (window.XMLHttpRequest)<br>      {// code for IE7+, Firefox, Chrome, Opera, Safari<br>      xmlhttp=new XMLHttpRequest();<br>      }<br>    else<br>      {// code for IE6, IE5<br>      xmlhttp=new ActiveXObject(“Microsoft.XMLHTTP”);<br>      }</p>
-<h1 id="GET-还是-POST？"><a href="#GET-还是-POST？" class="headerlink" title="GET 还是 POST？"></a>GET 还是 POST？</h1><p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。<br>然而，在以下情况中，请使用 POST 请求：<br>无法使用缓存文件（更新服务器上的文件或数据库）<br>向服务器发送大量数据（POST 没有数据量限制）<br>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</p>
-<h1 id="方法-描述"><a href="#方法-描述" class="headerlink" title="方法    描述"></a>方法    描述</h1><p>open(method,url,async)<br>规定请求的类型、URL 以及是否异步处理请求。<br>method：请求的类型；GET 或 POST<br>url：文件在服务器上的位置<br>async：true（异步）或 false（同步）<br>send(string)<br>将请求发送到服务器。<br>string：仅用于 POST 请求</p>
-<h1 id="当使用-async-true-时-即是异步时"><a href="#当使用-async-true-时-即是异步时" class="headerlink" title="当使用 async=true 时(即是异步时)"></a>当使用 async=true 时(即是异步时)</h1><p>请规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数：<br>    xmlhttp.onreadystatechange=function()<br>      {<br>      if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)<br>    {<br>    document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;<br>    }<br>      }<br>    xmlhttp.open(“GET”,”test1.txt”,true);<br>    xmlhttp.send();</p>
-<h1 id="responseText-属性"><a href="#responseText-属性" class="headerlink" title="responseText 属性"></a>responseText 属性</h1><p>如果来自服务器的响应并非 XML，请使用 responseText 属性。<br>responseText 属性返回字符串形式的响应，因此您可以这样使用：<br>document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;  </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2016/07/23/git/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yetten">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="yetten's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/23/git/" itemprop="url">
+                <a class="post-title-link" href="/2016/11/23/git/" itemprop="url">
                   git的常用命令
                 </a>
               
@@ -2830,8 +2921,8 @@ swiper-item
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-23T20:33:24+08:00">
-                2016-07-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-23T20:33:24+08:00">
+                2016-11-23
               </time>
             
 
@@ -2958,6 +3049,10 @@ swiper-item
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -3000,7 +3095,7 @@ swiper-item
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
