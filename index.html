@@ -362,7 +362,189 @@
         
           
             <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
-<h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong><br>    通过app.js设置<br>    app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.<br>    默认设置<br>    App({<br>      onLaunch: function () {<br>    //调用API从本地缓存中获取数据<br>    var logs = wx.getStorageSync(‘logs’) || []<br>    logs.unshift(Date.now())<br>    wx.setStorageSync(‘logs’, logs)<br>      },<br>      getUserInfo:function(cb){<br>    var that = this;<br>    if(this.globalData.userInfo){<br>      typeof cb == “function” &amp;&amp; cb(this.globalData.userInfo)<br>    }else{<br>      //调用登录接口<br>      wx.login({<br>    success: function () {<br>      wx.getUserInfo({<br>    success: function (res) {<br>      that.globalData.userInfo = res.userInfo;<br>      typeof cb == “function” &amp;&amp; cb(that.globalData.userInfo)<br>    }<br>      })<br>    }<br>      });<br>    }<br>      },<br>      globalData:{<br>    userInfo:null<br>      }<br>    })</p>
+<h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong></p>
+<pre><code>通过app.js设置
+app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.
+默认设置
+App({
+  onLaunch: function () {
+//调用API从本地缓存中获取数据
+var logs = wx.getStorageSync(&apos;logs&apos;) || []
+logs.unshift(Date.now())
+wx.setStorageSync(&apos;logs&apos;, logs)
+  },
+  getUserInfo:function(cb){
+var that = this;
+if(this.globalData.userInfo){
+  typeof cb == &quot;function&quot; &amp;&amp; cb(this.globalData.userInfo)
+}else{
+  //调用登录接口
+  wx.login({
+success: function () {
+  wx.getUserInfo({
+success: function (res) {
+  that.globalData.userInfo = res.userInfo;
+  typeof cb == &quot;function&quot; &amp;&amp; cb(that.globalData.userInfo)
+}
+  })
+}
+  });
+}
+  },
+  globalData:{
+userInfo:null
+  }
+})
+</code></pre><p><strong>小程序公共设置</strong></p>
+<pre><code>app.json 设置 
+是对整个小程序的全局配置。我们可以在这个文件中配置小程序是由哪些页面组成，配置小程序的窗口背景色，配置导航条样式，配置默认标题。注意该文件不可添加任何注释
+默认设置
+{
+  &quot;pages&quot;:[
+&quot;pages/index/index&quot;,
+&quot;pages/logs/logs&quot;
+  ],
+  &quot;window&quot;:{
+&quot;backgroundTextStyle&quot;:&quot;light&quot;,
+&quot;navigationBarBackgroundColor&quot;: &quot;#fff&quot;,
+&quot;navigationBarTitleText&quot;: &quot;WeChat&quot;,
+&quot;navigationBarTextStyle&quot;:&quot;black&quot;
+  }
+}
+</code></pre><p><strong>小程序公共样式表</strong></p>
+<pre><code>通过app.wxss设置
+是整个小程序的公共样式表。我们可以在页面组件的 class 属性上直接使用 app.wxss 中声明的样式规则。
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+</code></pre><p><strong>创建页面</strong></p>
+<pre><code>通过app.json的 &quot;pages&quot;绑定 且第一个为首页
+每一个页面有4个文件组成
+index.js、 index.wxml、 index.wxss、 index.json
+.js后缀的文件是脚本文件，.json后缀的文件是配置文件，.wxss后缀的是样式表文件，.wxml后缀的文件是页面结构文件。
+默认设置
+</code></pre><blockquote>
+<p><strong><em>index.wxml</em></strong></p>
+</blockquote>
+<pre><code>&lt;view class=&quot;container&quot;&gt;
+  &lt;view  bindtap=&quot;bindViewTap&quot; class=&quot;userinfo&quot;&gt;
+&lt;image class=&quot;userinfo-avatar&quot; src=&quot;{{userInfo.avatarUrl}}&quot; background-size=&quot;cover&quot;&gt;&lt;/image&gt;
+&lt;text class=&quot;userinfo-nickname&quot;&gt;{{userInfo.nickName}}&lt;/text&gt;
+  &lt;/view&gt;
+  &lt;view class=&quot;usermotto&quot;&gt;
+&lt;text class=&quot;user-motto&quot;&gt;{{motto}}&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><blockquote>
+<p>index.js</p>
+</blockquote>
+<pre><code>index.js 是页面的脚本文件，在这个文件中我们可以监听并处理页面的生命周期函数、获取小程序实例，声明并处理数据，响应页面交互事件等。
+var app = getApp()
+Page({
+  data: {
+motto: &apos;Hello World&apos;,
+userInfo: {}
+  },
+  //事件处理函数
+  bindViewTap: function() {
+wx.navigateTo({
+  url: &apos;../logs/logs&apos;
+})
+  },
+  onLoad: function () {
+console.log(&apos;onLoad&apos;)
+var that = this
+//调用应用实例的方法获取全局数据
+app.getUserInfo(function(userInfo){
+  //更新数据
+  that.setData({
+userInfo:userInfo
+  })
+})
+  }
+})
+</code></pre><blockquote>
+<p>index.wxss</p>
+</blockquote>
+<pre><code>是页面的样式表 如果不指定会使用app.wxss的样式,如果写了会覆盖app.wxss的样式
+</code></pre><h2 id="视图容器"><a href="#视图容器" class="headerlink" title="视图容器"></a>视图容器</h2><p><strong>介绍这个常用的,具体方法都能在官方文档找到哦</strong></p>
+<pre><code>&gt; view视图
+
+写样式和html很类似  通过class绑定样式 style也可以设置样式
+其中flex-direction: row  弹性布局横向布局
+   direction:column  弹性布局纵向布局
+    具体属性作用
+hover-class 指定按下去的样式类。当 hover-class=&quot;none&quot; 时，没有点击态效果
+hover-start-time  按住后多久出现点击态，单位毫秒
+hover-stay-time      手指松开后点击态保留时间，单位毫秒
+&lt;view class=&quot;section&quot;&gt;
+
+  &lt;view class=&quot;flex-wrp&quot; style=&quot;flex-direction:row;&quot;&gt;
+&lt;view class=&quot;flex-item bc_green&quot;&gt;1&lt;/view&gt;
+&lt;view class=&quot;flex-item bc_red&quot;&gt;2&lt;/view&gt;
+&lt;view class=&quot;flex-item bc_blue&quot;&gt;3&lt;/view&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><blockquote>
+<p> scroll-view视图</p>
+</blockquote>
+<pre><code>注意点:
+使用竖向滚动时，需要给&lt;scroll-view/&gt;一个固定高度，通过 WXSS 设置 height。
+请勿在 scroll-view 中使用 textarea、map、canvas、video 组件
+scroll-into-view 的优先级高于 scroll-top
+在滚动 scroll-view 时会阻止页面回弹，所以在 scroll-view 中滚动，是无法触发 onPullDownRefresh
+若要使用下拉刷新，请使用页面的滚动，而不是 scroll-view ，这样也能通过点击顶部状态栏回到页面顶部
+&lt;view class=&quot;section&quot;&gt;
+  &lt;view class=&quot;section__title&quot;&gt;vertical scroll&lt;/view&gt;
+  &lt;scroll-view scroll-y style=&quot;height: 200px;&quot; bindscrolltoupper=&quot;upper&quot; bindscrolltolower=&quot;lower&quot; bindscroll=&quot;scroll&quot; scroll-into-view=&quot;{{toView}}&quot; scroll-top=&quot;{{scrollTop}}&quot;&gt;
+&lt;view id=&quot;green&quot; class=&quot;scroll-view-item bc_green&quot;&gt;&lt;/view&gt;
+&lt;view id=&quot;red&quot;  class=&quot;scroll-view-item bc_red&quot;&gt;&lt;/view&gt;
+&lt;view id=&quot;yellow&quot; class=&quot;scroll-view-item bc_yellow&quot;&gt;&lt;/view&gt;
+&lt;view id=&quot;blue&quot; class=&quot;scroll-view-item bc_blue&quot;&gt;&lt;/view&gt;
+  &lt;/scroll-view&gt;
+  &lt;view class=&quot;btn-area&quot;&gt;
+&lt;button size=&quot;mini&quot; bindtap=&quot;tap&quot;&gt;click me to scroll into view &lt;/button&gt;
+&lt;button size=&quot;mini&quot; bindtap=&quot;tapMove&quot;&gt;click me to scroll&lt;/button&gt;
+  &lt;/view&gt;
+&lt;/view&gt;
+</code></pre><blockquote>
+<p>swiper组件</p>
+</blockquote>
+<pre><code>滑块视图容器。 也就是轮播图组件
+swiper-item
+仅可放置在&lt;swiper/&gt;组件中，宽高自动设置为100%。
+&lt;swiper indicator-dots=&quot;{{indicatorDots}}&quot;
+  autoplay=&quot;{{autoplay}}&quot; interval=&quot;{{interval}}&quot; duration=&quot;{{duration}}&quot;&gt;
+  &lt;block wx:for=&quot;{{imgUrls}}&quot;&gt;
+&lt;swiper-item&gt;
+  &lt;image src=&quot;{{item}}&quot; class=&quot;slide-image&quot; width=&quot;355&quot; height=&quot;150&quot;/&gt;
+&lt;/swiper-item&gt;
+  &lt;/block&gt;
+&lt;/swiper&gt;
+&lt;button bindtap=&quot;changeIndicatorDots&quot;&gt; indicator-dots &lt;/button&gt;
+&lt;button bindtap=&quot;changeAutoplay&quot;&gt; autoplay &lt;/button&gt;
+&lt;slider bindchange=&quot;intervalChange&quot; show-value min=&quot;500&quot; max=&quot;2000&quot;/&gt; interval
+&lt;slider bindchange=&quot;durationChange&quot; show-value min=&quot;1000&quot; max=&quot;10000&quot;/&gt; duration
+</code></pre><blockquote>
+<p>icon</p>
+</blockquote>
+<pre><code>图标。
+用来设置不同的icon图标
+</code></pre><blockquote>
+<p>progress<br><strong>用来设置滚动条</strong></p>
+<p>picker</p>
+</blockquote>
+<p>从底部弹起的滚动选择器，现支持五种选择器，通过mode来区分，分别是普通选择器，多列选择器，时间选择器，日期选择器，省市区选择器，默认是普通选择器。</p>
+<blockquote>
+<p>slider</p>
+</blockquote>
+<p>滑动选择器。</p>
 
           
         
