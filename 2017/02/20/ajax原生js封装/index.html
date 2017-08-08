@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
+<meta name="description" content="通过自定义封装Ajax的请求过程Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台">
 <meta name="keywords" content="ajax">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ajax的使用">
-<meta property="og:url" content="yetten.github.io/2016/07/29/Ajax/index.html">
+<meta property="og:title" content="Ajax原生js封装">
+<meta property="og:url" content="yetten.github.io/2017/02/20/ajax原生js封装/index.html">
 <meta property="og:site_name" content="yetten's blog">
-<meta property="og:description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
-<meta property="og:updated_time" content="2017-08-08T07:19:27.759Z">
+<meta property="og:description" content="通过自定义封装Ajax的请求过程Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台">
+<meta property="og:updated_time" content="2017-08-08T08:05:03.946Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ajax的使用">
-<meta name="twitter:description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
+<meta name="twitter:title" content="Ajax原生js封装">
+<meta name="twitter:description" content="通过自定义封装Ajax的请求过程Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="yetten.github.io/2016/07/29/Ajax/"/>
+  <link rel="canonical" href="yetten.github.io/2017/02/20/ajax原生js封装/"/>
 
 
 
 
 
-  <title>ajax的使用 | yetten's blog</title>
+  <title>Ajax原生js封装 | yetten's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2016/07/29/Ajax/">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/20/ajax原生js封装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yetten">
@@ -284,7 +284,7 @@
             
             
               
-                ajax的使用
+                Ajax原生js封装
               
             
           </h1>
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-29T14:13:24+08:00">
-                2016-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-20T11:33:15+08:00">
+                2017-02-20
               </time>
             
 
@@ -356,13 +356,113 @@
       
 
       
-        <h1 id="什么是-AJAX-？"><a href="#什么是-AJAX-？" class="headerlink" title="什么是 AJAX ？"></a>什么是 AJAX ？</h1><p>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。</p>
-<h1 id="创建-XMLHttpRequest-对象"><a href="#创建-XMLHttpRequest-对象" class="headerlink" title="创建 XMLHttpRequest 对象"></a>创建 XMLHttpRequest 对象</h1><p>为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject ：<br><br>    var xmlhttp;<br>    if (window.XMLHttpRequest)<br>      {// code for IE7+, Firefox, Chrome, Opera, Safari<br>      xmlhttp=new XMLHttpRequest();<br>      }<br>    else<br>      {// code for IE6, IE5<br>      xmlhttp=new ActiveXObject(“Microsoft.XMLHTTP”);<br>      }</p>
-<h1 id="GET-还是-POST？"><a href="#GET-还是-POST？" class="headerlink" title="GET 还是 POST？"></a>GET 还是 POST？</h1><p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。<br>然而，在以下情况中，请使用 POST 请求：<br>无法使用缓存文件（更新服务器上的文件或数据库）<br>向服务器发送大量数据（POST 没有数据量限制）<br>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</p>
-<h1 id="方法-描述"><a href="#方法-描述" class="headerlink" title="方法    描述"></a>方法    描述</h1><p>open(method,url,async)<br>规定请求的类型、URL 以及是否异步处理请求。<br>method：请求的类型；GET 或 POST<br>url：文件在服务器上的位置<br>async：true（异步）或 false（同步）<br>send(string)<br>将请求发送到服务器。<br>string：仅用于 POST 请求</p>
-<h1 id="当使用-async-true-时-即是异步时"><a href="#当使用-async-true-时-即是异步时" class="headerlink" title="当使用 async=true 时(即是异步时)"></a>当使用 async=true 时(即是异步时)</h1><p>请规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数：<br>    xmlhttp.onreadystatechange=function()<br>      {<br>      if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)<br>    {<br>    document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;<br>    }<br>      }<br>    xmlhttp.open(“GET”,”test1.txt”,true);<br>    xmlhttp.send();</p>
-<h1 id="responseText-属性"><a href="#responseText-属性" class="headerlink" title="responseText 属性"></a>responseText 属性</h1><p>如果来自服务器的响应并非 XML，请使用 responseText 属性。<br>responseText 属性返回字符串形式的响应，因此您可以这样使用：<br>document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;  </p>
-
+        <h2 id="通过自定义封装Ajax的请求过程"><a href="#通过自定义封装Ajax的请求过程" class="headerlink" title="通过自定义封装Ajax的请求过程"></a>通过自定义封装Ajax的请求过程</h2><p>Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台返回来的数据,顺便封装了一些Ajax会用到的缓存方法,比如cookie.</p>
+<p>代码如下</p>
+<pre><code>//设置cookie
+function setCookie(key,value,day) {
+//没有过期时间
+if(arguments.length==2){
+document.cookie = key+&apos;=&apos;+value+&apos;; &apos;;
+}else if(arguments.length==3){
+var date=new Date();
+date.setDate(date.getDate()+day);
+document.cookie = key+&quot;=&quot;+value+&quot;; &quot;+ &quot;expires=&quot;+date+&quot;;&quot;;
+}
+}
+//获取cookie
+function getCookie(key) {
+   var arr=document.cookie.split(&apos;; &apos;);
+for (var i = 0; i &lt; arr.length; i++) {
+var res=arr[i].split(&apos;=&apos;);
+ if(res[0]==key){
+ return res[1];
+ }
+}
+}
+//删除cookie
+function removeCookie(key) {
+setCookie(key, &quot;&quot;, -1);
+}
+//jsonP格式 (url,data,success,cbName)
+function jsonP(option) {
+var temp=document.querySelector(&apos;#javascript&apos;);
+if(temp){
+document.body.removeChild(temp);
+}
+   //随机名字
+var name=(&apos;carrot&apos;+Math.random()).replace(&apos;.&apos;,&apos;&apos;);
+//全局函数
+window[name]=option.success;
+option.data[option.cbName]= name;
+var str=jsonData(option.data);
+var oScript=document.createElement(&apos;script&apos;);
+oScript.setAttribute(&apos;id&apos;,&apos;javascript&apos;);
+oScript.src=option.url+&apos;?&apos;+str;
+document.body.appendChild(oScript);
+}
+//把数据转换成对应格式
+function jsonData(data) {
+//添加一个随机因子
+data.t=Math.random();
+//定义一个数组
+var arr=[];
+//通过for in 循环把数据放进数组
+for(var key in data){
+arr.push(key+&apos;=&apos;+encodeURI(data[key]));
+}
+//数组变字符串通过&amp;连接
+var str=arr.join(&apos;&amp;&apos;);
+return str;
+}
+// type,url,data,timeout,success,error
+function myAjax(option) {
+//没有传入地址直接结束
+if(!option.url){
+return ;
+}
+option.type = option.type || &quot;get&quot;;
+option.data = option.data || null;
+option.timeout = option.timeout || 0;
+   var xhr=null;
+//兼容IE写法
+   window.XMLHttpRequest?xhr=new XMLHttpRequest():xhr=new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);
+   //把数据转换拼接形式
+   var str=jsonData(option.data);
+   //判断请求方式
+if(option.type.toLowerCase()==&apos;get&apos;){
+//get请求
+xhr.open(&apos;get&apos;,option.url+&apos;?&apos;+str,true);
+xhr.send();
+}else{
+//post请求
+xhr.open(option.type.toLowerCase(),option.url,true);
+//设置请求头 在open和send中间
+xhr.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);
+//发送
+xhr.send(str);
+}
+xhr.onreadystatechange=function () {
+if(xhr.readyState==4){
+//关闭定时器
+clearTimeout(timer);
+if(xhr.status&gt;=200&amp;&amp;xhr.status&lt;300||xhr.status==304){
+//成功回调
+option.success(xhr.responseText);
+}else {
+//失败回调
+option.error(xhr.status);
+}
+}
+};
+//超时中断传送
+if(option.timeout){
+var timer = setTimeout(function () {
+// 如果请求超时了, 那么应该中断请求
+xhr.abort();
+}, option.timeout);
+}
+}
+</code></pre>
       
     </div>
 
@@ -404,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/11/跨域/" rel="next" title="ajax处理跨域的方法">
-                <i class="fa fa-chevron-left"></i> ajax处理跨域的方法
+              <a href="/2017/02/24/ajax跨域与缓存/" rel="next" title="Ajax原生js封装">
+                <i class="fa fa-chevron-left"></i> Ajax原生js封装
               </a>
             
           </div>
@@ -414,8 +514,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/23/git/" rel="prev" title="git的常用命令">
-                git的常用命令 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/15/js设计模式之工厂模式/" rel="prev" title="js设计模式之工厂模式">
+                js设计模式之工厂模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -545,7 +645,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是-AJAX-？"><span class="nav-number">1.</span> <span class="nav-text">什么是 AJAX ？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-XMLHttpRequest-对象"><span class="nav-number">2.</span> <span class="nav-text">创建 XMLHttpRequest 对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GET-还是-POST？"><span class="nav-number">3.</span> <span class="nav-text">GET 还是 POST？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法-描述"><span class="nav-number">4.</span> <span class="nav-text">方法    描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当使用-async-true-时-即是异步时"><span class="nav-number">5.</span> <span class="nav-text">当使用 async=true 时(即是异步时)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#responseText-属性"><span class="nav-number">6.</span> <span class="nav-text">responseText 属性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过自定义封装Ajax的请求过程"><span class="nav-number">1.</span> <span class="nav-text">通过自定义封装Ajax的请求过程</span></a></li></ol></div>
             
 
           </div>

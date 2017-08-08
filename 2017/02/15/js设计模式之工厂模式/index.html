@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="js," />
 
 
 
@@ -90,15 +90,19 @@
 
 
 
-<meta name="description" content="人生如梦,一尊还酹江月">
-<meta property="og:type" content="website">
-<meta property="og:title" content="yetten's blog">
-<meta property="og:url" content="yetten.github.io/archives/2016/07/index.html">
+<meta name="description" content="设计模式之工厂模式 核心过程01提供父构造函数 02设置父构造函数的原型对象（属性|方法） 目的是共享 03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法） (001接收产品的类型 002判断是否支持生产该类型的产品 003设置原型继承，获得原型对象上面的方法 004生产该类型的一个产品（创建对象） 005返回对象) 04定制合作伙伴（创建子构造函数） 05调用父构造函数的工厂函数">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js设计模式之工厂模式">
+<meta property="og:url" content="yetten.github.io/2017/02/15/js设计模式之工厂模式/index.html">
 <meta property="og:site_name" content="yetten's blog">
-<meta property="og:description" content="人生如梦,一尊还酹江月">
+<meta property="og:description" content="设计模式之工厂模式 核心过程01提供父构造函数 02设置父构造函数的原型对象（属性|方法） 目的是共享 03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法） (001接收产品的类型 002判断是否支持生产该类型的产品 003设置原型继承，获得原型对象上面的方法 004生产该类型的一个产品（创建对象） 005返回对象) 04定制合作伙伴（创建子构造函数） 05调用父构造函数的工厂函数">
+<meta property="og:image" content="http://carrotming.cn/assets/blogImg/js18-1.png">
+<meta property="og:updated_time" content="2017-08-08T08:01:51.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yetten's blog">
-<meta name="twitter:description" content="人生如梦,一尊还酹江月">
+<meta name="twitter:title" content="js设计模式之工厂模式">
+<meta name="twitter:description" content="设计模式之工厂模式 核心过程01提供父构造函数 02设置父构造函数的原型对象（属性|方法） 目的是共享 03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法） (001接收产品的类型 002判断是否支持生产该类型的产品 003设置原型继承，获得原型对象上面的方法 004生产该类型的一个产品（创建对象） 005返回对象) 04定制合作伙伴（创建子构造函数） 05调用父构造函数的工厂函数">
+<meta name="twitter:image" content="http://carrotming.cn/assets/blogImg/js18-1.png">
 
 
 
@@ -126,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="yetten.github.io/archives/2016/07/"/>
+  <link rel="canonical" href="yetten.github.io/2017/02/15/js设计模式之工厂模式/"/>
 
 
 
 
 
-  <title>归档 | yetten's blog</title>
+  <title>js设计模式之工厂模式 | yetten's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -157,7 +161,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -251,103 +255,193 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 10 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/29/Ajax/" itemprop="url">
-              
-                <span itemprop="name">ajax的使用</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-29T14:13:24+08:00"
-              content="2016-07-29" >
-          07-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/23/git/" itemprop="url">
-              
-                <span itemprop="name">git的常用命令</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-23T20:33:24+08:00"
-              content="2016-07-23" >
-          07-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/15/js设计模式之工厂模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                js设计模式之工厂模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T10:05:55+08:00">
+                2017-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>设计模式之工厂模式</p>
+<p>核心过程<br>01提供父构造函数</p>
+<p>02设置父构造函数的原型对象（属性|方法） 目的是共享</p>
+<p>03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法）</p>
+<p>(001接收产品的类型</p>
+<p>002判断是否支持生产该类型的产品</p>
+<p>003设置原型继承，获得原型对象上面的方法</p>
+<p>004生产该类型的一个产品（创建对象）</p>
+<p>005返回对象)</p>
+<p>04定制合作伙伴（创建子构造函数）</p>
+<p>05调用父构造函数的工厂函数来创建对象</p>
+<p>代码如下</p>
+<p><img src="http://carrotming.cn/assets/blogImg/js18-1.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/20/ajax原生js封装/" rel="next" title="Ajax原生js封装">
+                <i class="fa fa-chevron-left"></i> Ajax原生js封装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/10/js面向对象Object的静态成员/" rel="prev" title="js面向对象Object的静态成员">
+                js面向对象Object的静态成员 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -355,6 +449,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -546,11 +644,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   

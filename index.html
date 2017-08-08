@@ -263,6 +263,1909 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/03/01/angular的学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/01/angular的学习/" itemprop="url">
+                  angular框架的学习
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-01T17:12:44+08:00">
+                2017-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="angular介绍"><a href="#angular介绍" class="headerlink" title="angular介绍"></a>angular介绍</h2><p><strong>谷歌推出的一个框架,一个模块化,数据驱动,简化开发流程,更好的管理代码.</strong></p>
+<h2 id="基本使用步骤"><a href="#基本使用步骤" class="headerlink" title="基本使用步骤"></a>基本使用步骤</h2><blockquote>
+<p>创建模块</p>
+</blockquote>
+<pre><code>提供了一个一个全局对象angular,调用module()方法
+第一个参数：模块名称，
+第二个参数：依赖模块名称
+var app = angular.module(&apos;app&apos;,[]);
+</code></pre><blockquote>
+<p>创建控制器</p>
+</blockquote>
+<pre><code>控制器作为连接模型和视图的桥梁存在
+第一个参数：控制器的名称，
+第二个参数：依赖的服务
+ app.controller(&apos;lbmControler&apos;,[&apos;$scope&apos;,function ($scope) {
+        创建数据
+//$scope.name=&apos;lbm&apos;   
+}]);
+</code></pre><blockquote>
+<p>绑定模块</p>
+</blockquote>
+<pre><code>只需要绑定一个,一般在body或者html上
+&lt;body ng-app=&quot;app&quot;&gt;
+</code></pre><blockquote>
+<p> 绑定控制器</p>
+</blockquote>
+<pre><code>一个控制器绑定一个元素,绑定了控制器的元素,里面的视图的数据可从模型获得
+&lt;ul ng-controller=&quot;lbmControler&quot;&gt;
+</code></pre><h2 id="内置指令"><a href="#内置指令" class="headerlink" title="内置指令"></a>内置指令</h2><blockquote>
+<p> 作用</p>
+<pre><code>通过扩展一系列的html属性来弥补在构建app时的不足,以ng-做为前缀
+</code></pre><p>常用内置指令</p>
+</blockquote>
+<pre><code>ng-app 指定应用根元素，至少有一个元素指定了此属性。
+ng-controller 指定控制器
+ng-show控制元素是否显示，true显示、false不显示
+ng-hide控制元素是否隐藏，true隐藏、false不隐藏
+ng-if控制元素是否“存在”，true存在、false不存在
+ng-src增强图片路径
+ng-href增强地址
+ng-class控制类名
+ng-include引入模板
+ng-disabled表单禁用
+ng-readonly表单只读
+ng-checked单/复选框表单选中
+ng-selected下拉框表单选中
+例子
+&lt;script&gt;
+内置指令:angular开始为html内置好的一些特定功能的属性标签.
+当解析到ng代码时， 会回头到html当中解析自己的指令。
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;lbmControler&apos;,[&apos;$scope&apos;,function ($scope) {
+在模型上绑定数据
+$scope.isShow = 1;
+$scope.path = &quot;image/03.jpg&quot;;
+$scope.name = &quot;lbm&quot;;
+$scope.active = false;
+$scope.sty = {
+&apos;font-size&apos;: &apos;30px&apos;
+};
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot; ng-controller=&quot;lbmControler&quot;&gt;
+它的做法，其它就是把把样式display:none
+&lt;p ng-show=&quot;isShow&quot;&gt;ng-show 控制标签是否显示&lt;/p&gt;
+ng-hide控制标签是否隐藏 取值为bool （true/false 1/0）
+&lt;p ng-hide=&quot;false&quot;&gt;ng-hide控制标签是否隐藏 取值为bool （true/false 1/0）&lt;/p&gt;
+ng-if控制标签是否存在 取值为bool （true/false 1/0
+&lt;p ng-if=&quot;false&quot;&gt;ng-if控制标签是否存在 取值为bool （true/false 1/0）&lt;/p&gt;
+使用ng-src加载图片
+&lt;img ng-src=&quot;{{path}}&quot; alt=&quot;&quot;&gt;
+使用ng-href跳转
+&lt;a ng-href=&quot;#&quot;&gt;&lt;/a&gt;
+ng-class指令 ，控制是否添加某个类 为true为添加,为false不添加
+&lt;p ng-class=&quot;{red:active,font:true}&quot;&gt;ng-class指令 ，控制是否添加某个类&lt;/p&gt;
+给当前标签手动添加样式
+&lt;p ng-style=&quot;sty&quot;&gt;ng-style 控制样式&lt;/p&gt;
+ng-include 它的本质是发送了一个aJax请求，把请求的结果，放入对应标签里边。,实现模块的复用
+&lt;div ng-include=&quot;&apos;./head.html&apos;&quot;&gt;&lt;/div&gt;
+&lt;div ng-include=&quot;&apos;./body.html&apos;&quot;&gt;&lt;/div&gt;
+&lt;div ng-include=&quot;&apos;./foot.html&apos;&quot;&gt;&lt;/div&gt;
+控制表单是否可用 值为bool类型
+&lt;input type=&quot;text&quot; ng-disabled=&quot;true&quot;&gt;
+控制表单为只读属性
+&lt;input type=&quot;text&quot; value=&quot;ng-readonly&quot; ng-readonly=&quot;true&quot;&gt;
+设置复选框为选中状态
+&lt;input type=&quot;checkbox&quot; ng-checked=&quot;true&quot;&gt;
+ng-switch=“筛选对象&quot;
+ng-switch-when=“筛选对象的值.如果筛选对象的值与该值相同,那么该值所在的标签就显示,否则就隐藏”
+&lt;ul ng-controller=&quot;lbmControler&quot;&gt;
+&lt;li ng-repeat=&quot;value in course&quot; ng-switch=&quot;value&quot;&gt;
+&lt;!--对{{value}} 进行判断，when就是条件。满足条件，就显示出来。否则就隐藏 --&gt;
+&lt;p ng-switch-when=&quot;css&quot;&gt;{{value}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/body&gt;
+</code></pre><blockquote>
+<p>数据单向绑定</p>
+</blockquote>
+<p>作用<br>数据单向绑定：把模型的数据展示到视图当中</p>
+<blockquote>
+<p>绑定方式</p>
+</blockquote>
+<pre><code>1.使用插值语法:{{模型属性}}  加载时，-&gt;会造成闪烁。可以使用ng-cloak来避免闪烁
+2.使用ng-bind:ng-bind=“模型属性” -&gt;不会造成闪烁, 只能绑定一个属性
+3.使用ng-bind-template=“{{模型属性}},{{模型属性}}”-&gt;可以绑定多值, 不会闪烁
+使用{{}} 可以把模型的数据绑定到视图当中
+加载时，会造成闪烁。
+ &lt;li&gt;{{name}}{{age}}&lt;/li&gt;
+ &lt;li ng-cloak&gt;{{name}}{{age}}&lt;/li&gt;
+ 数据绑定 不会造成闪烁 没有办法绑定多个属性
+ &lt;li ng-bind=&quot;name&quot;&gt;&lt;/li&gt;
+ 可以绑定多个数据。 不会造成闪烁
+ &lt;li ng-bind-template=&quot;{{name}}{{age}}&quot;&gt;&lt;/li&gt;
+</code></pre><blockquote>
+<p>数据双向绑定</p>
+</blockquote>
+<pre><code>作用
+视图的数据可以绑定到模型当中,
+模型的数据可以绑定到视图当中.
+想要实现视图的数据绑定到模型当中必须得要借助表单才行
+在表单当中使用ng-model指令.在input标签当中绑定属性.
+</code></pre><p><strong>方式</strong></p>
+<pre><code>视图中的usname和pwd和传送数据到模型里面
+&lt;input type=&quot;text&quot; ng-model=&quot;userName&quot;&gt;
+&lt;input type=&quot;password&quot; ng-model=&quot;pwd&quot;&gt;
+&lt;button ng-click=&quot;login()&quot;&gt;登录&lt;/button&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;lbmControler&apos;,[&apos;$scope&apos;,function ($scope) {
+在模型当定义name属性
+$scope.name = &quot;登录&quot;
+事件的实现
+$scope.login = function () {
+alert($scope.userName+$scope.pwd);
+};
+}]);
+&lt;/script&gt;
+</code></pre><p><strong>事件处理</strong></p>
+<pre><code>事件名字就是原生具有的click,mouseover之类
+使用方法为:ng-事件名称 = “事件响应方法名称( 参数)&quot;
+   参数可以自己指定, 也可以传入事件对象$event
+使用$scope来去实现事件定义的方法
+   $scope.事件名称 = function(参数){
+}
+</code></pre><h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><pre><code>通过全局对象下的directive方法实现
+自定义指令:
+ 第一个参数 指令名称
+ 第二个参数:回调函数
+app.directive(&apos;nav&apos;,[function () {
+return{
+E:元素 A:属性 C:当做类 M:可以注释形式出
+restrict:&apos;EA&apos;,
+template:&apos;&lt;ul&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;/ul&gt;&apos;,
+//templateUrl:&apos;./nav.html&apos;,
+replace:true 是否替换原标签
+}
+}]);
+app.directive(&apos;navHead&apos;,[function () {
+return{
+restrict:&apos;EA&apos;, /*以什么形式出现。*/
+//template:&apos;&lt;ul&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;li&gt;列表&lt;/li&gt;&lt;/ul&gt;&apos;,
+templateUrl:&apos;./nav.html&apos;,
+replace:true /*是否替换原标签*/
+            transculde:true /*是否保留原有数据*/
+}
+}]);
+</code></pre><h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><blockquote>
+<p>内置过滤器</p>
+</blockquote>
+<pre><code>配合管道符使用 |
+1、currency:将数值格式化为货币格式
+2、date:日期格式化，年（y）、月（M）、日（d）、星期（EEEE/EEE）、时（H/h）、分（m）、秒（s）、毫秒（.sss），也可以组合到一起使用。
+3、filter:在给定数组中选择满足条件的一个子集，并返回一个新数组，其条件可以是一个字符串、对象、函数
+4、json:将Javascrip对象转成JSON字符串。
+5、limitTo:取出字符串或数组的前（正数）几位或后（负数）几位
+6、lowercase:将文本转换成小写格式
+7、uppercase:将文本转换成大写格式
+8、number:数字格式化，可控制小位位数
+9、orderBy:对数组进行排序，第2个参数可控制方向
+&lt;p&gt;{{price|currency:'&'}}&lt;/p&gt;
+&lt;p&gt;{{nowDate|date:'yyyy/MM/dd h:m:s'}}&lt;/p&gt;
+&lt;p&gt;{{course|filter:'s'}}&lt;/p&gt;
+&lt;p&gt;{{student|json}}&lt;/p&gt;
+&lt;p&gt;{{student|limitTo:-2}}&lt;/p&gt;
+&lt;p&gt;{{str|uppercase|lowercase}}&lt;/p&gt;
+&lt;p&gt;{{student|orderBy:'age':false}}&lt;/p&gt; true 是降序，false是升序
+&lt;p&gt;{{num|number:2}}&lt;/p&gt; 在num当中不能出现非数字
+</code></pre><blockquote>
+<p>自定义过滤器</p>
+</blockquote>
+<pre><code>通过全局对象下的filter方法来定义
+自定义过滤器
+第一个参数:过滤器的名称
+第二个参数:回调函数
+返回值为一个函数(input 为自动传入的数据,它为管道符前面的内容)
+app.filter(&apos;filterName&apos;,[function () {
+return function (input) {
+console.log(&apos;hello&apos;+ input);
+}
+}]);
+app.filter(&apos;firstUppcase&apos;,[function () {
+return function (input) {
+slice:从指定的位置，截取到末尾
+   return input[0].toUpperCase()+input.slice(1)
+};
+}]);
+&lt;p&gt;{{name|filterName}}&lt;/p&gt;
+&lt;p&gt;{{str|firstUppcase}}&lt;/p&gt;
+</code></pre><p><strong>依赖注入</strong></p>
+<pre><code>AngularJS采用模块化的方式组织代码，将一些通用逻辑封装成一个对象或函数，实现最大程度的复用
+这导致了使用者和被使用者之间存在依赖关系。
+所谓依赖注入是指在运行时自动查找依赖关系
+然后将查找到依赖传递给使用者的一种机制。
+</code></pre><blockquote>
+<p>2种方式</p>
+</blockquote>
+<pre><code>1.行内式注入
+  以数组形式明确声明依赖，数组元素都是包含依赖名称的字符串，数组最后一个元素是依赖注入的目标函数
+  推荐使用行内式注入.
+2.推断式注入
+  没有明确声明依赖，AngularJS会将函数参数名称当成是依赖的名称
+  这种方式会带来一个问题，当代码经过压缩后函数的参数被压缩，这样便会造成依赖无法找到。
+app.controller(&apos;lbmController&apos;,[&apos;$scope&apos;,&apos;$http&apos;,function ($scope,$http) {
+$scope.name = &quot;121&quot;;
+$scope.str = &quot;hello&quot;;
+}]);
+2.推断式注入 根据函数的形参去推断查找服务
+   app.controller(&apos;lbmController&apos;,function ($scope,$http) {
+   $scope.name = &apos;xmg&apos;;
+   });
+</code></pre><h2 id="常见内置服务"><a href="#常见内置服务" class="headerlink" title="常见内置服务"></a>常见内置服务</h2><pre><code>$scope: 用来定义变量,传输数据给视图
+$location: 查看一些类似主机名,端口号,锚点
+$scope.url = $location.url();
+端口号
+$scope.port = $location.port();
+主机名
+$scope.host = $location.host();
+获取的锚点。从第二个锚点开始的值。
+$scope.hash = $location.hash();
+$timeout和$interval: 单次定时器和多次定时器 
+$interval.cancel(timer);关闭定时器
+$filter: 我们不想在视图处理过多业务,使用这个服务
+var currency = $filter(&apos;currency&apos;);
+$scope.price = currency($scope.price);
+$log服务 在控制台打印信息
+  $log.log(&apos;信息&apos;);
+  $log.info(&apos;信息&apos;);
+  $log.warn(&apos;信息&apos;);
+  $log.error(&apos;信息&apos;);
+  $log.debug(&apos;信息&apos;);
+$http服务 用来发送Ajax请求
+    get请求
+ $http({
+   url: &apos;get.php&apos;, 请求地址
+method:&apos;get&apos;, 请求方式
+params:{  get方式传递参数  在传递过程当中 会自动帮你转成 get.php?name=xmg
+  传递时-&gt;name:xmg
+name:&apos;xmg&apos;
+}
+}).success(function (res) {
+alert(res);  成功时回调
+}).error(function(error){
+   失败时回调
+});
+    post请求
+    $http({
+url: &apos;post.php&apos;, 请求地址
+method:&apos;post&apos;,   请求方式
+post必须得要设置请求头
+headers:{
+&apos;Content-Type&apos;:&apos;application/x-www-form-urlencoded&apos;
+},
+
+data:&apos;name=xmg&amp;age=123&apos;  
+}).success(function (res) {
+alert(res);
+}).error(function (res) {
+});
+    跨域请求
+     $http({
+  url:&apos;http://api.douban.com/book/subjects&apos;,
+  method:&apos;jsonp&apos;,
+  params:{
+  &apos;q&apos;: $scope.msg,
+  &apos;alt&apos;:&apos;xd&apos;,
+  callback:&apos;JSON_CALLBACK&apos;,
+  &apos;max-results&apos;:10,
+  &apos;start-index&apos;:10
+ }
+ }).success(function (res) {
+</code></pre><h2 id="自定义服务"><a href="#自定义服务" class="headerlink" title="自定义服务"></a>自定义服务</h2><blockquote>
+<p>factory</p>
+<pre><code>app.factory(&apos;show&apos;,function () {
+return function () {  直接以方法来调用。
+  alert(&quot;hello&quot;);
+};
+function show1() {
+alert(&quot;show1&quot;);
+逻辑
+}
+function show2() {
+alert(&quot;show2&quot;);
+}
+return {
+show1:show1,
+show2:show2
+}
+});
+</code></pre><p>service服务</p>
+</blockquote>
+<pre><code>app.service(&apos;showTime&apos;,[&apos;$filter&apos;,function ($filter) {
+   里面所有的功能要使用this来定义
+this.cur_date = function () {
+var cur_date = new Date();
+var date =  $filter(&apos;date&apos;);
+return date(cur_date,&apos;yyyy-MM-dd h:m:s&apos;);
+};
+this.sayHello = function () {
+alert(&quot;hello world&quot;);
+}
+}]);
+</code></pre><blockquote>
+<p>value服务</p>
+</blockquote>
+<pre><code>value 表现形式上是一个服务
+本质上可看做是一个常量。
+app.value(&apos;version&apos;,&apos;1.0’);
+app.value(&apos;key&apos;,&apos;xmg&apos;);
+</code></pre><h2 id="配置块"><a href="#配置块" class="headerlink" title="配置块"></a>配置块</h2><pre><code>通过config方法实现对模块的配置，AngularJS中的服务大部分都对应一个“provider”，
+用来执行与对应服务相同的功能或对其进行配置,相对应的“provider”分别是$logProvider、$httpProvider、$locationPorvider。
+//开启和禁用 调用config方法
+app.config([&apos;$logProvider&apos;,function ($logProvider) {
+$logProvider.debugEnabled(false);
+}]);
+//配置过滤内置功能 调用register方法
+app.config([&apos;$filterProvider&apos;,function ($filterProvider) {
+$filterProvider.register(&apos;firstUpp&apos;,function () {
+可以在配置过程当中,给过滤器添加过滤功能
+return function (input) {
+   return input[0].toUpperCase() + input.slice(1);
+}
+})
+}]);
+</code></pre><h2 id="运行块"><a href="#运行块" class="headerlink" title="运行块"></a>运行块</h2><pre><code>AngularJS提供了run方法来实现。
+run方法还是最先执行的，利用这个特点我们可以将一些需要优先执行的功能通过run方法来运行
+比如验证用户是否登录，未登录则不允许进行任何其它操作
+</code></pre><h2 id="单页面应用程序-spa"><a href="#单页面应用程序-spa" class="headerlink" title="单页面应用程序(spa)"></a>单页面应用程序(spa)</h2><pre><code>SPA（Single Page Application）指的是通单一页面展示所有功能，通过Ajax动态获取数据然后进行实时渲染，结合CSS3动画模仿原生App交互，然后再进行打包（使用工具把Web应用包一个壳，这个壳本质上是浏览器）变成一个“原生”应用。
+实现单页面应用需要具备：
+a、只有一页面
+b、链接使用锚点
+</code></pre><h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><pre><code>必要东西  
+</code></pre><p>①angular-route.js文件<br>②[‘ngRoute’]依赖模块名字<br>③配置路由$routeProvider<br>④调用when方法 routeProvider.when(‘/index/:id’)<br>⑤ng-view展示路由数据<br>⑥控制器的服务$routeParams.id,拿到when的形参  </p>
+<pre><code>在angular当中路由就是锚点
+用来做单页面应用程序的切换。
+锚点的变化，我们又称为路由的变化。
+路由在angular当中属于单独的一个模块。
+帮你监听锚点的跳转，它就是路由。
+&lt;script src=&quot;angular-route.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+在创建模块时，注入路由模块
+var app = angular.module(&apos;app&apos;,[&apos;ngRoute&apos;]);
+配置路由。
+让路由帮你去监听哪些锚点的变化。
+app.config([&apos;$routeProvider&apos;,function ($routeProvider) {
+当锚点为指定值时， 帮你处理相应的逻辑
+路由规定，在锚点之前， 加上一个&quot;/&quot;
+$routeProvider.when(&apos;/index&apos;,{
+可以外链一个模板,指定控制器
+            // templateUrl:&apos;template/music_tpl.html&apos;,
+// controller:&apos;musicController&apos;
+template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;
+ })
+ .when(&apos;/music&apos;,{
+template:&quot;&lt;h1&gt;音乐&lt;/h1&gt;&quot;
+ })
+ .when(&apos;/singer&apos;,{
+template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;
+ })
+        //默认显示哪一个
+ .otherwise({
+redirectTo:&apos;/index&apos;
+ })
+ }]);
+
+&lt;/script&gt;
+&lt;div class=&quot;nav&quot;&gt;
+ &lt;ul&gt;
+ &lt;li&gt;&lt;a href=&quot;#/index&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;#/music&quot;&gt;音乐&lt;/a&gt;&lt;/li&gt;
+ &lt;li&gt;&lt;a href=&quot;#/singer&quot;&gt;歌手&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;
+   ng-view 把内容展示
+&lt;div class=&quot;content&quot; ng-view&gt;
+</code></pre><blockquote>
+<p>路由传参数加发送请求</p>
+</blockquote>
+<pre><code>&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;angular-route.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[&apos;ngRoute&apos;]);
+ 配置路由
+app.config([&apos;$routeProvider&apos;,function ($routeProvider) {
+$routeProvider.when(&apos;/index/:id’,{传参
+templateUrl:&apos;template/musicList_tpl.html&apos;,
+controller:&quot;musicControler&quot;
+}).otherwise({
+redirectTo:&apos;/index/1&apos;
+})
+}]);
+
+定义控制器
+app.controller(&apos;musicControler&apos;,[&apos;$routeParams&apos;,&apos;$http&apos;,&apos;$scope&apos;,function ($routeParams,$http,$scope) {
+console.log($routeParams.id);
+$http({访问地址
+url:&apos;listMusic.php&apos;,
+method:&apos;get&apos;,
+params:{
+id:$routeParams.id
+}
+}).success(function (res) {
+把获取的结果赋值给模型
+$scope.musicList = res;
+})
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot;&gt;
+&lt;div class=&quot;nav&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#/index/1&quot;&gt;流行&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#/index/2&quot;&gt;复古&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#/index/3&quot;&gt;欧美&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;content&quot; ng-view&gt;
+&lt;/div&gt;
+</code></pre><h2 id="1-6angular版本-http和路由"><a href="#1-6angular版本-http和路由" class="headerlink" title="1.6angular版本$http和路由"></a>1.6angular版本$http和路由</h2><pre><code>取消了success和error方法 用then catch代替
+锚点以这种形式
+&lt;li&gt;&lt;a href=&quot;#!/index/1&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#!/music&quot;&gt;音乐&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#!/singer&quot;&gt;歌手&lt;/a&gt;&lt;/li&gt;
+跨域需要设置白名单
+.config([&apos;$sceDelegateProvider&apos;,function ($sceDelegateProvider) {
+设置白名单
+$sceDelegateProvider.resourceUrlWhitelist([
+&apos;self&apos;,
+&apos;http://localhost/api/**&apos;
+]);
+}]);
+</code></pre><h2 id="watch监听-broadcast-on-emit-方法"><a href="#watch监听-broadcast-on-emit-方法" class="headerlink" title="$watch监听$broadcast,$on $emit 方法"></a>$watch监听$broadcast,$on $emit 方法</h2><pre><code>$watch监听方法
+&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;xmgController&apos;,[&apos;$scope&apos;,function ($scope) {
+如果是一个对象。在监听时，要在最后添加一个参数：true
+如果不添加，是监听不到的。
+默认情况，对象监听是地址。 对象值修改了， 地址没有改变。
+var count = 0;
+var unWatch = $scope.$watch(&apos;persion.age&apos;,function (newValue,oldValue) {
+   console.log(&apos;新值：&apos;+ newValue+&apos;旧值：&apos;+oldValue);
+   count++;
+   if (count &gt; 5){
+   取消监听
+   unWatch();
+   }
+},true);
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot; ng-controller=&quot;xmgController&quot;&gt;
+&lt;input type=&quot;text&quot; ng-model=&quot;persion.age&quot;&gt;
+&lt;/body&gt;
+$broadcast,$on $emit 方法
+&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var app = angular.module(&apos;app&apos;,[]);
+app.controller(&apos;xmgController&apos;,[&apos;$scope&apos;,function ($scope) {
+$scope.names = &quot;父级的名字&quot;;
+发送广播
+发送广播时，一定要等指令加载完毕之后，才去发送广播
+$scope.click = function () {
+$scope.$broadcast(&apos;aaa&apos;,{id:1})
+};
+监听广播
+$scope.$on(&apos;bbbb&apos;,function ($event,data) {
+console.log(data);
+});
+}]);
+app.directive(&apos;tag&apos;,[function () {
+return {
+restrict:&apos;EA&apos;,
+template:&quot;&lt;h1 ng-click=&apos;tagClick()&apos;&gt;子级自定义指令&lt;/h1&gt;&quot;,
+replace:true,
+controller:function ($scope) {
+监听广播
+$scope.$on(&apos;aaa&apos;,function ($event,data) {
+console.log(data);
+});
+$scope.tagClick = function () {
+向上级冒泡一个事件
+$scope.$emit(&apos;bbbb&apos;,{name:&apos;xmg&apos;});
+}
+}
+}
+}]);
+&lt;/script&gt;
+&lt;body ng-app=&quot;app&quot; ng-controller=&quot;xmgController&quot;&gt;
+&lt;button ng-click=&quot;click()&quot;&gt;广播&lt;/button&gt;
+&lt;div tag&gt;&lt;/div&gt;
+&lt;/body&gt;
+</code></pre><h2 id="degist-和-apply"><a href="#degist-和-apply" class="headerlink" title="$degist()和$apply()"></a>$degist()和$apply()</h2><pre><code>每一次在界面上,绑定一个数据时就会把对应的属性添加到一个叫$watchList数组中,里面的属性会被$watch监听,一直处于监听事件状态
+只要发生了事件,就会触发$degist事件,它会遍历$watchList数组,询问每一个属性有没有被更改过,再去查看$scope有没有更新,如果有更新,再次遍历$watchList,遍历结束,会调用$apply()更新DOM节点里面数据.
+脏值检测,$degist遍历$watchList的过程
+在网络请求中,因为可能出现延时效果,所以有时候需要手动调用$apply方法来让数据展示到dom节点中!
+</code></pre><h2 id="指令的作用域"><a href="#指令的作用域" class="headerlink" title="指令的作用域"></a>指令的作用域</h2><p>默认情况下,指令的控制器和父级的控制器是一致的,是同一个作用域,修改任何一个作用域都会互相影响,所以可以设置scope属性来控制,默认情况scope为false,当设置为true的时候,会各自使用自己控制器里面的作用域,不过当自己没找到的时候,还是会跑到父级去寻找,当为一个对象的时候,则会独立出来一个作用域</p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="@修饰符"></a>@修饰符</h2><pre><code>scope:&apos;@&apos;
+外界传递参数时，使用{{}}来传递
+  &lt;xmg content=&quot;{{content}}&quot; my-title=&quot;{{title}}&quot;&gt;&lt;/xmg&gt;
+特点:
+属于单向传递,如果外界修改了,则内部也会跟着修改,如果内部修改了,外部不会修改,如果内部当中有一样的属性,则外部的属性会覆盖内部的属性
+</code></pre><h2 id="修饰符-1"><a href="#修饰符-1" class="headerlink" title="=修饰符"></a>=修饰符</h2><pre><code>scope:&apos;=&apos;
+不需要{{}} 直接在后面写上要传递数据即可
+   格式：&lt;xmg content=&quot;content&quot; my-title=&quot;title&quot;&gt;&lt;/xmg&gt;
+特点:
+属于双向的传递,无论哪一边进行更改,都会受到影响.
+外部的属性会覆盖内部的属性
+</code></pre><h2 id="amp-修饰符"><a href="#amp-修饰符" class="headerlink" title="&amp;修饰符"></a>&amp;修饰符</h2><pre><code>外界传入方法(函数)进来
+scope:{
+ click:&apos;&amp;&apos;
+}
+</code></pre><h2 id="link"><a href="#link" class="headerlink" title="link"></a>link</h2><pre><code>用来操作dom元素,属于jqlite对象
+里面有三个参数
+ link:function ($scope,ele,attr) {
+  @param $scope 就是控制器当中的模型
+ * @param ele 指令所在的dom元素。注意：它是一个jQlite对象
+  * @param attr 指令身上绑定的所有属性   
+ }
+</code></pre><h2 id="ui-router路由"><a href="#ui-router路由" class="headerlink" title="ui-router路由"></a>ui-router路由</h2><p>ui-router弥补了原生路由的不足,例如多视图的嵌入.或者一些方法封装</p>
+<pre><code>&lt;script src=&quot;angular-ui-router.js&quot;&gt;&lt;/script&gt;
+//依赖ui.router服务
+ var app = angular.module(&apos;app&apos;,[&apos;ui.router&apos;]);
+//配置路由 
+app.config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+
+ $stateProvider.state(&apos;home&apos;,{
+ url:&apos;/index&apos;,
+ template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;,
+ controller:&quot;xmgController&quot;
+ })
+.state(&apos;music&apos;,{
+url:&apos;/music&apos;,
+template:&quot;&lt;h1&gt;音乐&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+.state(&apos;singer&apos;,{
+url:&apos;/singer&apos;,
+template:&quot;&lt;h1&gt;歌手&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+$urlRouterProvider.otherwise(&apos;index&apos;);
+}]);
+ state的第一个参数和对应点击的ui-sref要一致 ui-sref代替了a标签的href属性,也是用来当作锚点,ui-sref-active让我们绑定啦,点击哪一个改变样式
+&lt;ul&gt;
+ui-sref-active=“active&quot; 如果选中当前的路由,就会给该标签添加class类
+ui-sref=“home” 跳转路由
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;home&quot;&gt;&lt;a&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;music&quot;&gt;&lt;a&gt;音乐&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;singer&quot;&gt;&lt;a&gt;歌手&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ 最后通过ui-view去展示对应的模板
+&lt;div class=&quot;content&quot; ui-view&gt;
+</code></pre><h2 id="多视图"><a href="#多视图" class="headerlink" title="多视图"></a>多视图</h2><pre><code>多一个页面可以进行锚点的跳转
+app.config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+$stateProvider.state(&apos;index&apos;,{
+url:&quot;/&quot;,
+views:{
+header:{
+template:&quot;&lt;h1&gt;头部&lt;/h1&gt;&quot;
+},
+left:{
+template:&quot;&lt;h1&gt;左侧&lt;/h1&gt;&quot;
+},
+right:{
+template:&quot;&lt;h1&gt;右侧&lt;/h1&gt;&quot;
+}
+}
+})
+$urlRouterProvider.otherwise(&apos;/&apos;);
+}]);
+上面配置views参数写上对应的参数,下图使用ui-view=对应的参数来绑定
+&lt;div class=&quot;header&quot; ui-view=&quot;header&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;left&quot; ui-view=&quot;left&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;right&quot; ui-view=&quot;right&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre><h2 id="传参"><a href="#传参" class="headerlink" title="传参"></a>传参</h2><pre><code>通常使用url:/music/:id 方法传参
+app.config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+$stateProvider.state(&apos;home&apos;,{
+ url:&apos;/index/:id&apos;,
+ url:&apos;/index/{id:int}&apos;,
+ url:&apos;/index/?id&amp;name&apos;,
+ template:&quot;&lt;h1&gt;首页&lt;/h1&gt;&quot;,
+ controller:&quot;xmgController&quot;
+})
+.state(&apos;music&apos;,{
+url:&apos;/music/:id&apos;,
+template:&quot;&lt;h1&gt;音乐&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+.state(&apos;singer&apos;,{
+url:&apos;/singer/:id&apos;,
+template:&quot;&lt;h1&gt;歌手&lt;/h1&gt;&quot;,
+controller:&quot;xmgController&quot;
+})
+$urlRouterProvider.otherwise(&apos;index/1&apos;);
+通过$stateParams来获取路由的参数
+app.controller(&apos;xmgController&apos;,[&apos;$scope&apos;,&apos;$stateParams&apos;,function ($scope,$stateParams) {
+console.log($stateParams);
+
+}]);
+通过ui-sref=&quot;home{{id:1}}&quot;来进行传参数
+&lt;ul&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;home({id:1})&quot;&gt;&lt;a&gt;首页&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;music({id:2})&quot;&gt;&lt;a&gt;音乐&lt;/a&gt;&lt;/li&gt;
+&lt;li ui-sref-active=&quot;active&quot; ui-sref=&quot;singer({id:3})&quot;&gt;&lt;a&gt;歌手&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre><h2 id="子路由"><a href="#子路由" class="headerlink" title="子路由"></a>子路由</h2><pre><code>子路由的参数在父的基础上加上. 例如父 home  子home.list  对应的按钮ui-sref和state第一个参数一样
+ .config([&apos;$stateProvider&apos;,&apos;$urlRouterProvider&apos;,function ($stateProvider,$urlRouterProvider) {
+$stateProvider.state(&apos;home&apos;,{
+url:&apos;/home&apos;,
+templateUrl:&quot;../view/home_tpl.html”,  在一个模板当中再放入一个路由占位符
+controller:&quot;homeController&quot;
+}).state(&apos;home.list&apos;,{
+url:&apos;/list&apos;,
+template:&quot;&lt;div list-view&gt;&lt;/div&gt;&quot;,
+controller:&quot;homeController&quot;
+}).state(&apos;home.detail&apos;,{
+url:&apos;/detail/:id&apos;,
+templateUrl:&apos;../view/template/detail_tpl.html&apos;,
+controller:&quot;detailController&quot;
+})
+$urlRouterProvider.otherwise(&apos;home&apos;);
+}])
+默认子路由
+angular.module(&apos;app&apos;).controller(&apos;homeController&apos;,[&apos;$scope&apos;,&apos;httpTool&apos;,&apos;$state&apos;,function ($scope,httpTool,$state) {
+ 设置默认子路由
+$state.go(&apos;home.list&apos;);
+}]);
+</code></pre><h2 id="angular简单应用"><a href="#angular简单应用" class="headerlink" title="angular简单应用"></a>angular简单应用</h2><p>通过跨域访问别人的数据,然后获取数据进行展示,根据数据的多少进行分页设置</p>
+<pre><code>&lt;body ng-app=&quot;app&quot; ng-controller=&quot;lbmController&quot;&gt;
+&lt;form action=&quot;&quot; ng-click=&quot;send()&quot;&gt;
+&lt;input type=&quot;text&quot; ng-model=&quot;msg&quot;&gt;
+&lt;input type=&quot;button&quot; value=&quot;搜索&quot;&gt;
+&lt;/form&gt;
+  &lt;ul class=&quot;nav&quot;&gt;
+  &lt;li&gt;书名&lt;/li&gt;
+  &lt;li&gt;作者&lt;/li&gt;
+  &lt;li&gt;图片&lt;/li&gt;
+  &lt;/ul&gt;
+ &lt;div class=&quot;box&quot;&gt;
+ &lt;ul ng-repeat=&quot;(key,value) in res&quot; class=&quot;clearfix&quot;&gt;
+ &lt;li&gt;{{res[key].title.$t}}&lt;/li&gt;
+ &lt;li&gt;{{res[key].author[0].name.$t}}&lt;/li&gt;
+ &lt;li &gt;&lt;img ng-src=&quot;{{res[key].link[2]['@href']}}
+&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+ &lt;/div&gt;
+&lt;div class=&quot;tcdPageCode&quot;&gt;&lt;/div&gt;
+&lt;!--
+//http://api.douban.com/book/subjects?q=&apos;+oQ.value+&apos;&amp;alt=xd&amp;callback=fn1&amp;start-index=(当前页*每页显示的条数)&amp;max-results=10(每页显示的条数)
+--&gt;
+&lt;script src=&quot;jQueryPager20160918/js/jquery-1.8.3.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;jQueryPager20160918/js/jquery.page.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;angular.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+ angular.module(&apos;app&apos;,[]).controller(&apos;lbmController&apos;,[&apos;$scope&apos;,&apos;$http&apos;,function ($scope,$http) {
+ $scope.msg=&apos;&apos;;
+ $scope.arr=[];
+ $scope.send=function (){
+ $http({
+ url:&apos;http://api.douban.com/book/subjects&apos;,
+ method:&apos;jsonp&apos;,
+ params:{
+ &apos;q&apos;: $scope.msg,
+ &apos;alt&apos;:&apos;xd&apos;,
+ callback:&apos;JSON_CALLBACK&apos;,
+ &apos;max-results&apos;:10,
+ &apos;start-index&apos;:10
+ }
+ }).success(function (res) {
+ $scope.total=res[&apos;opensearch:totalResults&apos;].$t;
+ $scope.maxPage=res[&apos;opensearch:itemsPerPage&apos;].$t;
+ var page=parseInt( $scope.total/$scope.maxPage);
+ $(&quot;.tcdPageCode&quot;).createPage({
+ pageCount:page,
+ current:1,
+ backFn:function(p){
+ $http({
+ url:&apos;http://api.douban.com/book/subjects&apos;,
+ method:&apos;jsonp&apos;,
+ params:{
+ &apos;q&apos;: $scope.msg,
+ &apos;alt&apos;:&apos;xd&apos;,
+ callback:&apos;JSON_CALLBACK&apos;,
+ &apos;max-results&apos;:10,
+ &apos;start-index&apos;:p*10
+ }
+ }).success(function (res) {
+ $scope.res=res[&apos;entry&apos;];
+ }).error(function (err) {
+ })
+ }
+ });
+
+ $scope.res=res[&apos;entry&apos;];
+ console.log(res);
+ }).error(function (err) {
+ console.log(err);
+ })
+ }
+ }])
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p><img src="http://carrotming.cn/assets/blogImg/angular-1.gif" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/24/ajax跨域与缓存/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/24/ajax跨域与缓存/" itemprop="url">
+                  Ajax原生js封装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-24T12:45:12+08:00">
+                2017-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="跨域-jsonP-原理"><a href="#跨域-jsonP-原理" class="headerlink" title="跨域(jsonP)原理"></a>跨域(jsonP)原理</h2><p>1.src可以拿到非当前域的数据<br>2.script的src的本质就是将导入文件中的内容拷贝到当前script标签中<br>3.如果src返回的数据符合 函数名称(参数); 格式, 那么就可以实现跨域</p>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie:"></a>cookie:</h2><pre><code>会话跟踪技术, 用于存储网页上的一些信息,
+注意点:
+ 1.存储大小限制4K左右
+ 2.每个网页存储个数有限制/每个网站存储的个数也有限制（200个左右）
+ 3.默认情况下cookie存储的内容是一次性的(一次会话结束就释放了)
+ 4.我们可以通过expires=time;格式来指定过期时间, 只要没有超过过期时间一直都在
+ 5.cookie是不可以跨浏览器的(在IE中保存的cookie, 不可以在火狐中使用)
+ 6.cookie是不可以跨域的(跨域名)
+ 7.我们在设置cookie的时候一次只能设置一个, 不能批量设置, 只能一条一条的添加
+</code></pre><h2 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h2><pre><code>$(function () {
+var oInput = $(&quot;input&quot;);
+var oBtns = $(&quot;button&quot;);
+// 存储
+oBtns.eq(0).click(function () {
+window.sessionStorage.setItem(&quot;name&quot;, oInput.val());
+window.sessionStorage.setItem(&quot;age&quot;, &quot;18&quot;);
+window.sessionStorage.setItem(&quot;gender&quot;, &quot;male&quot;);
+window.sessionStorage.setItem(&quot;class&quot;, &quot;初三三班&quot;);
+});
+// 获取
+oBtns.eq(1).click(function () {
+alert(window.sessionStorage.getItem(&quot;name&quot;));
+});
+// 更新
+oBtns.eq(2).click(function () {
+window.sessionStorage.setItem(&quot;name&quot;, oInput.val());
+});
+// 删除
+oBtns.eq(3).click(function () {
+window.sessionStorage.removeItem(&quot;name&quot;);
+});
+// 清空
+oBtns.eq(4).click(function () {
+window.sessionStorage.clear();
+});
+});
+</code></pre><h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><p>和sessionStorage用法一模一样</p>
+<pre><code>$(function () {
+   var oInput = $(&quot;input&quot;);
+   var oBtns = $(&quot;button&quot;);// 存储
+   oBtns.eq(0).click(function () {
+   window.localStorage.setItem(&quot;name&quot;, oInput.val());
+   window.localStorage.setItem(&quot;age&quot;, &quot;18&quot;);
+   window.localStorage.setItem(&quot;gender&quot;, &quot;male&quot;);
+   window.localStorage.setItem(&quot;class&quot;, &quot;初三三班&quot;);
+   });
+   // 获取
+   oBtns.eq(1).click(function () {
+   alert(window.localStorage.getItem(&quot;name&quot;));
+   });
+   // 更新
+   oBtns.eq(2).click(function () {
+   window.localStorage.setItem(&quot;name&quot;, oInput.val());
+   });
+   // 删除
+   oBtns.eq(3).click(function () {
+   window.localStorage.removeItem(&quot;name&quot;);
+   });
+   // 清空
+   oBtns.eq(4).click(function () {
+   window.localStorage.clear();
+   });
+   });
+</code></pre><h2 id="应用缓存处理"><a href="#应用缓存处理" class="headerlink" title="应用缓存处理"></a>应用缓存处理</h2><pre><code>CACHE MANIFEST
+#指定需要缓存的文件(会缓存到本地)
+CACHE:
+//需要缓存的地址
+#在此标题下列出的文件需要与服务器的连接，且不会被缓存
+NETWORK:
+//不会被缓存的地址
+#当找不到资源a的时候就用资源b来替代, 并且会缓存资源b到本地
+FALLBACK:
+a.css b.css
+</code></pre><h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><pre><code>window.onload = function () {
+   // 设置哈希
+  window.location.hash = &quot;3&quot;;
+// 获取哈希
+// alert(window.location.hash);
+表现形式会加在url地址上?#3
+   }
+</code></pre><h2 id="简单的跨域运用"><a href="#简单的跨域运用" class="headerlink" title="简单的跨域运用."></a>简单的跨域运用.</h2><p>通过指定接口参数获取数据，我们要做的是传入对应的参数，然后拿到参数进行不同的设置</p>
+<p>代码如下</p>
+<pre><code>&lt;script&gt;
+  /*
+   https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ab&amp;cb=jQuery11020672211218553074_1491468814655
+  * */
+var oInput=document.querySelector(&apos;input&apos;);
+var oUl=document.querySelector(&apos;#oUl&apos;);
+var url=&apos;https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su&apos;;
+  oInput.onkeyup=function () {
+jsonP({
+&apos;url&apos;:url,
+&apos;cbName&apos;:&apos;cb&apos;,
+&apos;data&apos;:{
+  &apos;wd&apos;:oInput.value
+},
+&apos;success&apos;:function (data) {
+oUl.innerHTML = &quot;&quot;;
+  var arr=data.s;
+for (var i = 0; i &lt; arr.length; i++) {
+var obj = arr[i];
+var oLi=document.createElement(&apos;li&apos;);
+oLi.innerHTML=obj;
+oUl.appendChild(oLi);
+}
+}
+})
+}
+&lt;/script&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/20/ajax原生js封装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/20/ajax原生js封装/" itemprop="url">
+                  Ajax原生js封装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-20T11:33:15+08:00">
+                2017-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="通过自定义封装Ajax的请求过程"><a href="#通过自定义封装Ajax的请求过程" class="headerlink" title="通过自定义封装Ajax的请求过程"></a>通过自定义封装Ajax的请求过程</h2><p>Ajax异步编程,可以通过不刷新页面的情况下向后台请求数据,这一部分虽然代码不多,但是重点是和后台打交道,我们需要懂一点后台的代码,而且我们工作重点是学会如何处理后台返回来的数据.这一部分是我需要加强的.因为没有后台,所以只能简单自己上网找一些接口或者数据库之类的代码,先看看原生js封装,这个是模仿jquery.,而且把jsonP也封装了.这样就很方便我们去操作后台返回来的数据,顺便封装了一些Ajax会用到的缓存方法,比如cookie.</p>
+<p>代码如下</p>
+<pre><code>//设置cookie
+function setCookie(key,value,day) {
+//没有过期时间
+if(arguments.length==2){
+document.cookie = key+&apos;=&apos;+value+&apos;; &apos;;
+}else if(arguments.length==3){
+var date=new Date();
+date.setDate(date.getDate()+day);
+document.cookie = key+&quot;=&quot;+value+&quot;; &quot;+ &quot;expires=&quot;+date+&quot;;&quot;;
+}
+}
+//获取cookie
+function getCookie(key) {
+   var arr=document.cookie.split(&apos;; &apos;);
+for (var i = 0; i &lt; arr.length; i++) {
+var res=arr[i].split(&apos;=&apos;);
+ if(res[0]==key){
+ return res[1];
+ }
+}
+}
+//删除cookie
+function removeCookie(key) {
+setCookie(key, &quot;&quot;, -1);
+}
+//jsonP格式 (url,data,success,cbName)
+function jsonP(option) {
+var temp=document.querySelector(&apos;#javascript&apos;);
+if(temp){
+document.body.removeChild(temp);
+}
+   //随机名字
+var name=(&apos;carrot&apos;+Math.random()).replace(&apos;.&apos;,&apos;&apos;);
+//全局函数
+window[name]=option.success;
+option.data[option.cbName]= name;
+var str=jsonData(option.data);
+var oScript=document.createElement(&apos;script&apos;);
+oScript.setAttribute(&apos;id&apos;,&apos;javascript&apos;);
+oScript.src=option.url+&apos;?&apos;+str;
+document.body.appendChild(oScript);
+}
+//把数据转换成对应格式
+function jsonData(data) {
+//添加一个随机因子
+data.t=Math.random();
+//定义一个数组
+var arr=[];
+//通过for in 循环把数据放进数组
+for(var key in data){
+arr.push(key+&apos;=&apos;+encodeURI(data[key]));
+}
+//数组变字符串通过&amp;连接
+var str=arr.join(&apos;&amp;&apos;);
+return str;
+}
+// type,url,data,timeout,success,error
+function myAjax(option) {
+//没有传入地址直接结束
+if(!option.url){
+return ;
+}
+option.type = option.type || &quot;get&quot;;
+option.data = option.data || null;
+option.timeout = option.timeout || 0;
+   var xhr=null;
+//兼容IE写法
+   window.XMLHttpRequest?xhr=new XMLHttpRequest():xhr=new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);
+   //把数据转换拼接形式
+   var str=jsonData(option.data);
+   //判断请求方式
+if(option.type.toLowerCase()==&apos;get&apos;){
+//get请求
+xhr.open(&apos;get&apos;,option.url+&apos;?&apos;+str,true);
+xhr.send();
+}else{
+//post请求
+xhr.open(option.type.toLowerCase(),option.url,true);
+//设置请求头 在open和send中间
+xhr.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);
+//发送
+xhr.send(str);
+}
+xhr.onreadystatechange=function () {
+if(xhr.readyState==4){
+//关闭定时器
+clearTimeout(timer);
+if(xhr.status&gt;=200&amp;&amp;xhr.status&lt;300||xhr.status==304){
+//成功回调
+option.success(xhr.responseText);
+}else {
+//失败回调
+option.error(xhr.status);
+}
+}
+};
+//超时中断传送
+if(option.timeout){
+var timer = setTimeout(function () {
+// 如果请求超时了, 那么应该中断请求
+xhr.abort();
+}, option.timeout);
+}
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/15/js设计模式之工厂模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/15/js设计模式之工厂模式/" itemprop="url">
+                  js设计模式之工厂模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-15T10:05:55+08:00">
+                2017-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>设计模式之工厂模式</p>
+<p>核心过程<br>01提供父构造函数</p>
+<p>02设置父构造函数的原型对象（属性|方法） 目的是共享</p>
+<p>03为父构造函数提供一个静态工厂方法（每次要生产产品就调用这个方法）</p>
+<p>(001接收产品的类型</p>
+<p>002判断是否支持生产该类型的产品</p>
+<p>003设置原型继承，获得原型对象上面的方法</p>
+<p>004生产该类型的一个产品（创建对象）</p>
+<p>005返回对象)</p>
+<p>04定制合作伙伴（创建子构造函数）</p>
+<p>05调用父构造函数的工厂函数来创建对象</p>
+<p>代码如下</p>
+<p><img src="http://carrotming.cn/assets/blogImg/js18-1.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/10/js面向对象Object的静态成员/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/10/js面向对象Object的静态成员/" itemprop="url">
+                  js面向对象Object的静态成员
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-10T09:15:14+08:00">
+                2017-02-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="关于Object静态成员的具体介绍"><a href="#关于Object静态成员的具体介绍" class="headerlink" title="关于Object静态成员的具体介绍"></a>关于Object静态成员的具体介绍</h1><h2 id="静态成员："><a href="#静态成员：" class="headerlink" title="静态成员："></a>静态成员：</h2><pre><code>01 Object.apply
+借用其他对象的方法
+用法：对象.方法.apply(this绑定的对象,[参数1，参数2])
+02 Object.arguments
+函数内部的一个隐藏参数，这个隐藏参数用来接收实参的。
+它本身是一个类似于数组的结构，但是不是数组。它可以像数组一样通过下标来操作数据
+
+03 Object.assign
+作用:拷贝对象的属性，多个对象。
+04 Object.bind
+该方法的作用同call|apply差不多。
+
+05 Object.call
+借用其他对象的方法
+用法：对象.方法.call(this绑定的对象,参数1，参数2);
+
+06 Object.caller
+指向调用当前函数的函数
+
+07 Object.create
+创建对象，设置原型对象。
+
+08 Object.getOwnPropertyDescriptor
+作用：获得某个实例属性的描述信息（对象）
+描述对象：
+001 是否可以配置   configurable
+如果是true该属性可以被删除，且configurable可以被设置为false
+如果是false该属性不可以被删除，且configurable不可以再被设置为true
+
+002 是否可以枚举   enumerable
+如果是true,那么在使用for..in循环遍历对象的时候可以列举出来，否则不可以列举
+003 是否可以重写   writable
+修改这个属性的值
+004 具体的值   value
+
+09 Object.getOwnPropertyDescriptors
+作用：多个属性的描述信息（对象）
+
+10 Object.defineProperty
+设置对象中某个属性的描述信息（对象）
+
+11 Object.getOwnPropertyNames
+返回对象中所有实例属性的名称数组
+关于是否可以枚举  不论是否可以被枚举都会返回
+12 Object.keys
+返回对象中所有实例属性的名称数组 只返回可以被枚举的属性
+
+13 Object.getPrototypeOf
+获得某个对象的原型对象
+
+14 Object.preventExtensions
+作用：禁止扩展对象  不能添加任何的属性和方法
+
+15 Object.seal
+作用：密封（封闭）对象
+特征：不能够扩展对象，也不能删除对象的属性
+
+16 Object.freeze
+作用：冻结对象
+特征：不能够扩展对象，也不能删除对象的属性，不能修改
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/01/js原型链/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yetten">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yetten's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/01/js原型链/" itemprop="url">
+                  js原型链的总结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-01T15:33:44+08:00">
+                2017-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/H5/" itemprop="url" rel="index">
+                    <span itemprop="name">H5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原型链还是比较重要-单独拿出来总结"><a href="#原型链还是比较重要-单独拿出来总结" class="headerlink" title="原型链还是比较重要,单独拿出来总结!"></a>原型链还是比较重要,单独拿出来总结!</h2><p>① 构造函数作为函数的时候原型默认指向一个空的对象Object {};<br>构造函数.prototype为Object{};<br>注意点:除了Function作为构造函数之外 它默认指向一个空函数<br>只有构造函数有.prototype!!对象没有<br>比如 var o={}; o.prototype==undefined;<br>② 构造函数的原型对象有一个constructor 构造器属性 默认该构造器都是它的构造函数 该属性默认仅仅在原型对象中才有<br>③ 构造函数的原型对象也是一个对象,它也有他的原型对象 构造函数.prototype.proto 所有对象访问原型都是通过.proto,并且都会指向Object的原型(包括Function) 除了Object作为构造函数除外   Object.prototype.proto = null<br>④ 构造函数作为对象的时候 构造函数.proto 都会指向空函数  </p>
+<pre><code>&lt;script&gt;
+/*
+ ①①①①①①①①①①①①①①①①①①①
+* */
+/*var o={};
+function Person(){}
+function Object(){}
+console.log(o.prototype);//undefined
+console.log(Function.prototype);//空函数
+console.log(Person.prototype );//Object {}
+console.log(Object.prototype );//Object {}*/
+/*
+* ②②②②②②②②②②②②②
+* */
+/*function Person(){}
+console.log(Person.prototype.constructor);//  function Person(){}
+function Object(){}
+console.log(Object.prototype.constructor); // function Object(){}
+   /!* function Function(){}
+console.log(Function.prototype.constructor); // function Function(){}*!/*/
+/*
+* ③③③③③③③③③③③③③③
+*
+* */
+   /* function Person(){}
+console.log(Person.prototype.__proto__);//Object
+function Object(){}
+console.log(Object.prototype.__proto__) ;//null;*/
+   /* function Function(){}
+console.log(Function.prototype.__proto__);//Object*/
+/*
+* ④④④④④④④④④④④④④④
+*
+* */
+   /* function Person(){}
+console.log(Person.__proto__);//空函数
+function Object(){}
+console.log(Object.__proto__);//空函数*/
+/*function Function(){}
+console.log(Function.__proto__);//空函数*/
+&lt;/script&gt;
+</code></pre><p><img src="http://carrotming.cn/assets/blogImg/js19-1.jpg" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/01/15/微信小程序学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -361,7 +2264,7 @@
       
         
           
-            <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
+            <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
 <h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong></p>
 <pre><code>通过app.js设置
 app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.
@@ -1097,7 +3000,7 @@ swiper-item
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1119,7 +3022,7 @@ swiper-item
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

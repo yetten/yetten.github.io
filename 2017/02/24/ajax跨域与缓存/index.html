@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
+<meta name="description" content="跨域(jsonP)原理1.src可以拿到非当前域的数据2.script的src的本质就是将导入文件中的内容拷贝到当前script标签中3.如果src返回的数据符合 函数名称(参数); 格式, 那么就可以实现跨域 cookie:会话跟踪技术, 用于存储网页上的一些信息, 注意点:  1.存储大小限制4K左右  2.每个网页存储个数有限制/每个网站存储的个数也有限制（200个左右）  3.默认情况下c">
 <meta name="keywords" content="ajax">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ajax的使用">
-<meta property="og:url" content="yetten.github.io/2016/07/29/Ajax/index.html">
+<meta property="og:title" content="Ajax原生js封装">
+<meta property="og:url" content="yetten.github.io/2017/02/24/ajax跨域与缓存/index.html">
 <meta property="og:site_name" content="yetten's blog">
-<meta property="og:description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
-<meta property="og:updated_time" content="2017-08-08T07:19:27.759Z">
+<meta property="og:description" content="跨域(jsonP)原理1.src可以拿到非当前域的数据2.script的src的本质就是将导入文件中的内容拷贝到当前script标签中3.如果src返回的数据符合 函数名称(参数); 格式, 那么就可以实现跨域 cookie:会话跟踪技术, 用于存储网页上的一些信息, 注意点:  1.存储大小限制4K左右  2.每个网页存储个数有限制/每个网站存储的个数也有限制（200个左右）  3.默认情况下c">
+<meta property="og:updated_time" content="2017-08-08T08:10:12.623Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ajax的使用">
-<meta name="twitter:description" content="什么是 AJAX ？AJAX = 异步 JavaScript 和 XML。AJAX 是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。 创建 XMLHttpRequest 对象为了应对所有的现代浏览器，包括 IE">
+<meta name="twitter:title" content="Ajax原生js封装">
+<meta name="twitter:description" content="跨域(jsonP)原理1.src可以拿到非当前域的数据2.script的src的本质就是将导入文件中的内容拷贝到当前script标签中3.如果src返回的数据符合 函数名称(参数); 格式, 那么就可以实现跨域 cookie:会话跟踪技术, 用于存储网页上的一些信息, 注意点:  1.存储大小限制4K左右  2.每个网页存储个数有限制/每个网站存储的个数也有限制（200个左右）  3.默认情况下c">
 
 
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="yetten.github.io/2016/07/29/Ajax/"/>
+  <link rel="canonical" href="yetten.github.io/2017/02/24/ajax跨域与缓存/"/>
 
 
 
 
 
-  <title>ajax的使用 | yetten's blog</title>
+  <title>Ajax原生js封装 | yetten's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="yetten.github.io/2016/07/29/Ajax/">
+    <link itemprop="mainEntityOfPage" href="yetten.github.io/2017/02/24/ajax跨域与缓存/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yetten">
@@ -284,7 +284,7 @@
             
             
               
-                ajax的使用
+                Ajax原生js封装
               
             
           </h1>
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-29T14:13:24+08:00">
-                2016-07-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-24T12:45:12+08:00">
+                2017-02-24
               </time>
             
 
@@ -356,13 +356,117 @@
       
 
       
-        <h1 id="什么是-AJAX-？"><a href="#什么是-AJAX-？" class="headerlink" title="什么是 AJAX ？"></a>什么是 AJAX ？</h1><p>AJAX = 异步 JavaScript 和 XML。<br>AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。<br>传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。</p>
-<h1 id="创建-XMLHttpRequest-对象"><a href="#创建-XMLHttpRequest-对象" class="headerlink" title="创建 XMLHttpRequest 对象"></a>创建 XMLHttpRequest 对象</h1><p>为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject ：<br><br>    var xmlhttp;<br>    if (window.XMLHttpRequest)<br>      {// code for IE7+, Firefox, Chrome, Opera, Safari<br>      xmlhttp=new XMLHttpRequest();<br>      }<br>    else<br>      {// code for IE6, IE5<br>      xmlhttp=new ActiveXObject(“Microsoft.XMLHTTP”);<br>      }</p>
-<h1 id="GET-还是-POST？"><a href="#GET-还是-POST？" class="headerlink" title="GET 还是 POST？"></a>GET 还是 POST？</h1><p>与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。<br>然而，在以下情况中，请使用 POST 请求：<br>无法使用缓存文件（更新服务器上的文件或数据库）<br>向服务器发送大量数据（POST 没有数据量限制）<br>发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠</p>
-<h1 id="方法-描述"><a href="#方法-描述" class="headerlink" title="方法    描述"></a>方法    描述</h1><p>open(method,url,async)<br>规定请求的类型、URL 以及是否异步处理请求。<br>method：请求的类型；GET 或 POST<br>url：文件在服务器上的位置<br>async：true（异步）或 false（同步）<br>send(string)<br>将请求发送到服务器。<br>string：仅用于 POST 请求</p>
-<h1 id="当使用-async-true-时-即是异步时"><a href="#当使用-async-true-时-即是异步时" class="headerlink" title="当使用 async=true 时(即是异步时)"></a>当使用 async=true 时(即是异步时)</h1><p>请规定在响应处于 onreadystatechange 事件中的就绪状态时执行的函数：<br>    xmlhttp.onreadystatechange=function()<br>      {<br>      if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200)<br>    {<br>    document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;<br>    }<br>      }<br>    xmlhttp.open(“GET”,”test1.txt”,true);<br>    xmlhttp.send();</p>
-<h1 id="responseText-属性"><a href="#responseText-属性" class="headerlink" title="responseText 属性"></a>responseText 属性</h1><p>如果来自服务器的响应并非 XML，请使用 responseText 属性。<br>responseText 属性返回字符串形式的响应，因此您可以这样使用：<br>document.getElementById(“myDiv”).innerHTML=xmlhttp.responseText;  </p>
-
+        <h2 id="跨域-jsonP-原理"><a href="#跨域-jsonP-原理" class="headerlink" title="跨域(jsonP)原理"></a>跨域(jsonP)原理</h2><p>1.src可以拿到非当前域的数据<br>2.script的src的本质就是将导入文件中的内容拷贝到当前script标签中<br>3.如果src返回的数据符合 函数名称(参数); 格式, 那么就可以实现跨域</p>
+<h2 id="cookie"><a href="#cookie" class="headerlink" title="cookie:"></a>cookie:</h2><pre><code>会话跟踪技术, 用于存储网页上的一些信息,
+注意点:
+ 1.存储大小限制4K左右
+ 2.每个网页存储个数有限制/每个网站存储的个数也有限制（200个左右）
+ 3.默认情况下cookie存储的内容是一次性的(一次会话结束就释放了)
+ 4.我们可以通过expires=time;格式来指定过期时间, 只要没有超过过期时间一直都在
+ 5.cookie是不可以跨浏览器的(在IE中保存的cookie, 不可以在火狐中使用)
+ 6.cookie是不可以跨域的(跨域名)
+ 7.我们在设置cookie的时候一次只能设置一个, 不能批量设置, 只能一条一条的添加
+</code></pre><h2 id="sessionStorage"><a href="#sessionStorage" class="headerlink" title="sessionStorage"></a>sessionStorage</h2><pre><code>$(function () {
+var oInput = $(&quot;input&quot;);
+var oBtns = $(&quot;button&quot;);
+// 存储
+oBtns.eq(0).click(function () {
+window.sessionStorage.setItem(&quot;name&quot;, oInput.val());
+window.sessionStorage.setItem(&quot;age&quot;, &quot;18&quot;);
+window.sessionStorage.setItem(&quot;gender&quot;, &quot;male&quot;);
+window.sessionStorage.setItem(&quot;class&quot;, &quot;初三三班&quot;);
+});
+// 获取
+oBtns.eq(1).click(function () {
+alert(window.sessionStorage.getItem(&quot;name&quot;));
+});
+// 更新
+oBtns.eq(2).click(function () {
+window.sessionStorage.setItem(&quot;name&quot;, oInput.val());
+});
+// 删除
+oBtns.eq(3).click(function () {
+window.sessionStorage.removeItem(&quot;name&quot;);
+});
+// 清空
+oBtns.eq(4).click(function () {
+window.sessionStorage.clear();
+});
+});
+</code></pre><h2 id="localStorage"><a href="#localStorage" class="headerlink" title="localStorage"></a>localStorage</h2><p>和sessionStorage用法一模一样</p>
+<pre><code>$(function () {
+   var oInput = $(&quot;input&quot;);
+   var oBtns = $(&quot;button&quot;);// 存储
+   oBtns.eq(0).click(function () {
+   window.localStorage.setItem(&quot;name&quot;, oInput.val());
+   window.localStorage.setItem(&quot;age&quot;, &quot;18&quot;);
+   window.localStorage.setItem(&quot;gender&quot;, &quot;male&quot;);
+   window.localStorage.setItem(&quot;class&quot;, &quot;初三三班&quot;);
+   });
+   // 获取
+   oBtns.eq(1).click(function () {
+   alert(window.localStorage.getItem(&quot;name&quot;));
+   });
+   // 更新
+   oBtns.eq(2).click(function () {
+   window.localStorage.setItem(&quot;name&quot;, oInput.val());
+   });
+   // 删除
+   oBtns.eq(3).click(function () {
+   window.localStorage.removeItem(&quot;name&quot;);
+   });
+   // 清空
+   oBtns.eq(4).click(function () {
+   window.localStorage.clear();
+   });
+   });
+</code></pre><h2 id="应用缓存处理"><a href="#应用缓存处理" class="headerlink" title="应用缓存处理"></a>应用缓存处理</h2><pre><code>CACHE MANIFEST
+#指定需要缓存的文件(会缓存到本地)
+CACHE:
+//需要缓存的地址
+#在此标题下列出的文件需要与服务器的连接，且不会被缓存
+NETWORK:
+//不会被缓存的地址
+#当找不到资源a的时候就用资源b来替代, 并且会缓存资源b到本地
+FALLBACK:
+a.css b.css
+</code></pre><h2 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h2><pre><code>window.onload = function () {
+   // 设置哈希
+  window.location.hash = &quot;3&quot;;
+// 获取哈希
+// alert(window.location.hash);
+表现形式会加在url地址上?#3
+   }
+</code></pre><h2 id="简单的跨域运用"><a href="#简单的跨域运用" class="headerlink" title="简单的跨域运用."></a>简单的跨域运用.</h2><p>通过指定接口参数获取数据，我们要做的是传入对应的参数，然后拿到参数进行不同的设置</p>
+<p>代码如下</p>
+<pre><code>&lt;script&gt;
+  /*
+   https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=ab&amp;cb=jQuery11020672211218553074_1491468814655
+  * */
+var oInput=document.querySelector(&apos;input&apos;);
+var oUl=document.querySelector(&apos;#oUl&apos;);
+var url=&apos;https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su&apos;;
+  oInput.onkeyup=function () {
+jsonP({
+&apos;url&apos;:url,
+&apos;cbName&apos;:&apos;cb&apos;,
+&apos;data&apos;:{
+  &apos;wd&apos;:oInput.value
+},
+&apos;success&apos;:function (data) {
+oUl.innerHTML = &quot;&quot;;
+  var arr=data.s;
+for (var i = 0; i &lt; arr.length; i++) {
+var obj = arr[i];
+var oLi=document.createElement(&apos;li&apos;);
+oLi.innerHTML=obj;
+oUl.appendChild(oLi);
+}
+}
+})
+}
+&lt;/script&gt;
+</code></pre>
       
     </div>
 
@@ -404,8 +508,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/11/跨域/" rel="next" title="ajax处理跨域的方法">
-                <i class="fa fa-chevron-left"></i> ajax处理跨域的方法
+              <a href="/2017/03/01/angular的学习/" rel="next" title="angular框架的学习">
+                <i class="fa fa-chevron-left"></i> angular框架的学习
               </a>
             
           </div>
@@ -414,8 +518,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/23/git/" rel="prev" title="git的常用命令">
-                git的常用命令 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/20/ajax原生js封装/" rel="prev" title="Ajax原生js封装">
+                Ajax原生js封装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -545,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是-AJAX-？"><span class="nav-number">1.</span> <span class="nav-text">什么是 AJAX ？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-XMLHttpRequest-对象"><span class="nav-number">2.</span> <span class="nav-text">创建 XMLHttpRequest 对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GET-还是-POST？"><span class="nav-number">3.</span> <span class="nav-text">GET 还是 POST？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法-描述"><span class="nav-number">4.</span> <span class="nav-text">方法    描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#当使用-async-true-时-即是异步时"><span class="nav-number">5.</span> <span class="nav-text">当使用 async=true 时(即是异步时)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#responseText-属性"><span class="nav-number">6.</span> <span class="nav-text">responseText 属性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#跨域-jsonP-原理"><span class="nav-number">1.</span> <span class="nav-text">跨域(jsonP)原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie"><span class="nav-number">2.</span> <span class="nav-text">cookie:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sessionStorage"><span class="nav-number">3.</span> <span class="nav-text">sessionStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#localStorage"><span class="nav-number">4.</span> <span class="nav-text">localStorage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用缓存处理"><span class="nav-number">5.</span> <span class="nav-text">应用缓存处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希"><span class="nav-number">6.</span> <span class="nav-text">哈希</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的跨域运用"><span class="nav-number">7.</span> <span class="nav-text">简单的跨域运用.</span></a></li></ol></div>
             
 
           </div>
