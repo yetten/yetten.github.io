@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="转载">
+<meta name="description" content="转载介绍微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便 文件目录介绍小程序逻辑    通过app.js设置    app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.    默认设置    App({      onLaunch: function () {    //调用API从本地缓">
 <meta name="keywords" content="weixin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ajax处理跨域的方法">
+<meta property="og:title" content="微信小程序的学习">
 <meta property="og:url" content="yetten.github.io/2017/01/15/微信小程序学习/index.html">
 <meta property="og:site_name" content="yetten's blog">
-<meta property="og:description" content="转载">
-<meta property="og:updated_time" content="2017-08-08T07:20:02.663Z">
+<meta property="og:description" content="转载介绍微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便 文件目录介绍小程序逻辑    通过app.js设置    app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.    默认设置    App({      onLaunch: function () {    //调用API从本地缓">
+<meta property="og:updated_time" content="2017-08-08T07:26:16.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ajax处理跨域的方法">
-<meta name="twitter:description" content="转载">
+<meta name="twitter:title" content="微信小程序的学习">
+<meta name="twitter:description" content="转载介绍微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便 文件目录介绍小程序逻辑    通过app.js设置    app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.    默认设置    App({      onLaunch: function () {    //调用API从本地缓">
 
 
 
@@ -134,7 +134,7 @@
 
 
 
-  <title>ajax处理跨域的方法 | yetten's blog</title>
+  <title>微信小程序的学习 | yetten's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +284,7 @@
             
             
               
-                ajax处理跨域的方法
+                微信小程序的学习
               
             
           </h1>
@@ -356,7 +356,9 @@
       
 
       
-        <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1>
+        <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
+<h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong><br>    通过app.js设置<br>    app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.<br>    默认设置<br>    App({<br>      onLaunch: function () {<br>    //调用API从本地缓存中获取数据<br>    var logs = wx.getStorageSync(‘logs’) || []<br>    logs.unshift(Date.now())<br>    wx.setStorageSync(‘logs’, logs)<br>      },<br>      getUserInfo:function(cb){<br>    var that = this;<br>    if(this.globalData.userInfo){<br>      typeof cb == “function” &amp;&amp; cb(this.globalData.userInfo)<br>    }else{<br>      //调用登录接口<br>      wx.login({<br>    success: function () {<br>      wx.getUserInfo({<br>    success: function (res) {<br>      that.globalData.userInfo = res.userInfo;<br>      typeof cb == “function” &amp;&amp; cb(that.globalData.userInfo)<br>    }<br>      })<br>    }<br>      });<br>    }<br>      },<br>      globalData:{<br>    userInfo:null<br>      }<br>    })</p>
+
       
     </div>
 
@@ -535,7 +537,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#转载"><span class="nav-number">1.</span> <span class="nav-text">转载</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#转载"><span class="nav-number">1.</span> <span class="nav-text">转载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录介绍"><span class="nav-number">2.1.</span> <span class="nav-text">文件目录介绍</span></a></li></ol></li></ol></div>
             
 
           </div>

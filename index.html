@@ -286,7 +286,7 @@
               
                 
                 <a class="post-title-link" href="/2017/01/15/微信小程序学习/" itemprop="url">
-                  ajax处理跨域的方法
+                  微信小程序的学习
                 </a>
               
             
@@ -361,7 +361,9 @@
       
         
           
-            <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1>
+            <h1 id="转载"><a href="#转载" class="headerlink" title="转载"></a>转载</h1><h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>微信小程序是微信推出的,是一个类似于原生APP的应用,开发方便</p>
+<h2 id="文件目录介绍"><a href="#文件目录介绍" class="headerlink" title="文件目录介绍"></a>文件目录介绍</h2><p><strong>小程序逻辑</strong><br>    通过app.js设置<br>    app.js是小程序的脚本代码,可以监听并处理小程序的生命周期函数、声明全局变量。调用框架提供的丰富的 API，如本例的同步存储及同步读取本地数据.<br>    默认设置<br>    App({<br>      onLaunch: function () {<br>    //调用API从本地缓存中获取数据<br>    var logs = wx.getStorageSync(‘logs’) || []<br>    logs.unshift(Date.now())<br>    wx.setStorageSync(‘logs’, logs)<br>      },<br>      getUserInfo:function(cb){<br>    var that = this;<br>    if(this.globalData.userInfo){<br>      typeof cb == “function” &amp;&amp; cb(this.globalData.userInfo)<br>    }else{<br>      //调用登录接口<br>      wx.login({<br>    success: function () {<br>      wx.getUserInfo({<br>    success: function (res) {<br>      that.globalData.userInfo = res.userInfo;<br>      typeof cb == “function” &amp;&amp; cb(that.globalData.userInfo)<br>    }<br>      })<br>    }<br>      });<br>    }<br>      },<br>      globalData:{<br>    userInfo:null<br>      }<br>    })</p>
+
           
         
       
